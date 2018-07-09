@@ -64,8 +64,8 @@
 
 		<!-- gaoxi-common-service-facade -->
 		<dependency>
-			<groupId>com.gaoxi</groupId>
-			<artifactId>gaoxi-common-service-facade</artifactId>
+			<groupId>com.rev</groupId>
+			<artifactId>rev-common-service-facade</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 
