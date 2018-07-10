@@ -150,8 +150,8 @@
                     </container>
                     <configuration>
                         <type>runtime</type>
-                        <cargo.remote.username>Tomcat的用户名</cargo.remote.username>
-                        <cargo.remote.password>Tomcat的密码</cargo.remote.password>
+                        <cargo.remote.username>admin</cargo.remote.username>
+                        <cargo.remote.password>admin</cargo.remote.password>
                     </configuration>
                 </configuration>
                 <executions>
