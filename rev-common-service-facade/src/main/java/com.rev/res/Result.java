@@ -1,7 +1,6 @@
 package com.rev.res;
 
-import com.rev.exception.CommonBizException;
-import com.rev.exception.ExpCodeEnum;
+
 
 import java.io.Serializable;
 
@@ -11,25 +10,25 @@ import java.io.Serializable;
  * restful接口通用返回结果
  */
 public class Result<T> implements Serializable {
-
-    /** 执行结果 */
+/*
+    *//** 执行结果 *//*
     private boolean isSuccess;
 
-    /** 错误码 */
+    *//** 错误码 *//*
     private String errorCode;
 
-    /** 错误原因 */
+    *//** 错误原因 *//*
     private String message;
 
-    /** 返回数据 */
+    *//** 返回数据 *//*
     private T data;
 
-    /**
+    *//**
      * 返回成功的结果
      * @param data 需返回的结果
      * @param <T>
      * @return
-     */
+     *//*
     public static <T> Result<T> newSuccessResult(T data){
         Result<T> result = new Result<>();
         result.isSuccess = true;
@@ -37,23 +36,23 @@ public class Result<T> implements Serializable {
         return result;
     }
 
-    /**
+    *//**
      * 返回成功的结果
      * @param <T>
      * @return
-     */
+     *//*
     public static <T> Result<T> newSuccessResult(){
         Result<T> result = new Result<>();
         result.isSuccess = true;
         return result;
     }
 
-    /**
+    *//**
      * 返回失败的结果
      * PS：返回"未知异常"
      * @param <T>
      * @return
-     */
+     *//*
     public static <T> Result<T> newFailureResult(){
         Result<T> result = new Result<>();
         result.isSuccess = false;
@@ -62,12 +61,12 @@ public class Result<T> implements Serializable {
         return result;
     }
 
-    /**
+    *//**
      * 返回失败的结果
      * @param commonBizException 异常
      * @param <T>
      * @return
-     */
+     *//*
     public static <T> Result<T> newFailureResult(CommonBizException commonBizException){
         Result<T> result = new Result<>();
         result.isSuccess = false;
@@ -76,13 +75,13 @@ public class Result<T> implements Serializable {
         return result;
     }
 
-    /**
+    *//**
      * 返回失败的结果
      * @param commonBizException 异常
      * @param data 需返回的数据
      * @param <T>
      * @return
-     */
+     *//*
     public static <T> Result<T> newFailureResult(CommonBizException commonBizException, T data){
         Result<T> result = new Result<>();
         result.isSuccess = false;
@@ -132,5 +131,5 @@ public class Result<T> implements Serializable {
                 ", message='" + message + '\'' +
                 ", data=" + data +
                 '}';
-    }
+    }*/
 }
