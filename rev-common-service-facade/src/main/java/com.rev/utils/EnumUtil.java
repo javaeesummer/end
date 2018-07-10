@@ -1,6 +1,6 @@
 package com.rev.utils;
 
-import com.gaoxi.enumeration.BaseEnum;
+
 
 /**
  * @author 大闲人柴毛毛
@@ -8,14 +8,14 @@ import com.gaoxi.enumeration.BaseEnum;
  * @description
  */
 public class EnumUtil {
-
-    /**
+/*
+    *//**
      * 根据code获取枚举
      * @param enumClass
      * @param code
      * @param <E>
      * @return
-     */
+     *//*
     public static <E extends Enum<?> & BaseEnum> E codeOf(Class<E> enumClass, int code) {
         E[] enumConstants = enumClass.getEnumConstants();
         for (E e : enumConstants) {
@@ -26,13 +26,13 @@ public class EnumUtil {
         return null;
     }
 
-    /**
+    *//**
      * 根据msg获取枚举
      * @param enumClass
      * @param msg
      * @param <E>
      * @return
-     */
+     *//*
     public static <E extends Enum<?> & BaseEnum> E msgOf(Class<E> enumClass, String msg) {
         E[] enumConstants = enumClass.getEnumConstants();
         for (E e : enumConstants) {
@@ -41,7 +41,7 @@ public class EnumUtil {
             }
         }
         return null;
-    }
+    }*/
 
 
 
