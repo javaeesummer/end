@@ -1,7 +1,5 @@
 package com.rev.utils;
 
-import com.rev.enumeration.BaseEnum;
-
 /**
  * @author 大闲人柴毛毛
  * @date 2017/11/4 下午8:02
