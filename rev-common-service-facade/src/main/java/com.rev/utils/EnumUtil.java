@@ -1,6 +1,6 @@
 package com.rev.utils;
 
-import com.gaoxi.enumeration.BaseEnum;
+import com.rev.enumeration.BaseEnum;
 
 /**
  * @author 大闲人柴毛毛
