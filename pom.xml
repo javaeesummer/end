@@ -99,6 +99,7 @@
 		<module>rev-file</module>
 		<module>rev-user</module>
 		<module>rev-common-service-facade</module>
+		<module>rev-controller</module>
 	</modules>
 
 	<profiles>
