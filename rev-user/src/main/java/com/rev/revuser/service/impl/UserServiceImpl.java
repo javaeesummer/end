@@ -18,4 +18,9 @@ public class UserServiceImpl  implements UserService {
     public List<UserView> getAllUser() {
         return userMapper.getAllUser();
     }
+
+    @Override
+    public List<UserView> getAllAttendor(int activityid) {
+        return null;
+    }
 }

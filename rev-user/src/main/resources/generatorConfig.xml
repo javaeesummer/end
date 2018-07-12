@@ -35,7 +35,7 @@
         也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下
         -->
         <!--<javaModelGenerator targetPackage="com.joey.mybaties.test.pojo" targetProject="MAVEN">-->
-        <javaModelGenerator targetPackage="com.rev.revuser.entity" targetProject="./src/main/java">
+        <javaModelGenerator targetPackage="com.rev.revuser.bean" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
             <!-- 从数据库返回的值被清理前后的空格  -->
             <property name="trimStrings" value="true" />
@@ -53,13 +53,39 @@
 
 
         <!-- 列出要生成代码的所有表，这里配置的是不生成Example文件 -->
-        <table tableName="user" domainObjectName="userinfo"
+        <table tableName="user" domainObjectName="userBean"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" >
             <property name="userId" value="false"/>
             <property name="userName" value="false"/>
             <property name="userpwd" value="false"/>
         </table>
-
+        <table tableName="attendor" domainObjectName="attendorBean"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" >
+            <property name="attendorId" value="false"/>
+            <property name="activityId" value="false"/>
+            <property name="phoneNum" value="false"/>
+            <property name="voteNum" value="false"/>
+            <property name="endResult" value="false"/>
+            <property name="status" value="false"/>
+            <property name="attendorGroupId" value="false"/>
+            <property name="userId" value="false"/>
+        </table>
+        <table tableName="sponsor" domainObjectName="sponsorBean"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" >
+            <property name="userId" value="false"/>
+            <property name="hostId" value="false"/>
+            <property name="companyId" value="false"/>
+        </table>
+        <table tableName="judge" domainObjectName="judgeBean"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" >
+            <property name="judgeId" value="false"/>
+            <property name="activityId" value="false"/>
+            <property name="jugeGroupId" value="false"/>
+            <property name="userId" value="false"/>
+        </table>
     </context>
 </generatorConfiguration>
