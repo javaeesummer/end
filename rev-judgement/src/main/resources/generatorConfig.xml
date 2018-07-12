@@ -2,10 +2,11 @@
 <!DOCTYPE generatorConfiguration
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
-
-<!-- 第一种mybatis逆向生成xml配置 -->
+<!-- 第二种mybatis逆向生成xml配置 -->
 <generatorConfiguration>
-    <!--<properties resource="jdbc.properties" />-->
+    <!-- 需要指明数据库连接器的绝对路径 -->
+    <!--<classPathEntry-->
+            <!--location="E:\MavenRepository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar" />-->
     <context id="sqlserverTables" targetRuntime="MyBatis3">
         <!-- 生成的pojo，将implements Serializable-->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
@@ -34,30 +35,40 @@
         也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下
         -->
         <!--<javaModelGenerator targetPackage="com.joey.mybaties.test.pojo" targetProject="MAVEN">-->
-        <javaModelGenerator targetPackage="entity" targetProject=".">
+        <javaModelGenerator targetPackage="com.rev.judgement.entity" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
             <!-- 从数据库返回的值被清理前后的空格  -->
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!--对应的mapper.xml文件  -->
-        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="/home/hxs/作业/大数据/end/rev-user/src/main/resources">
+        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="./src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!-- 对应的Mapper接口类文件 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.rev.revuser.dao" targetProject="/home/hxs/作业/大数据/end/rev-user/src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.rev.judgement.dao" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
 
         <!-- 列出要生成代码的所有表，这里配置的是不生成Example文件 -->
-        <table tableName="user" domainObjectName="UserInfo"
+        <table tableName="judge" domainObjectName="judge"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" >
+            <property name="judgeId" value="false"/>
+            <property name="activityId" value="false"/>
+            <property name="judgeGroupId" value="false"/>
             <property name="userId" value="false"/>
-            <property name="userName" value="false"/>
-            <property name="userpwd" value="false"/>
+        </table>
+        <table tableName="review" domainObjectName="review"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" >
+            <property name="reviewId" value="false"/>
+            <property name="attentorId" value="false"/>
+            <property name="result" value="false"/>
+            <property name="advice" value="false"/>
+            <property name="judgeId" value="false"/>
         </table>
     </context>
 </generatorConfiguration>
