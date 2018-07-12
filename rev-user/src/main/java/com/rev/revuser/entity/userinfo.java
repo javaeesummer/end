@@ -2,7 +2,7 @@ package com.rev.revuser.entity;
 
 import java.io.Serializable;
 
-public class UserInfo implements Serializable {
+public class userinfo implements Serializable {
     private Integer userid;
 
     private String username;
