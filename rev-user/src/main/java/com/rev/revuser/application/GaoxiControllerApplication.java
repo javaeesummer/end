@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @ComponentScan(basePackages={"com.rev.revuser"})
 @MapperScan("com.rev.revuser.dao")
-public class GaoxiControllerApplication{
+public class GaoxiControllerApplication {
 
     public static void main(String[] args) {
         // 程序启动入口
