@@ -1,6 +1,8 @@
 package com.rev.revuser.result;
 
-public class UserView {
+import java.io.Serializable;
+
+public class UserView implements Serializable {
     private int userId;
     private String userName;
     private String userPwd;
