@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rev.revuser.dao.attendorBeanMapper" >
-  <resultMap id="BaseResultMap" type="com.rev.revuser.bean.attendorBean" >
+<mapper namespace="com.rev.revuser.dao.AttendorBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.rev.revuser.bean.AttendorBean" >
     <id column="attendorId" property="attendorid" jdbcType="INTEGER" />
     <result column="activityId" property="activityid" jdbcType="INTEGER" />
     <result column="phoneNum" property="phonenum" jdbcType="VARCHAR" />
@@ -24,7 +24,7 @@
     delete from attendor
     where attendorId = #{attendorid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.rev.revuser.bean.attendorBean" >
+  <insert id="insert" parameterType="com.rev.revuser.bean.AttendorBean" >
     insert into attendor (attendorId, activityId, phoneNum, 
       voteNum, endResult, status, 
       attendorGroupId, userId)
@@ -32,7 +32,7 @@
       #{votenum,jdbcType=INTEGER}, #{endresult,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{attendorgroupid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.rev.revuser.bean.attendorBean" >
+  <insert id="insertSelective" parameterType="com.rev.revuser.bean.AttendorBean" >
     insert into attendor
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="attendorid != null" >
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rev.revuser.bean.attendorBean" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.rev.revuser.bean.AttendorBean" >
     update attendor
     <set >
       <if test="activityid != null" >
@@ -114,7 +114,7 @@
     </set>
     where attendorId = #{attendorid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.attendorBean" >
+  <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.AttendorBean" >
     update attendor
     set activityId = #{activityid,jdbcType=INTEGER},
       phoneNum = #{phonenum,jdbcType=VARCHAR},

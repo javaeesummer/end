@@ -20,11 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class userController {
     @Reference
-    UserService userService;
+    UserService UserService;
 
     @ResponseBody
     @RequestMapping(value = "/deletePaper",method = RequestMethod.POST)
     public String deletePaper(HttpServletResponse response, HttpServletRequest request, UserParam param){
-        return JSONObject.toJSONString(userService.getAllUser());
+        return JSONObject.toJSONString(UserService.getAllUser());
     }
 }

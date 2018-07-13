@@ -2,7 +2,7 @@ package com.rev.revuser.bean;
 
 import java.io.Serializable;
 
-public class attendorBean implements Serializable {
+public class AttendorBean implements Serializable {
     private Integer attendorid;
 
     private Integer activityid;

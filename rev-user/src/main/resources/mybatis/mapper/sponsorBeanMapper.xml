@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rev.revuser.dao.sponsorBeanMapper" >
-  <resultMap id="BaseResultMap" type="com.rev.revuser.bean.sponsorBean" >
+<mapper namespace="com.rev.revuser.dao.SponsorBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.rev.revuser.bean.SponsorBean" >
     <id column="hostId" property="hostid" jdbcType="INTEGER" />
     <result column="uerId" property="uerid" jdbcType="INTEGER" />
     <result column="companyId" property="companyid" jdbcType="INTEGER" />
@@ -19,13 +19,13 @@
     delete from sponsor
     where hostId = #{hostid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.rev.revuser.bean.sponsorBean" >
+  <insert id="insert" parameterType="com.rev.revuser.bean.SponsorBean" >
     insert into sponsor (hostId, uerId, companyId
       )
     values (#{hostid,jdbcType=INTEGER}, #{uerid,jdbcType=INTEGER}, #{companyid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.rev.revuser.bean.sponsorBean" >
+  <insert id="insertSelective" parameterType="com.rev.revuser.bean.SponsorBean" >
     insert into sponsor
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="hostid != null" >
@@ -50,7 +50,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rev.revuser.bean.sponsorBean" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.rev.revuser.bean.SponsorBean" >
     update sponsor
     <set >
       <if test="uerid != null" >
@@ -62,7 +62,7 @@
     </set>
     where hostId = #{hostid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.sponsorBean" >
+  <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.SponsorBean" >
     update sponsor
     set uerId = #{uerid,jdbcType=INTEGER},
       companyId = #{companyid,jdbcType=INTEGER}

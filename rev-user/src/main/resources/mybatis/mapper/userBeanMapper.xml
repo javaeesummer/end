@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rev.revuser.dao.userBeanMapper" >
-  <resultMap id="BaseResultMap" type="com.rev.revuser.bean.userBean" >
+<mapper namespace="com.rev.revuser.dao.UserBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.rev.revuser.bean.UserBean" >
     <id column="userId" property="userid" jdbcType="INTEGER" />
     <result column="userName" property="username" jdbcType="VARCHAR" />
     <result column="userpwd" property="userpwd" jdbcType="VARCHAR" />
@@ -9,6 +9,13 @@
   <sql id="Base_Column_List" >
     userId, userName, userpwd
   </sql>
+
+  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -19,13 +26,13 @@
     delete from user
     where userId = #{userid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.rev.revuser.bean.userBean" >
+  <insert id="insert" parameterType="com.rev.revuser.bean.UserBean" >
     insert into user (userId, userName, userpwd
       )
     values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpwd,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.rev.revuser.bean.userBean" >
+  <insert id="insertSelective" parameterType="com.rev.revuser.bean.UserBean" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -50,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rev.revuser.bean.userBean" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.rev.revuser.bean.UserBean" >
     update user
     <set >
       <if test="username != null" >
@@ -62,7 +69,7 @@
     </set>
     where userId = #{userid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.userBean" >
+  <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.UserBean" >
     update user
     set userName = #{username,jdbcType=VARCHAR},
       userpwd = #{userpwd,jdbcType=VARCHAR}

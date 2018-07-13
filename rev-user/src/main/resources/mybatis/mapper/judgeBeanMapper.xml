@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rev.revuser.dao.judgeBeanMapper" >
-  <resultMap id="BaseResultMap" type="com.rev.revuser.bean.judgeBean" >
+<mapper namespace="com.rev.revuser.dao.JudgeBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.rev.revuser.bean.JudgeBean" >
     <id column="judgeId" property="judgeid" jdbcType="INTEGER" />
     <result column="activityId" property="activityid" jdbcType="INTEGER" />
-    <result column="jugeGroupId" property="jugegroupid" jdbcType="INTEGER" />
+    <result column="judgeGroupId" property="judgegroupid" jdbcType="INTEGER" />
     <result column="userId" property="userid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -20,13 +20,13 @@
     delete from judge
     where judgeId = #{judgeid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.rev.revuser.bean.judgeBean" >
+  <insert id="insert" parameterType="com.rev.revuser.bean.JudgeBean" >
     insert into judge (judgeId, activityId, jugeGroupId, 
       userId)
     values (#{judgeid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, #{jugegroupid,jdbcType=INTEGER}, 
       #{userid,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.rev.revuser.bean.judgeBean" >
+  <insert id="insertSelective" parameterType="com.rev.revuser.bean.JudgeBean" >
     insert into judge
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="judgeid != null" >
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rev.revuser.bean.judgeBean" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.rev.revuser.bean.JudgeBean" >
     update judge
     <set >
       <if test="activityid != null" >
@@ -72,7 +72,7 @@
     </set>
     where judgeId = #{judgeid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.judgeBean" >
+  <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.JudgeBean" >
     update judge
     set activityId = #{activityid,jdbcType=INTEGER},
       jugeGroupId = #{jugegroupid,jdbcType=INTEGER},

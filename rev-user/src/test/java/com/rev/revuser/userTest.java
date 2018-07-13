@@ -13,10 +13,10 @@ import javax.annotation.Resource;
 @SpringBootTest(classes = GaoxiControllerApplication.class)
 public class userTest {
     @Resource
-    UserService userService;
+    UserService UserService;
     @Test
     public void testGetAllUser(){
-        System.out.print("*********************"+JSONArray.toJSONString(userService.getAllUser()));
+        System.out.print("*********************"+JSONArray.toJSONString(UserService.getAllUser()));
     }
 
 

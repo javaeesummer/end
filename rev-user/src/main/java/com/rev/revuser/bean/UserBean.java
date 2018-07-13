@@ -2,7 +2,7 @@ package com.rev.revuser.bean;
 
 import java.io.Serializable;
 
-public class userBean implements Serializable {
+public class UserBean implements Serializable {
     private Integer userid;
 
     private String username;

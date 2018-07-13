@@ -2,7 +2,7 @@ package com.rev.revuser.bean;
 
 import java.io.Serializable;
 
-public class sponsorBean implements Serializable {
+public class SponsorBean implements Serializable {
     private Integer hostid;
 
     private Integer uerid;

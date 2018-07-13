@@ -2,12 +2,12 @@ package com.rev.revuser.bean;
 
 import java.io.Serializable;
 
-public class judgeBean implements Serializable {
+public class JudgeBean implements Serializable {
     private Integer judgeid;
 
     private Integer activityid;
 
-    private Integer jugegroupid;
+    private Integer judgegroupid;
 
     private Integer userid;
 
@@ -30,11 +30,11 @@ public class judgeBean implements Serializable {
     }
 
     public Integer getJugegroupid() {
-        return jugegroupid;
+        return judgegroupid;
     }
 
     public void setJugegroupid(Integer jugegroupid) {
-        this.jugegroupid = jugegroupid;
+        this.judgegroupid = jugegroupid;
     }
 
     public Integer getUserid() {
