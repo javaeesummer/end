@@ -44,7 +44,11 @@ public class UserServiceImplTest {
         RegisterParam registerParam=new RegisterParam();
         registerParam.setPassword("123");
         registerParam.setUsername("a");
-        userM
+        String result=userServiceimp.register(registerParam);
+        assertEquals("用户名已存在",result);
+        registerParam.setUsername("ccc");
+        result=userServiceimp.register(registerParam);
+        assertEquals("注册成功",result);
     }
 
     @Test
