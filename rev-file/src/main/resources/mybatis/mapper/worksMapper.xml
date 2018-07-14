@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rev.revfile.dao.WorksMapper">
+
+<!--修改作品信息-->
+  <update id="updateWorksByAttendorid" parameterType="com.rev.revfile.bean.works">
+  update works
+    <set>
+        submitTime=#{submittime},
+        filePath=#{filepath},
+        workName=#{workname},
+        description=#{description},
+    </set>
+        where attendorid=#{attendorid}
+  </update>
+    <!--删除作品-->
+  <delete id="deleteWorksByAttendorid" parameterType="com.rev.revfile.bean.works">
+    DELETE FROM works WHERE attendorid=#{attendorid};
+  </delete>
+  <select id="getFileByAttendorId" parameterType="com.rev.revfile.bean.works" resultType="com.rev.revfile.result.FileResult">
+  SELECT workName,submitTime,filePath,description FROM works where attendorid=#{attendorid}
+  </select>
+
+  <select id="getAllFile"  parameterType="com.rev.revfile.bean.works" resultType="com.rev.revfile.result.FileResult">
+      SELECT workName,submitTime,filePath,description from works where attendorId in(select attendorid from attendor where activityId=#{activityId})
+  </select>
+
+
+</mapper>
