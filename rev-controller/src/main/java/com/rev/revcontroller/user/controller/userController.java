@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 public class userController {
     @Reference
     UserService UserService;
-
     @ResponseBody
     @RequestMapping(value = "/deletePaper",method = RequestMethod.GET)
     public String deletePaper(HttpServletResponse response, HttpServletRequest request, UserParam param){

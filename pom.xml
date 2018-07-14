@@ -14,6 +14,7 @@
 	<modules>
 
 		<module>rev-user</module>
+		<module>rev-file</module>
 		<module>rev-controller</module>
 	</modules>
 	<build><plugins>
