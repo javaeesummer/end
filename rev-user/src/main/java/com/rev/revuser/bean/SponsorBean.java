@@ -2,7 +2,17 @@ package com.rev.revuser.bean;
 
 import java.io.Serializable;
 
-public class SponsorBean implements Serializable {
+public class SponsorBean implements Serializable ,Cloneable{
+    public UserBean getUserBean() {
+        return userBean;
+    }
+
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
+    }
+
+    private UserBean userBean;
+
     private Integer hostid;
 
     private Integer uerid;
@@ -33,5 +43,16 @@ public class SponsorBean implements Serializable {
 
     public void setCompanyid(Integer companyid) {
         this.companyid = companyid;
+    }
+    @Override
+    public Object clone() {
+        SponsorBean judgeBean = null;
+        try{
+            judgeBean = (SponsorBean) super.clone();
+        }catch(CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return judgeBean;
+//        return null;
     }
 }

@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class RegisterJudgeParam implements Serializable{
     RegisterParam registerParam;
+    int activityid;
 
     public RegisterParam getRegisterParam() {
         return registerParam;
@@ -26,5 +27,5 @@ public class RegisterJudgeParam implements Serializable{
         this.activityid = activityid;
     }
 
-    int activityid;
+
 }

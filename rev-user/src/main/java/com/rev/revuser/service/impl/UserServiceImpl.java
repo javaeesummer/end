@@ -2,20 +2,27 @@ package com.rev.revuser.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 
+import com.rev.revuser.bean.AttendorBean;
 import com.rev.revuser.bean.JudgeBean;
 import com.rev.revuser.bean.SponsorBean;
 //import com.rev.revuser.dao.UserMapper;
 import com.rev.revuser.bean.UserBean;
+import com.rev.revuser.dao.AttendorBeanMapper;
 import com.rev.revuser.dao.JudgeBeanMapper;
 import com.rev.revuser.dao.UserBeanMapper;
 import com.rev.revuser.param.*;
 import com.rev.revuser.result.AttendorView;
+import com.rev.revuser.result.JudgeView;
 import com.rev.revuser.result.UserView;
 import com.rev.revuser.service.UserService;
-import org.apache.catalina.User;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+//import org.apache.catalina.User;
 
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,16 +31,19 @@ public class UserServiceImpl implements UserService {
     UserBeanMapper UserBeanMapper;
     @Resource
     JudgeBeanMapper JudgeBeanMapper;
-
+    @Resource
+    AttendorBeanMapper AttendorBeanMapper;
+//todo 事务事务 何苦事物
     @Override
-    public String login(LoginParam LoginParam) {
+//    @Transactional
+    public String login(LoginParam loginParam) {
 //        return null;
-        UserBean UserBean = UserBeanMapper.selectByUsername(LoginParam.getUsername());
+        UserBean UserBean = UserBeanMapper.selectByUsername(loginParam.getUsername());
 
         if(null== UserBean){
             return "用户不存在";
         }else{
-            if(!UserBean.getUserpwd().equals(LoginParam.getPassword())){
+            if(!UserBean.getUserpwd().equals(loginParam.getPassword())){
                 return "密码错误";
             }
             else{
@@ -41,13 +51,21 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
-
+    private String checkLegalRegister(RegisterParam registerParam){
+        UserBean userBean=UserBeanMapper.selectByUsername(registerParam.getUsername());
+        if(null!=userBean) {
+            return "用户名已存在";
+        }else{
+            return "可以注册";
+        }
+    }
     @Override
     public SponsorBean toHoldActivity(UserView userView) {
         return null;
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public String register(RegisterParam registerParam) {
 //        return null;
         UserBean userBean=UserBeanMapper.selectByUsername(registerParam.getUsername());
@@ -64,12 +82,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public String registerJudge(RegisterJudgeParam registerJudgeParam) {
         UserBean userBean=UserBeanMapper.selectByUsername(registerJudgeParam.getRegisterParam().getUsername());
         if(null!=userBean){
-            this.usertoJudge(registerJudgeParam);
-            return "评委注册成功";
+//            this.usertoJudge(registerJudgeParam);
+            return "用户名已经被占用";
         }else{
+            //todo 引入事物
             UserBean userBean1=new UserBean();
             userBean1.setUsername(registerJudgeParam.getRegisterParam().getUsername());
             userBean1.setUserpwd(registerJudgeParam.getRegisterParam().getPassword());
@@ -84,16 +104,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public String usertoJudge(RegisterJudgeParam registerJudgeParam) {
-        UserBean userBean=UserBeanMapper.selectByUsername(registerJudgeParam.getRegisterParam().getUsername());
-        JudgeBean judgeBean=new JudgeBean();
-        judgeBean.setUserid(userBean.getUserid());
-        judgeBean.setJugegroupid(0);
-        judgeBean.setActivityid(registerJudgeParam.getActivityid());
-        JudgeBeanMapper.insertSelective(judgeBean);
-        return null;
-    }
 
     @Override
     public List<UserView> getAllUser() {
@@ -102,14 +112,54 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserView> getAllAttendor(int activityid) {
+    public List<AttendorView> getAllAttendor(GroupParam groupParam) {
+        List<UserBean> userBeanList=AttendorBeanMapper.selectUserByActivityId(groupParam.getActivityid());
+        List<AttendorView>  attendorViewList=new ArrayList<>();
+        for(int i=0;i<userBeanList.size();i++){
+            AttendorBean attendorBean=AttendorBeanMapper.selectAttendorByUserId(userBeanList.get(i).getUserid());
+            attendorBean.setUserBean(userBeanList.get(i));
+            AttendorView attendorView=new AttendorView();
+            attendorView.setAttendorBean(attendorBean);
+            attendorViewList.add(attendorView);
+        }
+        return attendorViewList;
+    }
+
+    @Override
+    public List<AttendorView> getGroupAttendorById(GroupParam groupParam) {
         return null;
     }
 
     @Override
-    public AttendorView getAttendorByActivityId(int activityid) {
+    public List<AttendorView> getGroupAttendorByName(GroupParam groupParam) {
         return null;
     }
+
+    @Override
+    public List<JudgeView> getAllJudge(GroupParam grouParam) {
+        return null;
+    }
+
+    @Override
+    public List<JudgeView> getGroupJudgeById(GroupParam groupParam) {
+        return null;
+    }
+
+    @Override
+    public List<JudgeView> getGroupJudgeByName(GroupParam groupParam) {
+        return null;
+    }
+
+    @Override
+    public List<GroupParam> getGroupId(GroupParam groupParam) {
+        return null;
+    }
+
+    @Override
+    public Boolean setGroupId(List<GroupParam> groupParamList) {
+        return null;
+    }
+
 
     @Override
     public UserView getUserById(int userid) {
@@ -117,17 +167,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public SponsorBean toHoldActivity(UserParam UserParam) {
+    public SponsorBean toHoldActivity(UserParam userParam) {
         return null;
     }
 
     @Override
-    public String registerAttendor(RegisterAttendorParam RegisterAttendorParam) {
-        return null;
+    public String registerAttendor(RegisterAttendorParam registerAttendorParam) {
+    String string=this.checkLegalRegister(registerAttendorParam.getRegisterParam());
+    if(!string.equals("可以注册")){
+            return string;
+    }
+    //本来可以在这一步就获取到Userid的 呜胡
+        this.register(registerAttendorParam.getRegisterParam());
+        AttendorBean attendorBean;
+        attendorBean=(AttendorBean)registerAttendorParam.getAttendor().clone();
+        UserBean userBean=UserBeanMapper.selectByUsername(registerAttendorParam.getRegisterParam().getUsername());
+        attendorBean.setUserid(userBean.getUserid());
+        AttendorBeanMapper.insert(attendorBean);
+        return "注册参赛者成功";
     }
 
-    @Override
-    public String userToAttendor(RegisterAttendorParam RegisterAttendorParam) {
+    public String userToAttendor(RegisterAttendorParam registerAttendorParam) {
         return null;
     }
 

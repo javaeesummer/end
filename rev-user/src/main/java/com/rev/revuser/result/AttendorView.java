@@ -1,5 +1,6 @@
 package com.rev.revuser.result;
 
+import com.rev.revuser.bean.AttendorBean;
 import com.rev.revuser.bean.JudgeBean;
 
 /**
@@ -8,5 +9,14 @@ import com.rev.revuser.bean.JudgeBean;
  **/
 
 public class AttendorView {
-    JudgeBean JudgeBean;
+
+    AttendorBean attendorBean;
+    public AttendorBean getAttendorBean() {
+        return attendorBean;
+    }
+
+    public void setAttendorBean(AttendorBean attendorBean) {
+        this.attendorBean = attendorBean;
+    }
+
 }

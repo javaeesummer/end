@@ -13,11 +13,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @EnableAutoConfiguration
 @SpringBootApplication
+//@EnableTransactionManagement
 @ComponentScan(basePackages={"com.rev.revuser"})
 @MapperScan("com.rev.revuser.dao")
 public class GaoxiControllerApplication {

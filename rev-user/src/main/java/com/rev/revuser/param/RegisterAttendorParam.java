@@ -1,13 +1,25 @@
 package com.rev.revuser.param;
 
+import com.rev.revuser.bean.AttendorBean;
+import com.rev.revuser.bean.JudgeBean;
+
 /**
  * @author hxs
  * @desprition 用来干嘛的呢, 也就是随便写写的
  **/
 
 public class RegisterAttendorParam {
+    /**
+
+     *@描述 因为我们注册的一个用户分为两部分,基础部分和特殊部分,所以两个类即可
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
     RegisterParam registerParam;
-    int activityid;
+    AttendorBean attendor;
 
     public RegisterParam getRegisterParam() {
         return registerParam;
@@ -17,11 +29,11 @@ public class RegisterAttendorParam {
         this.registerParam = registerParam;
     }
 
-    public int getActivityid() {
-        return activityid;
+    public AttendorBean getAttendor() {
+        return attendor;
     }
 
-    public void setActivityid(int activityid) {
-        this.activityid = activityid;
+    public void setAttendor(AttendorBean attendor) {
+        this.attendor = attendor;
     }
 }
