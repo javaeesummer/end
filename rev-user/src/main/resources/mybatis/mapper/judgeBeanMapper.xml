@@ -4,11 +4,11 @@
   <resultMap id="BaseResultMap" type="com.rev.revuser.bean.JudgeBean" >
     <id column="judgeId" property="judgeid" jdbcType="INTEGER" />
     <result column="activityId" property="activityid" jdbcType="INTEGER" />
-    <result column="judgeGroupId" property="judgegroupid" jdbcType="INTEGER" />
+    <result column="groupId" property="judgegroupid" jdbcType="INTEGER" />
     <result column="userId" property="userid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    judgeId, activityId, jugeGroupId, userId
+    judgeId, activityId, groupId, userId
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -36,7 +36,7 @@
         activityId,
       </if>
       <if test="jugegroupid != null" >
-        jugeGroupId,
+        groupId,
       </if>
       <if test="userid != null" >
         userId,
@@ -64,7 +64,7 @@
         activityId = #{activityid,jdbcType=INTEGER},
       </if>
       <if test="jugegroupid != null" >
-        jugeGroupId = #{jugegroupid,jdbcType=INTEGER},
+        groupId = #{jugegroupid,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
         userId = #{userid,jdbcType=INTEGER},

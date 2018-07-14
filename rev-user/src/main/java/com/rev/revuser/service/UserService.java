@@ -38,7 +38,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    String registerJudge(RegisterJudgeParam RegisterJudgeParam);
+    String registerJudge(RegisterJudgeParam registerJudgeParam);
     /**
 
      *@描述 常与registerJudge配合使用
@@ -52,7 +52,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    String usertoJudge(RegisterJudgeParam RegisterJudgeParam);
+    String usertoJudge(RegisterJudgeParam registerJudgeParam);
     List<UserView> getAllUser();
     List<UserView> getAllAttendor(int activityid);
 

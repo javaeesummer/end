@@ -10,11 +10,16 @@
     userId, userName, userpwd
   </sql>
 
+  <!--<select id="getAllUser" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List"/>-->
+    <!--from user-->
+  <!--</select>-->
   <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
     SELECT
     <include refid="Base_Column_List"/>
     from user
-    where userName = #{username,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,10 +31,13 @@
     delete from user
     where userId = #{userid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.rev.revuser.bean.UserBean" >
-    insert into user (userId, userName, userpwd
+  <insert id="insert" parameterType="com.rev.revuser.bean.UserBean" useGeneratedKeys="true" keyProperty="userid" keyColumn="userId">
+    <!--<selectKey keyProperty="userid" order="AFTER" resultType="java.lang.Integer">-->
+      <!--SELECT LAST_INSERT_ID()-->
+    <!--</selectKey>-->
+    insert into user (userName, userpwd
       )
-    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpwd,jdbcType=VARCHAR}
+    values (#{username,jdbcType=VARCHAR}, #{userpwd,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.rev.revuser.bean.UserBean" >

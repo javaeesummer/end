@@ -2,6 +2,7 @@ package com.rev.revuser.service.impl;
 
 import com.rev.revuser.application.GaoxiControllerApplication;
 import com.rev.revuser.param.LoginParam;
+import com.rev.revuser.param.RegisterJudgeParam;
 import com.rev.revuser.param.RegisterParam;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +23,7 @@ public class UserServiceImplTest {
     UserServiceImpl userServiceimp;
     @Test
     public void login() {
-  /*      LoginParam LoginParam =new LoginParam();
+        LoginParam LoginParam =new LoginParam();
         LoginParam.setUsername("a");
         LoginParam.setPassword("123");
         String result=userServiceimp.login(LoginParam);
@@ -34,25 +35,39 @@ public class UserServiceImplTest {
         LoginParam.setUsername("c");
         LoginParam.setPassword("123");
         result=userServiceimp.login(LoginParam);
-        assertEquals("用户不存在",result);*/
+        assertEquals("用户不存在",result);
 
 
     }
 
     @Test
     public void register() {
-/*        RegisterParam registerParam=new RegisterParam();
+        RegisterParam registerParam=new RegisterParam();
         registerParam.setPassword("123");
         registerParam.setUsername("a");
         String result=userServiceimp.register(registerParam);
         assertEquals("用户名已存在",result);
-        registerParam.setUsername("ccc");
+        registerParam.setUsername("clggggglhgggh");
         result=userServiceimp.register(registerParam);
-        assertEquals("注册成功",result);*/
+        assertEquals("注册成功",result);
     }
 
     @Test
     public void registerJudge() {
+        RegisterJudgeParam registerJudgeParam=new RegisterJudgeParam();
+        RegisterParam registerParam=new RegisterParam();
+        registerParam.setPassword("123");
+        registerParam.setUsername("a");
+        registerJudgeParam.setRegisterParam(registerParam);
+        registerJudgeParam.setActivityid(123);
+        String result=userServiceimp.registerJudge(registerJudgeParam);
+        assertEquals("评委注册成功",result);
+        registerParam.setUsername("fsa");
+        registerParam.setPassword("111");
+        registerJudgeParam.setRegisterParam(registerParam);
+        result=userServiceimp.registerJudge(registerJudgeParam);
+        assertEquals("评委注册成功",result);
+
     }
 
     @Test
