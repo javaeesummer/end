@@ -12,7 +12,6 @@ import com.rev.revuser.param.*;
 import com.rev.revuser.result.AttendorView;
 import com.rev.revuser.result.UserView;
 import com.rev.revuser.service.UserService;
-import org.apache.catalina.User;
 
 
 import javax.annotation.Resource;

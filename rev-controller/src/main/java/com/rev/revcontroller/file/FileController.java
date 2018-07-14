@@ -7,6 +7,7 @@ import com.rev.revfile.result.FileResult;
 import com.rev.revfile.service.FileService;
 import com.rev.revuser.result.Result;
 import jdk.nashorn.internal.ir.annotations.Reference;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
+@Component("fileService")
 public class FileController {
     @Reference
     FileService fileService;
-
     //删除作品
     @ResponseBody
     @RequestMapping(value = "/deleteFile",method = RequestMethod.POST)

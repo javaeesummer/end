@@ -22,7 +22,6 @@ import java.util.List;
 public class fileTest {
     @Resource
     FileService fileService;
-
     //修改作品
     @Test
     public void testmoddifyFile(){
@@ -30,7 +29,7 @@ public class fileTest {
         Date date=new Date();
         //java.sql.Date sqlDate = new java.sql.Date(date.getTime());
         testfile.setSubmittime(date);
-        testfile.setAttendorid(1);
+        testfile.setAttendorid(3);
         testfile.setFilepath("ssssssss");
         testfile.setWorkname("作品1");
         testfile.setDescription("haode");
@@ -47,7 +46,7 @@ public class fileTest {
     @Test
     public void testGetAttFile(){
         FileParam testfile=new FileParam();
-        testfile.setAttendorid(1);
+        testfile.setAttendorid(3);
         System.out.println(com.alibaba.fastjson.JSON.toJSON(fileService.getFileByAttendorId(testfile)));
     }
     //显示当前活动所有参赛者作品
