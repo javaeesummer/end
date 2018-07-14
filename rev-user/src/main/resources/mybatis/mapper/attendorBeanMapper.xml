@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rev.revuser.dao.AttendorBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.rev.revuser.bean.AttendorBean" >
+    <id column="attendorId" property="attendorid" jdbcType="INTEGER" />
+    <result column="activityId" property="activityid" jdbcType="INTEGER" />
+    <result column="phoneNum" property="phonenum" jdbcType="VARCHAR" />
+    <result column="voteNum" property="votenum" jdbcType="INTEGER" />
+    <result column="endResult" property="endresult" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="attendorGroupId" property="attendorgroupid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    attendorId, activityId, phoneNum, voteNum, endResult, status, attendorGroupId, userId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from attendor
+    where attendorId = #{attendorid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from attendor
+    where attendorId = #{attendorid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.rev.revuser.bean.AttendorBean" >
+    insert into attendor (attendorId, activityId, phoneNum, 
+      voteNum, endResult, status, 
+      attendorGroupId, userId)
+    values (#{attendorid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, #{phonenum,jdbcType=VARCHAR}, 
+      #{votenum,jdbcType=INTEGER}, #{endresult,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{attendorgroupid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rev.revuser.bean.AttendorBean" >
+    insert into attendor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attendorid != null" >
+        attendorId,
+      </if>
+      <if test="activityid != null" >
+        activityId,
+      </if>
+      <if test="phonenum != null" >
+        phoneNum,
+      </if>
+      <if test="votenum != null" >
+        voteNum,
+      </if>
+      <if test="endresult != null" >
+        endResult,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="attendorgroupid != null" >
+        attendorGroupId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attendorid != null" >
+        #{attendorid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null" >
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="phonenum != null" >
+        #{phonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="votenum != null" >
+        #{votenum,jdbcType=INTEGER},
+      </if>
+      <if test="endresult != null" >
+        #{endresult,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="attendorgroupid != null" >
+        #{attendorgroupid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rev.revuser.bean.AttendorBean" >
+    update attendor
+    <set >
+      <if test="activityid != null" >
+        activityId = #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="phonenum != null" >
+        phoneNum = #{phonenum,jdbcType=VARCHAR},
+      </if>
+      <if test="votenum != null" >
+        voteNum = #{votenum,jdbcType=INTEGER},
+      </if>
+      <if test="endresult != null" >
+        endResult = #{endresult,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="attendorgroupid != null" >
+        attendorGroupId = #{attendorgroupid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where attendorId = #{attendorid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.AttendorBean" >
+    update attendor
+    set activityId = #{activityid,jdbcType=INTEGER},
+      phoneNum = #{phonenum,jdbcType=VARCHAR},
+      voteNum = #{votenum,jdbcType=INTEGER},
+      endResult = #{endresult,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      attendorGroupId = #{attendorgroupid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER}
+    where attendorId = #{attendorid,jdbcType=INTEGER}
+  </update>
+</mapper>

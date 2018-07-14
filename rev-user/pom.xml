@@ -6,7 +6,7 @@
 	<groupId>com.rev</groupId>
 	<artifactId>rev-user</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>rev-user</name>
 	<description>Demo project for Spring Boot</description>
@@ -68,6 +68,19 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Spring Boot Test 依赖 -->
@@ -89,6 +102,54 @@
 
 	<build>
 		<plugins>
+			<!--<plugin>-->
+				<!--&lt;!&ndash;-->
+                <!--用maven mybatis插件-->
+                <!--如果不在plugin里面添加依赖包得引用的话，会找不到相关得jar包，-->
+                <!--在plugin外部得jar包，他不会去找到并执行，-->
+                <!--所以要把plugin运行依赖得jar配置都放在里面-->
+                 <!--&ndash;&gt;-->
+				<!--<groupId>org.mybatis.generator</groupId>-->
+				<!--<artifactId>mybatis-generator-maven-plugin</artifactId>-->
+				<!--<version>1.3.2</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>Generate MyBatis Artifacts</id>-->
+						<!--<goals>-->
+							<!--<goal>generate</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+				<!--<configuration>-->
+					<!--<verbose>true</verbose>-->
+					<!--<overwrite>false</overwrite>-->
+
+					<!--<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>-->
+					<!--<jdbcURL>jdbc:mysql://212.64.1.197:3306/team12</jdbcURL>-->
+					<!--<jdbcUserId>root</jdbcUserId>-->
+					<!--<jdbcPassword>123456</jdbcPassword>-->
+
+				<!--</configuration>-->
+				<!--<dependencies>-->
+					<!--<dependency>-->
+						<!--<groupId>mysql</groupId>-->
+						<!--<artifactId>mysql-connector-java</artifactId>-->
+						<!--&lt;!&ndash; 引用依赖库的版本 &ndash;&gt;-->
+						<!--<version>5.1.40</version>-->
+					<!--</dependency>-->
+					<!--<dependency>-->
+						<!--<groupId>org.mybatis.generator</groupId>-->
+						<!--<artifactId>mybatis-generator-core</artifactId>-->
+						<!--<version>1.3.2</version>-->
+					<!--</dependency>-->
+					<!--<dependency>-->
+						<!--<groupId>org.mybatis</groupId>-->
+						<!--<artifactId>mybatis</artifactId>-->
+						<!--&lt;!&ndash; 引用依赖库的版本 &ndash;&gt;-->
+						<!--<version>3.4.5</version>-->
+					<!--</dependency>-->
+				<!--</dependencies>-->
+			<!--</plugin>-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
