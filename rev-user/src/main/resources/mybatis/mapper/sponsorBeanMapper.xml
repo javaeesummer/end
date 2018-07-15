@@ -5,9 +5,10 @@
     <id column="hostId" property="hostid" jdbcType="INTEGER" />
     <result column="uerId" property="uerid" jdbcType="INTEGER" />
     <result column="companyId" property="companyid" jdbcType="INTEGER" />
+    <result column="activityId" property="activityId" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    hostId, uerId, companyId
+    hostId, uerId, companyId, activityId
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
