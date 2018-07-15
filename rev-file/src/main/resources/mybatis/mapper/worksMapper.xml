@@ -24,6 +24,28 @@
   <select id="getAllFile"  parameterType="com.rev.revfile.bean.works" resultType="com.rev.revfile.result.FileResult">
       SELECT workName,submitTime,filePath,description from works where attendorId in(select attendorid from attendor where activityId=#{activityId})
   </select>
+    <insert id="insertFile" parameterType="com.rev.revfile.bean.works">
+        insert into works
+        <trim prefix="(" suffix=")" prefixOverrides=",">
+            <if test="null!=attendorId">,attendorId</if>
+            <if test="null!=submitTime">,submitTime</if>
+            <if test="null!=updatedtime">,updatedtime</if>
+            <if test="null!=filePath and ''!=filePath">,filePath</if>
+            <if test="null!=workName and ''!=workName">,workName</if>
+            <if test="null!=description and ''!=description">,description</if>
+            <if test="null!=fileSize and ''!=fileSize">,fileSize</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" prefixOverrides=",">
+            <if test="null!=attendorId">,#{attendorId}</if>
+            <if test="null!=submitTime">,#{submitTime}</if>
+            <if test="null!=updatedtime">,#{updatedtime}</if>
+            <if test="null!=filePath and ''!=filePath">,#{filePath}</if>
+            <if test="null!=workName and ''!=workName">,#{workName}</if>
+            <if test="null!=description and ''!=description">,#{description}</if>
+            <if test="null!=fileSize and ''!=fileSize">,#{fileSize}</if>
+        </trim>
+    </insert>
 
 
 </mapper>

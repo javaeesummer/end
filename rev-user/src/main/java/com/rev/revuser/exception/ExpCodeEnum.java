@@ -92,7 +92,8 @@ public enum ExpCodeEnum implements Serializable {
     ORDER_NULL(OrderExpPrefix + "020", "查无此单"),
     EXPRESS_NO_NULL(OrderExpPrefix + "021", "物流单号不能为空"),
     ORDER_STATE_NULL(OrderExpPrefix + "022", "该订单的状态字段为空"),
-
+    FILE_NO_NULL(ComExpPrefix + "007", "文件不能为空"),
+    FILE_UPLOAD_FIED(ComExpPrefix + "008", "文件上传失败"),
 
     /** Analysis模块异常 */
     XXXX_NULL(AnlsExpPrefix + "000", "XXXX异常");

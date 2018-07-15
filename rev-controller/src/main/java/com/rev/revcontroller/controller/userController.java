@@ -1,10 +1,11 @@
-package com.rev.revcontroller.user.controller;
+package com.rev.revcontroller.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.rev.revuser.param.UserParam;
 import com.rev.revuser.service.UserService;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
