@@ -3,16 +3,26 @@ package com.rev.revuser.service;
 import com.rev.revuser.bean.SponsorBean;
 import com.rev.revuser.param.*;
 import com.rev.revuser.result.AttendorView;
+import com.rev.revuser.result.JudgeView;
 import com.rev.revuser.result.UserView;
 
 import java.util.List;
 
 public interface UserService {
 
-    String login(LoginParam LoginParam);
     /**
 
-     *@描述 用户成为一个活动主板这(插入一张新表)
+     *@描述 登录注册模块
+     注册各类用户
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
+    String login(LoginParam loginParam);
+    /**
+
+     *@描述 用户成为一个活动主办者(插入一张新表)
 
      *@参数
 
@@ -23,7 +33,6 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    SponsorBean toHoldActivity(UserView userView);
     String register(RegisterParam registerParam);
     /**
 
@@ -39,9 +48,23 @@ public interface UserService {
 
      */
     String registerJudge(RegisterJudgeParam registerJudgeParam);
+
+    String registerAttendor(RegisterAttendorParam registerAttendorParam);
+
+
     /**
 
-     *@描述 常与registerJudge配合使用
+     *@描述 活动模块　包括开办活动，各类查询,设置等
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
+
+    /**
+
+     *@描述 开办一个活动
 
      *@参数
 
@@ -52,20 +75,106 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    String usertoJudge(RegisterJudgeParam registerJudgeParam);
+    SponsorBean toHoldActivity(UserView userView);
+    /**
+
+     *@描述 基础注册方法,除了主板放,注册得时候这样就行了,其他得都要在这个
+     * 基础上在调用一个注册方法
+
+     *@参数
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
+
+
     List<UserView> getAllUser();
-    List<UserView> getAllAttendor(int activityid);
 
-     AttendorView getAttendorByActivityId(int activityid);
+    /**
 
-     UserView getUserById(int userid);
+     *@描述 得到一个活动得所有参赛者
+     *
+     *@参数  活动id
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
+
+    /**
+
+     *@描述 得到一个活动一个组得用户
+     *
+     *@参数  活动id
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
+    List<AttendorView> getAllAttendor(GroupParam groupParam);
+    List<AttendorView> getGroupAttendorById(GroupParam groupParam);
+    List<AttendorView> getGroupAttendorByName(GroupParam groupParam);
 
 
-     SponsorBean toHoldActivity(UserParam UserParam);
+    /**
 
-    String registerAttendor(RegisterAttendorParam RegisterAttendorParam);
+     *@描述 得到一个活动得所有裁判
+     *
+     *@参数  活动id
 
+     *@返回值
 
-    String userToAttendor(RegisterAttendorParam RegisterAttendorParam);
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
+    /**
+
+     *@描述 得到一个活动得一个组的裁判
+     *
+     *@参数  活动id
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
+    List<JudgeView> getAllJudge(GroupParam grouParam);
+    List<JudgeView> getGroupJudgeById(GroupParam groupParam);
+    List<JudgeView> getGroupJudgeByName(GroupParam groupParam);
+
+    /**
+
+     *@描述 得到一个活动得所有裁判组号
+
+     *@参数
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
+    List<GroupParam> getGroupId(GroupParam groupParam);
+
+    Boolean setGroupId(List<GroupParam> groupParamList);
+
+    UserView getUserById(int userid);
+
+    SponsorBean toHoldActivity(UserParam userParam);
 
 }

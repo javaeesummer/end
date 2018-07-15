@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rev.revuser.dao.AttendorBeanMapper" >
+  <resultMap id="UserBeanMap" type="com.rev.revuser.bean.UserBean">
+    <id column="userId" property="userid" jdbcType="INTEGER"/>
+  </resultMap>
   <resultMap id="BaseResultMap" type="com.rev.revuser.bean.AttendorBean" >
     <id column="attendorId" property="attendorid" jdbcType="INTEGER" />
     <result column="activityId" property="activityid" jdbcType="INTEGER" />
@@ -12,8 +15,20 @@
     <result column="userId" property="userid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    attendorId, activityId, phoneNum, voteNum, endResult, status, attendorGroupId, userId
+    attendorId, activityId, phoneNum, voteNum, endResult, status, groupId, userId
   </sql>
+  <select id="selectUserByActivityId" parameterType="java.lang.Integer" resultMap="UserBeanMap">
+    select
+    userId
+    from attendor
+    where activityId = #{activityId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAttendorByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from attendor
+    where userid= #{userid,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -27,7 +42,7 @@
   <insert id="insert" parameterType="com.rev.revuser.bean.AttendorBean" >
     insert into attendor (attendorId, activityId, phoneNum, 
       voteNum, endResult, status, 
-      attendorGroupId, userId)
+      groupId, userId)
     values (#{attendorid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, #{phonenum,jdbcType=VARCHAR}, 
       #{votenum,jdbcType=INTEGER}, #{endresult,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{attendorgroupid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER})
@@ -54,7 +69,7 @@
         status,
       </if>
       <if test="attendorgroupid != null" >
-        attendorGroupId,
+        groupId,
       </if>
       <if test="userid != null" >
         userId,
@@ -106,7 +121,7 @@
         status = #{status,jdbcType=VARCHAR},
       </if>
       <if test="attendorgroupid != null" >
-        attendorGroupId = #{attendorgroupid,jdbcType=INTEGER},
+        groupId = #{attendorgroupid,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
         userId = #{userid,jdbcType=INTEGER},
@@ -121,7 +136,7 @@
       voteNum = #{votenum,jdbcType=INTEGER},
       endResult = #{endresult,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
-      attendorGroupId = #{attendorgroupid,jdbcType=INTEGER},
+      groupId = #{attendorgroupid,jdbcType=INTEGER},
       userId = #{userid,jdbcType=INTEGER}
     where attendorId = #{attendorid,jdbcType=INTEGER}
   </update>

@@ -2,7 +2,16 @@ package com.rev.revuser.bean;
 
 import java.io.Serializable;
 
-public class JudgeBean implements Serializable {
+public class JudgeBean implements Serializable ,Cloneable{
+    public UserBean getUserBean() {
+        return userBean;
+    }
+
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
+    }
+
+    private UserBean userBean;
     private Integer judgeid;
 
     private Integer activityid;
@@ -43,5 +52,16 @@ public class JudgeBean implements Serializable {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+    @Override
+    public Object clone() {
+        JudgeBean judgeBean = null;
+        try{
+            judgeBean = (JudgeBean) super.clone();
+        }catch(CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return judgeBean;
+//        return null;
     }
 }
