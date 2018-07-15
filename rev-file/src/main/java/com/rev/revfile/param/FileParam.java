@@ -17,7 +17,16 @@ public class FileParam implements Serializable {
     //参赛者作品详情描述
     private String description;
 
-//    public Integer getWorksid() {
+    private String fileSize;
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+    //    public Integer getWorksid() {
 //        return worksid;
 //    }
 //

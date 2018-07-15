@@ -17,6 +17,7 @@ public class FileServiceImp implements FileService {
     //参赛者上传作品
     @Override
     public void uploadFile(FileParam file) {
+        worksmapper.insertFile(file);
 
     }
     //删除作品

@@ -17,4 +17,6 @@ public interface WorksMapper {
     //显示当前活动的所有作品
     List<FileResult> getAllFile(Integer activityid);
 
+    void insertFile(FileParam param);
+
 }
