@@ -5,6 +5,7 @@ import com.rev.revuser.bean.SponsorBean;
 import com.rev.revuser.param.*;
 import com.rev.revuser.result.AttendorView;
 import com.rev.revuser.result.JudgeView;
+import com.rev.revuser.result.Result;
 import com.rev.revuser.result.UserView;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    String login(LoginParam loginParam);
+    Result login(LoginParam loginParam);
     /**
 
      *@描述 用户成为一个活动主办者(插入一张新表)
@@ -34,7 +35,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    String register(RegisterParam registerParam);
+    Result register(RegisterParam registerParam);
     /**
 
      *@描述 注册一个裁判用户 因为裁判用户是一个特殊的用户,所以包含了注册用户的信息,如果这个用户已经注册过了,那么就调用usertoJudge
@@ -48,9 +49,9 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    String registerJudge(RegisterJudgeParam registerJudgeParam);
+    Result registerJudge(RegisterJudgeParam registerJudgeParam);
 
-    String registerAttendor(RegisterAttendorParam registerAttendorParam);
+    Result registerAttendor(RegisterAttendorParam registerAttendorParam);
 
 
     /**

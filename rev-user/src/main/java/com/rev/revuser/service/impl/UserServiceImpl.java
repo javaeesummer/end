@@ -172,6 +172,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public SponsorBean toHoldActivity(UserParam userParam) {
+        return null;
+    }
+
+    @Override
     public List<ActivityBean> getAllActivity() {
         return null;
     }
@@ -200,16 +205,9 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public SponsorBean toHoldActivity(HoldActivityParam holdActivityParam) {
 
-        return null;
-    }
 
-    @Override
-    public SponsorBean addSponsor(SponsorBean sponsorBean) {
-        return null;
-    }
+
 
     @Override
     public Result registerAttendor(RegisterAttendorParam registerAttendorParam) {
@@ -226,6 +224,11 @@ public class UserServiceImpl implements UserService {
         UserBean userBean=UserBeanMapper.selectByUsername(registerAttendorParam.getRegisterParam().getUsername());
         attendorBean.setUserid(userBean.getUserid());
         AttendorBeanMapper.insert(attendorBean);
+        return null;
+    }
+
+    @Override
+    public SponsorBean toHoldActivity(UserView userView) {
         return null;
     }
 
