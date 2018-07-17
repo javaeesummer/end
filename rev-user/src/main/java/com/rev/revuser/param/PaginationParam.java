@@ -1,7 +1,5 @@
 package com.rev.revuser.param;
 
-import com.rev.revuser.bean.ActivityBean;
-
 import java.io.Serializable;
 
 /**
@@ -9,6 +7,7 @@ import java.io.Serializable;
  * @desprition 用来干嘛的呢, 也就是随便写写的
  **/
 
-public class HoldActivityParam implements Serializable {
-    ActivityBean activityBean;
+public class PaginationParam implements Serializable {
+    int base;
+    int pagesize;
 }

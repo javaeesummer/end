@@ -1,10 +1,8 @@
 package com.rev.revuser.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.rev.revuser.bean.AttendorBean;
-import com.rev.revuser.bean.JudgeBean;
-import com.rev.revuser.bean.SponsorBean;
-import com.rev.revuser.bean.UserBean;
+import com.rev.revuser.bean.*;
+import com.rev.revuser.dao.ActivityBeanMapper;
 import com.rev.revuser.dao.AttendorBeanMapper;
 import com.rev.revuser.dao.JudgeBeanMapper;
 import com.rev.revuser.dao.UserBeanMapper;
@@ -29,6 +27,8 @@ public class UserServiceImpl implements UserService {
     JudgeBeanMapper JudgeBeanMapper;
     @Resource
     AttendorBeanMapper AttendorBeanMapper;
+    @Resource
+    ActivityBeanMapper ActivityBeanMapper;
 //　　todo 事务事务 何苦事物
     @Override
     public Result login(LoginParam loginParam) {
@@ -171,6 +171,33 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public List<ActivityBean> getAllActivity() {
+        return null;
+    }
+
+    @Override
+    public List<ActivityBean> getActivityByHostId() {
+        return null;
+    }
+
+    @Override
+    public List<ActivityBean> getOnePageActivity(PaginationParam paginationParam) {
+//        return ActivityBeanMapper.getActivityList(paginationParam);
+        System.out.println("aaa%%%%%%%");
+          return ActivityBeanMapper.selectall();
+    }
+
+    @Override
+    public List<ActivityBean> getOnePageActivityByHostId(PaginationParam paginationParam, int hostId) {
+        return ActivityBeanMapper.getActivityList(paginationParam, hostId);
+    }
+
+    @Override
+    public void toNextStep(ActivityBean activityBean) {
+
+    }
+
 
     @Override
     public SponsorBean toHoldActivity(HoldActivityParam holdActivityParam) {
@@ -202,5 +229,35 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    public com.rev.revuser.dao.UserBeanMapper getUserBeanMapper() {
+        return UserBeanMapper;
+    }
 
+    public void setUserBeanMapper(com.rev.revuser.dao.UserBeanMapper userBeanMapper) {
+        UserBeanMapper = userBeanMapper;
+    }
+
+    public com.rev.revuser.dao.JudgeBeanMapper getJudgeBeanMapper() {
+        return JudgeBeanMapper;
+    }
+
+    public void setJudgeBeanMapper(com.rev.revuser.dao.JudgeBeanMapper judgeBeanMapper) {
+        JudgeBeanMapper = judgeBeanMapper;
+    }
+
+    public com.rev.revuser.dao.AttendorBeanMapper getAttendorBeanMapper() {
+        return AttendorBeanMapper;
+    }
+
+    public void setAttendorBeanMapper(com.rev.revuser.dao.AttendorBeanMapper attendorBeanMapper) {
+        AttendorBeanMapper = attendorBeanMapper;
+    }
+
+    public com.rev.revuser.dao.ActivityBeanMapper getActivityBeanMapper() {
+        return ActivityBeanMapper;
+    }
+
+    public void setActivityBeanMapper(com.rev.revuser.dao.ActivityBeanMapper activityBeanMapper) {
+        ActivityBeanMapper = activityBeanMapper;
+    }
 }

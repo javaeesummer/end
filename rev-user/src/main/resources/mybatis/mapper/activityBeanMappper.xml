@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rev.revuser.dao.ActivityBeanMapper" >
+    <resultMap id="BaseResultMap" type="com.rev.revuser.bean.ActivityBean">
+        <id column="activityId" property="userid" jdbcType="INTEGER"/>
+        <result column="hostId" property="hostId" jdbcType="INTEGER"/>
+        <result column="activityName" property="activityName" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="startTime" property="startTime" jdbcType="DATE"/>
+        <result column="endTime" property="endTime" jdbcType="DATE"/>
+        <result column="startTime" property="startTime" jdbcType="DATE"/>
+        <result column="conutStatus" property="conutStatus" jdbcType="INTEGER"/>
+        <result column="totalCount" property="totalCount" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        activityId, hostId, activityName, description, startTime, endTime, conutStatus, totalCount
+    </sql>
+    <select id="selectall" resultType="com.rev.revuser.bean.ActivityBean">
+        select * from activity
+    </select>
+    <select id="selectOnePage" resultType="com.rev.revuser.bean.ActivityBean">
+        select
+        <include refid="Base_Column_List"/>
+        from activity limit #{paginationParam.base,jdbcType=INTEGER},#{paginationParam.base,jdbcType=INTEGER}+#{paginationParam.pagesize,jdbcType=INTEGER}
+
+    </select>
+
+</mapper>

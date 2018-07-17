@@ -77,12 +77,12 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.rev</groupId>
-			<artifactId>rev-file</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.rev</groupId>-->
+			<!--<artifactId>rev-file</artifactId>-->
+			<!--<version>0.0.1-SNAPSHOT</version>-->
+			<!--<scope>compile</scope>-->
+		<!--</dependency>-->
 
 		<!-- 文件上传依赖 -->
 		<dependency>

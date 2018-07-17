@@ -1,5 +1,6 @@
 package com.rev.revuser.service;
 
+import com.rev.revuser.bean.ActivityBean;
 import com.rev.revuser.bean.SponsorBean;
 import com.rev.revuser.param.*;
 import com.rev.revuser.result.AttendorView;
@@ -143,7 +144,7 @@ public interface UserService {
 
     /**
 
-     *@描述 得到一个活动得所有裁判
+     *@描述 得到一个活动（一个组）（id或组，名）得所有裁判
      *
      *@参数  活动id
 
@@ -154,19 +155,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    /**
 
-     *@描述 得到一个活动得一个组的裁判
-     *
-     *@参数  活动id
-
-     *@返回值
-
-     *@创建人  hxs
-
-     *@修改人和其它信息
-
-     */
     List<JudgeView> getAllJudge(GroupParam grouParam);
     List<JudgeView> getGroupJudgeById(GroupParam groupParam);
     List<JudgeView> getGroupJudgeByName(GroupParam groupParam);
@@ -186,9 +175,43 @@ public interface UserService {
      */
     List<GroupParam> getGroupId(GroupParam groupParam);
 
+    /**
+
+     *@描述 创建一个活动得分组（分组是参赛者和评委共享的）
+
+     *@参数
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
     Boolean setGroupId(List<GroupParam> groupParamList);
 
     UserView getUserById(int userid);
 
 
+    List<ActivityBean> getAllActivity();
+    List<ActivityBean> getActivityByHostId();
+
+    List<ActivityBean> getOnePageActivity(PaginationParam paginationParam);
+    List<ActivityBean> getOnePageActivityByHostId(PaginationParam paginationParam,int hostId);
+
+
+    /**
+
+     *@描述 activity模块
+
+     *@参数
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
+    void toNextStep(ActivityBean activityBean);
 }

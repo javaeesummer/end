@@ -5,11 +5,13 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.rev.revuser.exception.ExpCodeEnum;
 import com.rev.revuser.param.LoginParam;
+import com.rev.revuser.param.PaginationParam;
 import com.rev.revuser.param.RegisterParam;
 import com.rev.revuser.param.UserParam;
 import com.rev.revuser.result.Result;
 import com.rev.revuser.service.UserService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,23 +27,18 @@ import javax.servlet.http.HttpSession;
 @Component("userService")
 @RequestMapping("/user")
 public class userController {
-    @Reference
-    UserService UserService;
+
+    @Reference(timeout=100000)
+    UserService userService;
     @ResponseBody
     @RequestMapping(value = "/deletePaper",method = RequestMethod.GET)
     public String deletePaper(HttpServletResponse response, HttpServletRequest request, UserParam param){
-        return JSONObject.toJSONString(UserService.getAllUser());
+        return JSONObject.toJSONString(userService.getAllUser());
     }
     @ResponseBody
     @RequestMapping(value ="/login", method = RequestMethod.POST)
     public Result login(HttpServletRequest httpServletRequest,LoginParam loginParam){
-//        HttpSession httpSession=httpServletRequest.getSession();
-//        String username=(String)httpSession.getAttribute("username");
-//        String password=(String)httpSession.getAttribute("password");
-//        LoginParam loginParam=new LoginParam();
-//        loginParam.setPassword(password);
-//        loginParam.setUsername(username);
-        Result result=UserService.login(loginParam);
+        Result result=userService.login(loginParam);
         if(result.isSuccess()){
 //            httpSession.setAttribute("username",username);
         }
@@ -49,27 +46,20 @@ public class userController {
     }
     @ResponseBody
     @RequestMapping(value ="/register")
-    public Result register(HttpServletRequest httpServletRequest){
-        HttpSession httpSession=httpServletRequest.getSession();
-        String username=(String)httpSession.getAttribute("username");
-        String password=(String)httpSession.getAttribute("password");
-        String usertype=(String)httpSession.getAttribute("usertype");
+    public Result register(HttpServletRequest httpServletRequest,RegisterParam registerParam){
         Result result=new Result();
-        if(username==null || password==null || usertype==null){
+        if(registerParam.getUsername()==null || registerParam.getPassword()==null || registerParam.getUsertype()==null){
             result.setSuccess(false);
             result.setErrorCode(ExpCodeEnum.SOMETHING_NULL.getCode());
             result.setMessage(ExpCodeEnum.SOMETHING_NULL.getMessage());
             return result;
         }
-        return null;
-        ////        RegisterParam loginParam=new LoginParam();
-////        loginParam.setPassword(password);
-////        loginParam.setUsername(username);
-////        Result result=UserService.login(loginParam);
-////        if(result.isSuccess()){
-////            httpSession.setAttribute("username",username);
-////        }
-//        return result;
+        return userService.register(registerParam);
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getAcitivity",method = RequestMethod.POST)
+    public Result getOnePageActivity(HttpServletRequest httpServletRequest,PaginationParam paginationParam){
+        return Result.newSuccessResult(userService.getOnePageActivity(paginationParam));
     }
 
 }
