@@ -63,10 +63,11 @@ public class UserServiceImpl implements UserService {
             return "可以注册";
         }
     }
-//    @Override
-//    public SponsorBean toHoldActivity(UserView userView) {
-//        return null;
-//    }
+    @Override
+    public Result toHoldActivity(ActivityBean activityBean) {
+        ActivityBeanMapper.insertActivity(activityBean);
+        return Result.newSuccessResult();
+    }
 
     @Override
 //    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
@@ -227,10 +228,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    @Override
-    public SponsorBean toHoldActivity(UserView userView) {
-        return null;
-    }
+
 
 
     public com.rev.revuser.dao.UserBeanMapper getUserBeanMapper() {

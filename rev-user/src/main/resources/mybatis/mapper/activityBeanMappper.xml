@@ -29,5 +29,59 @@
         limit #{paginationParam.limit1,jdbcType=INTEGER},#{paginationParam.limit2,jdbcType=INTEGER}
 
     </select>
-
+    <select id="insertActivity" parameterType="com.rev.revuser.bean.ActivityBean">
+        insert into activity
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="activityId !=null" >
+                activityId,
+            </if>
+            <if test="hostId != null" >
+                hostId,
+            </if>
+            <if test="activityName != null" >
+                activityName,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="startTime != null" >
+                startTime,
+            </if>
+            <if test="endTime != null" >
+                endTime,
+            </if>
+            <if test="conutStatus!= null" >
+                conutStatus,
+            </if>
+            <if test="totalCount != null" >
+                totalCount
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="activityId !=null" >
+                #{activityId,jdbcType=INTEGER},
+            </if>
+            <if test="hostId != null" >
+                #{hostId,jdbcType=INTEGER},
+            </if>
+            <if test="activityName != null" >
+                #{activityName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null" >
+                #{startTime,jdbcType=DATE},
+            </if>
+            <if test="endTime != null" >
+                #{endTime,jdbcType=DATE},
+            </if>
+            <if test="conutStatus!= null" >
+                #{conutStatus,jdbcType=INTEGER},
+            </if>
+            <if test="totalCount != null" >
+                #{totalCount,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </select>
 </mapper>

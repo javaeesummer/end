@@ -13,8 +13,25 @@ public class ActivityBean implements Serializable{
     int hostId;
     String activityName;
     String description;
-    Date startTime;
-    Date endTime;
+    String startTime;
+    String endTime;
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
     int conutStatus;
     int totalCount;
 
@@ -50,21 +67,6 @@ public class ActivityBean implements Serializable{
         this.description = description;
     }
 
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
 
     public int getConutStatus() {
         return conutStatus;
