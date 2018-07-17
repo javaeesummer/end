@@ -1,4 +1,3 @@
-/*
 package com.rev.revuser.service.impl;
 
 import com.rev.revuser.application.GaoxiControllerApplication;
@@ -20,12 +19,10 @@ import javax.annotation.Resource;
 import java.util.List;
 
 import static org.junit.Assert.*;
-*/
 /**
  * @author hxs
  * @desprition 用来干嘛的呢, 也就是随便写写的
- **//*
-
+ **/
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = GaoxiControllerApplication.class)
 public class UserServiceImplTest {
@@ -131,4 +128,4 @@ public class UserServiceImplTest {
     @Test
     public void toHoldActivity() {
     }
-}*/
+}
