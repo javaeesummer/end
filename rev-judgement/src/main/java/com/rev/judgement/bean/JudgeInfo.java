@@ -1,13 +1,13 @@
-package com.rev.judgement.entity;
+package com.rev.judgement.bean;
 
 import java.io.Serializable;
 
-public class judge implements Serializable {
+public class JudgeInfo implements Serializable {
     private Integer judgeid;
 
     private Integer activityid;
 
-    private Integer jugegroupid;
+    private Integer groupid;
 
     private Integer userid;
 
@@ -29,12 +29,12 @@ public class judge implements Serializable {
         this.activityid = activityid;
     }
 
-    public Integer getJugegroupid() {
-        return jugegroupid;
+    public Integer getGroupid() {
+        return groupid;
     }
 
-    public void setJugegroupid(Integer jugegroupid) {
-        this.jugegroupid = jugegroupid;
+    public void setGroupid(Integer groupid) {
+        this.groupid = groupid;
     }
 
     public Integer getUserid() {

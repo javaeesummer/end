@@ -1,8 +1,8 @@
-package com.rev.judgement.entity;
+package com.rev.judgement.bean;
 
 import java.io.Serializable;
 
-public class review implements Serializable {
+public class ReviewInfo implements Serializable {
     private Integer reviewid;
 
     private Integer attendorid;

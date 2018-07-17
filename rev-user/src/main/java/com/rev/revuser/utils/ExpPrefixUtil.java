@@ -12,8 +12,6 @@ public class ExpPrefixUtil {
 
     /** User模块异常码前缀 */
     public static final String UserExpPrefix = "20";
-    public static final String FileExpPrefix = "60";
-    public static final String JudgeExpPrefix = "70";
 
     /** Product模块异常码前缀 */
     public static final String ProdExpPrefix = "30";

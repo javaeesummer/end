@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rev.judgement.dao.ReviewInfoMapper" >
+
+
+ <select id="getReviewByJudgeId" resultType="com.rev.judgement.bean.ReviewInfo">
+     SELECT * from review WHERE judgeId=#{judgeId}
+ </select>
+    <select id="getReviewByAttendorId" resultType="com.rev.judgement.bean.ReviewInfo">
+        SELECT * from review WHERE attendorId=#{attendorId}
+    </select>
+  <insert id="addReview" parameterType="com.rev.judgement.bean.ReviewInfo">
+    insert into review (attendorId, judgeId)
+    values (#{attendorid,jdbcType=INTEGER},#{judgeid,jdbcType=INTEGER})
+  </insert>
+
+  <update id="modifyReview" parameterType="com.rev.judgement.bean.ReviewInfo">
+ update review
+    set attendorId = #{attendorid,jdbcType=INTEGER},
+      result = #{result,jdbcType=VARCHAR},
+      advice = #{advice,jdbcType=VARCHAR},
+      judgeId = #{judgeid,jdbcType=INTEGER}
+    where reviewId = #{reviewid,jdbcType=INTEGER}
+     </update>
+</mapper>

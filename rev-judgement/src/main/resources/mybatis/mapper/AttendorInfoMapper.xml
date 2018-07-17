@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rev.judgement.dao.AttendorInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.rev.judgement.bean.AttendorInfo" >
+    <id column="attendorId" property="attendorid" jdbcType="INTEGER" />
+    <result column="activityId" property="activityid" jdbcType="INTEGER" />
+    <result column="phoneNum" property="phonenum" jdbcType="VARCHAR" />
+    <result column="voteNum" property="votenum" jdbcType="INTEGER" />
+    <result column="endResult" property="endresult" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="groupId" property="groupid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    attendorId, activityId, phoneNum, voteNum, endResult, status, groupId, userId
+  </sql>
+ <select id="getAttendorByGroupId" resultType="com.rev.judgement.bean.AttendorInfo">
+   SELECT * from attendor WHERE activityId=#{activityId} AND groupId =#{groupId}
+ </select>
+  <select id="getAttendorByActivityId" resultType="com.rev.judgement.bean.AttendorInfo">
+    SELECT * from attendor WHERE activityId=#{activityId}
+  </select>
+    <update id="modifyEndResultByAttendorId">
+        update attendor
+        set endResult = #{endResult}
+        where attendorId = #{attendorId}
+    </update>
+</mapper>

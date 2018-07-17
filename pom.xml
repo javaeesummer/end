@@ -12,7 +12,7 @@
 	</parent>
 	<name>rev</name>
 	<modules>
-
+		<module>rev-judgement</module>
 		<module>rev-user</module>
 		<module>rev-file</module>
 		<module>rev-controller</module>
