@@ -8,8 +8,10 @@ public interface FileService {
      void uploadFile(FileParam file);
     //参赛者删除作品
     void deleteFile(FileParam file);
-    //参赛者修改作品
+    //参赛者修改作品并重新上传
     void moddifyFile(FileParam file);
+    //参赛者修改作品信息不重新上传
+    void moddifyNoFile(FileParam file);
     //显示当前活动所有提交者作品
     List<FileResult> getAllFile(ActivityParam activity);
     //显示某个提交者作品

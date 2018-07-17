@@ -10,6 +10,8 @@ public interface WorksMapper {
 
     //修改作品信息
     void updateWorksByAttendorid(FileParam fileParam);
+    //修改作品信息不上传作品
+    void updateWorksByAttendoridNofile(FileParam fileParam);
     //删除作品
     void deleteWorksByAttendorid(Integer attendorid);
     //显示某个参赛者作品
