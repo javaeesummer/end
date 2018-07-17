@@ -15,5 +15,5 @@ public interface ActivityBeanMapper {
     List<ActivityBean> selectall();
     List<ActivityBean> getActivityList(@Param("paginationParam") PaginationParam paginationParam);
     List<ActivityBean> getActivityList(@Param("paginationParam") PaginationParam paginationParam,@Param("hostId") Integer hostId);
-
+    void insertActivity(ActivityBean activityBean);
 }

@@ -3,6 +3,8 @@ package com.rev.revcontroller.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
+import com.rev.revuser.bean.ActivityBean;
+import com.rev.revuser.dao.ActivityBeanMapper;
 import com.rev.revuser.exception.CommonBizException;
 import com.rev.revuser.exception.ExpCodeEnum;
 import com.rev.revuser.param.LoginParam;
@@ -69,5 +71,9 @@ public class userController {
             return Result.newSuccessResult(userService.getOnePageActivityByHostId(paginationParam,paginationParam.getHostId()));
         }
     }
-
+    @ResponseBody
+    @RequestMapping(value ="/holdAcitivity",method = RequestMethod.POST)
+    public Result holdActivity(HttpServletRequest httpServletRequest, ActivityBean activityBean){
+        return userService.toHoldActivity(activityBean);
+    }
 }
