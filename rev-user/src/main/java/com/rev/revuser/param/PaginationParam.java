@@ -11,6 +11,15 @@ public class PaginationParam implements Serializable {
     int pagenum;
     int pagesize;
     int limit1;
+    Integer hostId;
+
+    public Integer getHostId() {
+        return hostId;
+    }
+
+    public void setHostId(Integer hostId) {
+        this.hostId = hostId;
+    }
 
     public int getPagenum() {
         return pagenum;

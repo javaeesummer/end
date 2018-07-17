@@ -14,16 +14,13 @@ import com.rev.revuser.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+@CrossOrigin
 @RestController
 @Component("userService")
 @RequestMapping("/user")
@@ -59,17 +56,17 @@ public class userController {
     }
     @ResponseBody
     @RequestMapping(value ="/getAcitivity",method = RequestMethod.POST)
-    public Result getOnePageActivity(HttpServletRequest httpServletRequest,PaginationParam paginationParam,Integer hostId){
+    public Result getOnePageActivity(HttpServletRequest httpServletRequest,PaginationParam paginationParam){
         if(paginationParam.getPagenum()<1){
             CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.PAGENUM_ERROR);
             return Result.newFailureResult(commonBizException);
         }
         paginationParam.setLimit1((paginationParam.getPagenum()-1)*paginationParam.getPagesize());
         paginationParam.setLimit2(paginationParam.getLimit1()+paginationParam.getPagesize());
-        if(hostId==null){
+        if(paginationParam.getHostId()==null){
             return Result.newSuccessResult(userService.getOnePageActivity(paginationParam));
         }else{
-            return Result.newSuccessResult(userService.getOnePageActivityByHostId(paginationParam,hostId));
+            return Result.newSuccessResult(userService.getOnePageActivityByHostId(paginationParam,paginationParam.getHostId()));
         }
     }
 
