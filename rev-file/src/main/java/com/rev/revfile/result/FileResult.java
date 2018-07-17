@@ -4,31 +4,42 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class FileResult implements Serializable{
-//    //参赛者编号id
-//    private Integer attendorid;
+    //参赛者编号id
+    private Integer attendorId;
+    //作品id
+     private Integer worksId;
     //作品名
-    private String workname;
+    private String workName;
     //作品详情
     private String description;
     //作品提交时间
-    private Date submittime;
+    private Date submitTime;
     //作品下载路径
-    private String filepath;
+    private String filePath;
+    //作品大小
+    private String fileSize;
+    public Integer getAttendorid() {
+        return attendorId;
+    }
 
-//    public Integer getAttendorid() {
-//        return attendorid;
-//    }
-//
-//    public void setAttendorid(Integer attendorid) {
-//        this.attendorid = attendorid;
-//    }
+    public void setAttendorid(Integer attendorid) {
+        this.attendorId = attendorid;
+    }
+
+    public Integer getWorksid() {
+        return worksId;
+    }
+
+    public void setWorksid(Integer worksid) {
+        this.worksId = worksid;
+    }
 
     public String getWorkname() {
-        return workname;
+        return workName;
     }
 
     public void setWorkname(String workname) {
-        this.workname = workname;
+        this.workName = workname;
     }
 
     public String getDescription() {
@@ -40,18 +51,27 @@ public class FileResult implements Serializable{
     }
 
     public Date getSubmittime() {
-        return submittime;
+        return submitTime;
     }
 
     public void setSubmittime(Date submittime) {
-        this.submittime = submittime;
+        this.submitTime = submittime;
     }
 
     public String getFilepath() {
-        return filepath;
+        return filePath;
     }
 
     public void setFilepath(String filepath) {
-        this.filepath = filepath;
+        this.filePath = filepath;
+    }
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
     }
 }
+
+

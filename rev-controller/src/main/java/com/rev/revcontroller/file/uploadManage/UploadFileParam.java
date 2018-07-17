@@ -19,6 +19,7 @@ public class UploadFileParam implements Serializable {
     //文件
     private MultipartFile file;
 
+    private String fileSize;
 
     public Integer getAttendorid() {
         return attendorid;
@@ -66,5 +67,13 @@ public class UploadFileParam implements Serializable {
 
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
     }
 }

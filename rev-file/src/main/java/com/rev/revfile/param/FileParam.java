@@ -5,67 +5,69 @@ import java.util.Date;
 
 public class FileParam implements Serializable {
 //    //作品id
-//    private Integer worksid;
-    //参赛者id
-    private Integer attendorid;
+//    private Integer worksId;
+   // 参赛者id
+    private Integer attendorId;
     //参赛者作品提交时间
-    private Date submittime;
+    private Date submitTime;
     //参赛者作品提交路径
-    private String filepath;
+    private String filePath;
     //参赛者提交作品名
-    private String workname;
+    private String workName;
     //参赛者作品详情描述
     private String description;
 
-    private String fileSize;
-
-    public String getFileSize() {
-        return fileSize;
-    }
-
-    public void setFileSize(String fileSize) {
-        this.fileSize = fileSize;
-    }
-    //    public Integer getWorksid() {
-//        return worksid;
-//    }
-//
-//    public void setWorksid(Integer worksid) {
-//        this.worksid = worksid;
-//    }
+    private String filesize;
 
 
-    public Date getSubmittime() {
-        return submittime;
-    }
-
-    public void setSubmittime(Date submittime) {
-        this.submittime = submittime;
-    }
-
-    public Integer getAttendorid() {
-        return attendorid;
+    public Integer getAttendorid(){
+        return attendorId;
     }
 
     public void setAttendorid(Integer attendorid) {
-        this.attendorid = attendorid;
+        this.attendorId = attendorid;
     }
+
+    public String getFileSize() {
+        return filesize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.filesize = fileSize;
+    }
+
+//    public Integer getWorksid() {
+//        return worksId;
+//    }
+//
+//    public void setWorksid(Integer worksid) {
+//        this.worksId = worksid;
+//    }
+
+    public Date getSubmittime() {
+        return submitTime;
+    }
+
+    public void setSubmittime(Date submittime) {
+        this.submitTime = submittime;
+    }
+
 
 
     public String getFilepath() {
-        return filepath;
+        return filePath;
     }
 
     public void setFilepath(String filepath) {
-        this.filepath = filepath;
+        this.filePath = filepath;
     }
 
     public String getWorkname() {
-        return workname;
+        return workName;
     }
 
     public void setWorkname(String workname) {
-        this.workname = workname;
+        this.workName = workname;
     }
 
     public String getDescription() {
@@ -75,4 +77,5 @@ public class FileParam implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }
