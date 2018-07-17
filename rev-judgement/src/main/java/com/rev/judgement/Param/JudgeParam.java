@@ -6,7 +6,16 @@ public class JudgeParam {
     int judgeId;
     int activityId;
     int attendorId;
+    int groupId;
     ReviewInfo reviewInfo;
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 
     public int getJudgeId() {
         return judgeId;
