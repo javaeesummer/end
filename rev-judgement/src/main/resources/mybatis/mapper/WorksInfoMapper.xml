@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rev.judgement.dao.WorksInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.rev.judgement.bean.WorksInfo">
+    <id column="worksId" jdbcType="INTEGER" property="worksid" />
+    <result column="attendorId" jdbcType="INTEGER" property="attendorid" />
+    <result column="submitTime" jdbcType="TIMESTAMP" property="submittime" />
+    <result column="filePath" jdbcType="VARCHAR" property="filepath" />
+    <result column="workName" jdbcType="VARCHAR" property="workname" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    worksId, attendorId, submitTime, filePath, workName, description
+  </sql>
+  <select id="getWorksDetail" resultType="com.rev.judgement.bean.WorksInfo">
+    SELECT * from works WHERE attendorId=#{attendorId}
+  </select>
+
+</mapper>

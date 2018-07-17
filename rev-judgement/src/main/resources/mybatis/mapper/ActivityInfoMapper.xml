@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rev.judgement.dao.ActivityInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.rev.judgement.bean.ActivityInfo" >
+    <id column="activityId" property="activityid" jdbcType="INTEGER" />
+    <result column="hostId" property="hostid" jdbcType="INTEGER" />
+    <result column="activityName" property="activityname" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="startTime" property="starttime" jdbcType="DATE" />
+    <result column="endTime" property="endtime" jdbcType="DATE" />
+    <result column="conutStatus" property="conutstatus" jdbcType="INTEGER" />
+    <result column="totalCount" property="totalcount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activityId, hostId, activityName, description, startTime, endTime, conutStatus, totalCount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity
+    where activityId = #{activityid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity
+    where activityId = #{activityid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.rev.judgement.bean.ActivityInfo" >
+    insert into activity (activityId, hostId, activityName, 
+      description, startTime, endTime, 
+      conutStatus, totalCount)
+    values (#{activityid,jdbcType=INTEGER}, #{hostid,jdbcType=INTEGER}, #{activityname,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{starttime,jdbcType=DATE}, #{endtime,jdbcType=DATE}, 
+      #{conutstatus,jdbcType=INTEGER}, #{totalcount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rev.judgement.bean.ActivityInfo" >
+    insert into activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityid != null" >
+        activityId,
+      </if>
+      <if test="hostid != null" >
+        hostId,
+      </if>
+      <if test="activityname != null" >
+        activityName,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="conutstatus != null" >
+        conutStatus,
+      </if>
+      <if test="totalcount != null" >
+        totalCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityid != null" >
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="hostid != null" >
+        #{hostid,jdbcType=INTEGER},
+      </if>
+      <if test="activityname != null" >
+        #{activityname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="conutstatus != null" >
+        #{conutstatus,jdbcType=INTEGER},
+      </if>
+      <if test="totalcount != null" >
+        #{totalcount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rev.judgement.bean.ActivityInfo" >
+    update activity
+    <set >
+      <if test="hostid != null" >
+        hostId = #{hostid,jdbcType=INTEGER},
+      </if>
+      <if test="activityname != null" >
+        activityName = #{activityname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        startTime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="conutstatus != null" >
+        conutStatus = #{conutstatus,jdbcType=INTEGER},
+      </if>
+      <if test="totalcount != null" >
+        totalCount = #{totalcount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where activityId = #{activityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rev.judgement.bean.ActivityInfo" >
+    update activity
+    set hostId = #{hostid,jdbcType=INTEGER},
+      activityName = #{activityname,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=DATE},
+      endTime = #{endtime,jdbcType=DATE},
+      conutStatus = #{conutstatus,jdbcType=INTEGER},
+      totalCount = #{totalcount,jdbcType=INTEGER}
+    where activityId = #{activityid,jdbcType=INTEGER}
+  </update>
+</mapper>

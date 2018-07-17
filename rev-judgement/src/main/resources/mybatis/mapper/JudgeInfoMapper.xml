@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rev.judgement.dao.JudgeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.rev.judgement.bean.JudgeInfo" >
+    <id column="judgeId" property="judgeid" jdbcType="INTEGER" />
+    <result column="activityId" property="activityid" jdbcType="INTEGER" />
+    <result column="groupId" property="groupid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    judgeId, activityId, groupId, userId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from judge
+    where judgeId = #{judgeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from judge
+    where judgeId = #{judgeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.rev.judgement.bean.JudgeInfo" >
+    insert into judge (judgeId, activityId, groupId, 
+      userId)
+    values (#{judgeid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, #{groupid,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rev.judgement.bean.JudgeInfo" >
+    insert into judge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="judgeid != null" >
+        judgeId,
+      </if>
+      <if test="activityid != null" >
+        activityId,
+      </if>
+      <if test="groupid != null" >
+        groupId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="judgeid != null" >
+        #{judgeid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null" >
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rev.judgement.bean.JudgeInfo" >
+    update judge
+    <set >
+      <if test="activityid != null" >
+        activityId = #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null" >
+        groupId = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where judgeId = #{judgeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rev.judgement.bean.JudgeInfo" >
+    update judge
+    set activityId = #{activityid,jdbcType=INTEGER},
+      groupId = #{groupid,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER}
+    where judgeId = #{judgeid,jdbcType=INTEGER}
+  </update>
+</mapper>
