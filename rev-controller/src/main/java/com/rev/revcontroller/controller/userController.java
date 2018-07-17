@@ -3,6 +3,7 @@ package com.rev.revcontroller.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
+import com.rev.revuser.exception.CommonBizException;
 import com.rev.revuser.exception.ExpCodeEnum;
 import com.rev.revuser.param.LoginParam;
 import com.rev.revuser.param.PaginationParam;
@@ -58,8 +59,18 @@ public class userController {
     }
     @ResponseBody
     @RequestMapping(value ="/getAcitivity",method = RequestMethod.POST)
-    public Result getOnePageActivity(HttpServletRequest httpServletRequest,PaginationParam paginationParam){
-        return Result.newSuccessResult(userService.getOnePageActivity(paginationParam));
+    public Result getOnePageActivity(HttpServletRequest httpServletRequest,PaginationParam paginationParam,Integer hostId){
+        if(paginationParam.getPagenum()<1){
+            CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.PAGENUM_ERROR);
+            return Result.newFailureResult(commonBizException);
+        }
+        paginationParam.setLimit1((paginationParam.getPagenum()-1)*paginationParam.getPagesize());
+        paginationParam.setLimit2(paginationParam.getLimit1()+paginationParam.getPagesize());
+        if(hostId==null){
+            return Result.newSuccessResult(userService.getOnePageActivity(paginationParam));
+        }else{
+            return Result.newSuccessResult(userService.getOnePageActivityByHostId(paginationParam,hostId));
+        }
     }
 
 }

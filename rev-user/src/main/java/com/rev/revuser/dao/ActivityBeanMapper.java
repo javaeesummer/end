@@ -14,6 +14,6 @@ import java.util.List;
 public interface ActivityBeanMapper {
     List<ActivityBean> selectall();
     List<ActivityBean> getActivityList(@Param("paginationParam") PaginationParam paginationParam);
-    List<ActivityBean> getActivityList(@Param("paginationParam") PaginationParam paginationParam,@Param("activityId") Integer hostId);
+    List<ActivityBean> getActivityList(@Param("paginationParam") PaginationParam paginationParam,@Param("hostId") Integer hostId);
 
 }

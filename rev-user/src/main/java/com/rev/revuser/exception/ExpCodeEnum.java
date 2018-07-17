@@ -40,6 +40,7 @@ public enum ExpCodeEnum implements Serializable {
     SOMETHING_NULL(UserExpPrefix + "017", "用户名/密码/用户类型都不能为空"),
     REGISTER_ERROR(UserExpPrefix + "018", "注册失败"),
     USEREXIST(UserExpPrefix + "018", "用户已经存在"),
+    PAGENUM_ERROR(UserExpPrefix+ "019","页数从１开始"),
     /** Product模块异常 */
     PRODUCT_NAME_NULL(ProdExpPrefix + "000", "产品名称为空"),
     PRODUCT_MARKETPRICE_NULL(ProdExpPrefix + "001", "产品市场价为空"),
