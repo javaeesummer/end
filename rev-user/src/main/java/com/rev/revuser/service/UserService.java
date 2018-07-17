@@ -4,7 +4,6 @@ import com.rev.revuser.bean.SponsorBean;
 import com.rev.revuser.param.*;
 import com.rev.revuser.result.AttendorView;
 import com.rev.revuser.result.JudgeView;
-import com.rev.revuser.result.Result;
 import com.rev.revuser.result.UserView;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    Result login(LoginParam loginParam);
+    String login(LoginParam loginParam);
     /**
 
      *@描述 用户成为一个活动主办者(插入一张新表)
@@ -34,7 +33,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    Result register(RegisterParam registerParam);
+    String register(RegisterParam registerParam);
     /**
 
      *@描述 注册一个裁判用户 因为裁判用户是一个特殊的用户,所以包含了注册用户的信息,如果这个用户已经注册过了,那么就调用usertoJudge
@@ -48,9 +47,9 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    Result registerJudge(RegisterJudgeParam registerJudgeParam);
+    String registerJudge(RegisterJudgeParam registerJudgeParam);
 
-    Result registerAttendor(RegisterAttendorParam registerAttendorParam);
+    String registerAttendor(RegisterAttendorParam registerAttendorParam);
 
 
     /**
@@ -76,21 +75,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    SponsorBean toHoldActivity(HoldActivityParam holdActivityParam);
-    /**
-
-     *@描述 主从通用
-
-     *@参数
-
-     *@返回值
-
-     *@创建人  hxs
-
-     *@修改人和其它信息
-
-     */
-    SponsorBean addSponsor(SponsorBean sponsorBean);
+    SponsorBean toHoldActivity(UserView userView);
     /**
 
      *@描述 基础注册方法,除了主板放,注册得时候这样就行了,其他得都要在这个
@@ -190,5 +175,6 @@ public interface UserService {
 
     UserView getUserById(int userid);
 
+    SponsorBean toHoldActivity(UserParam userParam);
 
 }

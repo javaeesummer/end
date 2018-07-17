@@ -36,10 +36,7 @@ public enum ExpCodeEnum implements Serializable {
     NAME_NULL(UserExpPrefix + "015", "name为空"),
     LOCATIONID_NULL(UserExpPrefix + "016", "locationId为空"),
     LOCATIONUPDATEREQ_NULL(UserExpPrefix + "017", "LocationUpdateReq为空"),
-    PASSWORD_WRONG(UserExpPrefix + "016", "密码错误"),
-    SOMETHING_NULL(UserExpPrefix + "017", "用户名/密码/用户类型都不能为空"),
-    REGISTER_ERROR(UserExpPrefix + "018", "注册失败"),
-    USEREXIST(UserExpPrefix + "018", "用户已经存在"),
+
     /** Product模块异常 */
     PRODUCT_NAME_NULL(ProdExpPrefix + "000", "产品名称为空"),
     PRODUCT_MARKETPRICE_NULL(ProdExpPrefix + "001", "产品市场价为空"),
