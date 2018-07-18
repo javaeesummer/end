@@ -8,9 +8,9 @@ import java.io.Serializable;
  **/
 
 public class PaginationParam implements Serializable {
-    int pagenum;
-    int pagesize;
-    int limit1;
+    public int pagenum;
+    public int pagesize;
+    public int limit1;
 
     public int getPagenum() {
         return pagenum;

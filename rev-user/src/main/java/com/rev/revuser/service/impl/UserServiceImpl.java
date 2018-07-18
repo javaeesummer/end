@@ -188,15 +188,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ActivityBean> getOnePageActivity(PaginationParam paginationParam) {
-        return ActivityBeanMapper.getActivityList(paginationParam);
+    public List<ActivityBean> getOnePageActivity(ActivityPaginationParam activityPaginationParam) {
+        return ActivityBeanMapper.getActivityList(activityPaginationParam);
 //        System.out.println("aaa%%%%%%%");
 //          return ActivityBeanMapper.selectall();
     }
 
     @Override
-    public List<ActivityBean> getOnePageActivityByHostId(PaginationParam paginationParam, int hostId) {
-        return ActivityBeanMapper.getActivityList(paginationParam, hostId);
+    public List<ActivityBean> getOnePageActivityByHostId(ActivityPaginationParam activityPaginationParam) {
+        return ActivityBeanMapper.getActivityList(activityPaginationParam, activityPaginationParam.getHostId());
 //        return null;
     }
 

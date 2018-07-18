@@ -183,8 +183,8 @@ public interface UserService {
     List<ActivityBean> getAllActivity();
     List<ActivityBean> getActivityByHostId();
 
-    List<ActivityBean> getOnePageActivity(PaginationParam paginationParam);
-    List<ActivityBean> getOnePageActivityByHostId(PaginationParam paginationParam,int hostId);
+    List<ActivityBean> getOnePageActivity(ActivityPaginationParam activityPaginationParam);
+    List<ActivityBean> getOnePageActivityByHostId(ActivityPaginationParam activityPaginationParam);
 
 
     /**

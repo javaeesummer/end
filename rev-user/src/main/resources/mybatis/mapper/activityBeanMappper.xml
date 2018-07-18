@@ -18,15 +18,15 @@
     <select id="selectall" resultType="com.rev.revuser.bean.ActivityBean">
         select * from activity
     </select>
-    <select id="getActivityList"  resultType="com.rev.revuser.bean.ActivityBean">
+    <select id="getActivityList"   resultType="com.rev.revuser.bean.ActivityBean">
         select
         *
         from activity
-        <if test="hostId != null">
+        <if test="activityPaginationParam.hostId != 0">
           where
-          hostId = #{hostId,jdbcType=INTEGER}
+          hostId = #{activityPaginationParam.hostId,jdbcType=INTEGER}
         </if>
-        limit #{paginationParam.limit1,jdbcType=INTEGER},#{paginationParam.limit2,jdbcType=INTEGER}
+        limit #{activityPaginationParam.limit1,jdbcType=INTEGER},#{activityPaginationParam.limit2,jdbcType=INTEGER}
 
     </select>
     <select id="insertActivity" parameterType="com.rev.revuser.bean.ActivityBean">

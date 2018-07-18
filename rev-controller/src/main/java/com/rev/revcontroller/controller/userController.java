@@ -7,19 +7,14 @@ import com.rev.revuser.bean.ActivityBean;
 import com.rev.revuser.dao.ActivityBeanMapper;
 import com.rev.revuser.exception.CommonBizException;
 import com.rev.revuser.exception.ExpCodeEnum;
-import com.rev.revuser.param.LoginParam;
-import com.rev.revuser.param.PaginationParam;
-import com.rev.revuser.param.RegisterParam;
-import com.rev.revuser.param.UserParam;
+import com.rev.revuser.param.*;
 import com.rev.revuser.result.Result;
 import com.rev.revuser.service.UserService;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,13 +35,22 @@ public class userController {
     }
     @ResponseBody
     @RequestMapping(value ="/login", method = RequestMethod.POST)
-    public Result login(HttpServletRequest httpServletRequest,LoginParam loginParam){
+    public Result login(HttpServletRequest httpServletRequest,@RequestBody LoginParam loginParam){
         Result result=userService.login(loginParam);
         if(result.isSuccess()){
 //            httpSession.setAttribute("username",username);
         }
         return result;
     }
+    /**
+
+     *@描述 注册帐号（基本帐号）
+
+     *@参数  用户名　密码 用户类型
+
+     字段：username ,password,usertype
+     *url /register
+     */
     @ResponseBody
     @RequestMapping(value ="/register")
     public Result register(HttpServletRequest httpServletRequest,RegisterParam registerParam){
@@ -60,19 +64,19 @@ public class userController {
         return userService.register(registerParam);
     }
     @ResponseBody
-    @RequestMapping(value ="/getAcitivity",method = RequestMethod.POST)
-    public Result getOnePageActivity(HttpServletRequest httpServletRequest,PaginationParam paginationParam,Integer hostId){
-        if(paginationParam.getPagenum()<1){
+    @RequestMapping(value ="/getActivity",method = RequestMethod.POST)
+    public Result getOnePageActivity(HttpServletRequest httpServletRequest,@RequestBody ActivityPaginationParam activityPaginationParam){
+        if(activityPaginationParam.getPagenum()<1){
             CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.PAGENUM_ERROR);
             return Result.newFailureResult(commonBizException);
         }
-        paginationParam.setLimit1((paginationParam.getPagenum()-1)*paginationParam.getPagesize());
-        paginationParam.setLimit2(paginationParam.getLimit1()+paginationParam.getPagesize());
-        if(hostId==null){
-            return Result.newSuccessResult(userService.getOnePageActivity(paginationParam));
-        }else{
-            return Result.newSuccessResult(userService.getOnePageActivityByHostId(paginationParam,hostId));
-        }
+        activityPaginationParam.setLimit1((activityPaginationParam.getPagenum()-1)*activityPaginationParam.getPagesize());
+        activityPaginationParam.setLimit2(activityPaginationParam.getLimit1()+activityPaginationParam.getPagesize());
+//        if(activityPaginationParam.getHostId()==0){
+            return Result.newSuccessResult(userService.getOnePageActivity(activityPaginationParam));
+//        }else{
+//            return Result.newSuccessResult(userService.getOnePageActivityByHostId(activityPaginationParam));
+//        }
     }
     @ResponseBody
     @RequestMapping(value ="/holdAcitivity",method = RequestMethod.POST)
