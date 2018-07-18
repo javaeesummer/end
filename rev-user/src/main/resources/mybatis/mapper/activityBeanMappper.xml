@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rev.revuser.dao.ActivityBeanMapper" >
+    <resultMap id="BaseResultMap" type="com.rev.revuser.bean.ActivityBean">
+        <id column="activityId" property="userid" jdbcType="INTEGER"/>
+        <result column="hostId" property="hostId" jdbcType="INTEGER"/>
+        <result column="activityName" property="activityName" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="startTime" property="startTime" jdbcType="DATE"/>
+        <result column="endTime" property="endTime" jdbcType="DATE"/>
+        <result column="startTime" property="startTime" jdbcType="DATE"/>
+        <result column="conutStatus" property="conutStatus" jdbcType="INTEGER"/>
+        <result column="totalCount" property="totalCount" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        activityId, hostId, activityName, description, startTime, endTime, conutStatus, totalCount
+    </sql>
+    <select id="selectall" resultType="com.rev.revuser.bean.ActivityBean">
+        select * from activity
+    </select>
+    <select id="getActivityList"   resultType="com.rev.revuser.bean.ActivityBean">
+        select
+        *
+        from activity
+        <if test="activityPaginationParam.hostId != 0">
+          where
+          hostId = #{activityPaginationParam.hostId,jdbcType=INTEGER}
+        </if>
+        limit #{activityPaginationParam.limit1,jdbcType=INTEGER},#{activityPaginationParam.limit2,jdbcType=INTEGER}
+
+    </select>
+    <select id="insertActivity" parameterType="com.rev.revuser.bean.ActivityBean">
+        insert into activity
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="activityId !=null" >
+                activityId,
+            </if>
+            <if test="hostId != null" >
+                hostId,
+            </if>
+            <if test="activityName != null" >
+                activityName,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="startTime != null" >
+                startTime,
+            </if>
+            <if test="endTime != null" >
+                endTime,
+            </if>
+            <if test="conutStatus!= null" >
+                conutStatus,
+            </if>
+            <if test="totalCount != null" >
+                totalCount
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="activityId !=null" >
+                #{activityId,jdbcType=INTEGER},
+            </if>
+            <if test="hostId != null" >
+                #{hostId,jdbcType=INTEGER},
+            </if>
+            <if test="activityName != null" >
+                #{activityName,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null" >
+                #{startTime,jdbcType=DATE},
+            </if>
+            <if test="endTime != null" >
+                #{endTime,jdbcType=DATE},
+            </if>
+            <if test="conutStatus!= null" >
+                #{conutStatus,jdbcType=INTEGER},
+            </if>
+            <if test="totalCount != null" >
+                #{totalCount,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </select>
+</mapper>

@@ -27,4 +27,14 @@ public class RegisterParam implements Serializable{
     }
 
     String password;
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
+    String usertype;
 }

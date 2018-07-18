@@ -56,4 +56,16 @@ public class fileTest {
         activityParam.setAcctivityId(1);
         System.out.println(JSONArray.toJSONString(fileService.getAllFile(activityParam)));
     }
+    @Test
+    public void testUploadfile(){
+        FileParam fileParam=new FileParam();
+        Date date=new Date();
+        fileParam.setAttendorid(10);
+        fileParam.setSubmittime(date);
+        fileParam.setFilepath("sssssssss");
+        fileParam.setWorkname("作品2");
+        fileParam.setDescription("haode");
+        fileParam.setFileSize("20mb");
+        fileService.uploadFile(fileParam);
+    }
 }

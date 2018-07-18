@@ -62,6 +62,7 @@
             <property name="filePath" value="false"/>
             <property name="workName" value="false"/>
             <property name="description" value="false"/>
+            <property name="filesize" value="false"/>
         </table>
     </context>
 </generatorConfiguration>

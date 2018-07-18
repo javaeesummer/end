@@ -4,58 +4,60 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class works implements Serializable {
-    private Integer worksid;
+    private Integer worksId;
 
-    private Integer attendorid;
+    private Integer attendorId;
 
-    private Date submittime;
+    private Date submitTime;
 
-    private String filepath;
+    private String filePath;
 
-    private String workname;
+    private String workName;
 
     private String description;
+
+    private String fileSize;
 
     private static final long serialVersionUID = 1L;
 
     public Integer getWorksid() {
-        return worksid;
+        return worksId;
     }
 
     public void setWorksid(Integer worksid) {
-        this.worksid = worksid;
+        this.worksId = worksId;
     }
 
     public Integer getAttendorid() {
-        return attendorid;
+        return attendorId;
     }
 
     public void setAttendorid(Integer attendorid) {
-        this.attendorid = attendorid;
+        this.attendorId = attendorid;
     }
 
     public Date getSubmittime() {
-        return submittime;
+        return submitTime;
     }
 
     public void setSubmittime(Date submittime) {
-        this.submittime = submittime;
+        this.submitTime = submittime;
     }
 
     public String getFilepath() {
-        return filepath;
+        return filePath;
     }
 
     public void setFilepath(String filepath) {
-        this.filepath = filepath == null ? null : filepath.trim();
+        this.filePath = filepath == null ? null : filepath.trim();
     }
 
     public String getWorkname() {
-        return workname;
+        return workName;
     }
 
     public void setWorkname(String workname) {
-        this.workname = workname == null ? null : workname.trim();
+        this.workName = workname == null ? null : workname.trim();
     }
 
     public String getDescription() {
@@ -64,5 +66,13 @@ public class works implements Serializable {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String size) {
+        this.fileSize = fileSize;
     }
 }

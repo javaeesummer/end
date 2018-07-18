@@ -7,10 +7,10 @@ import java.io.Serializable;
  * @desprition 用来干嘛的呢, 也就是随便写写的
  **/
 
-public class LoginParam implements Serializable{
-    String username;
-    String password;
-    String usertype;
+public class    LoginParam implements Serializable{
+    public String username;
+    public String password;
+    public String usertype;
 
     public String getUsername() {
         return username;

@@ -18,7 +18,6 @@ public class FileServiceImp implements FileService {
     @Override
     public void uploadFile(FileParam file) {
         worksmapper.insertFile(file);
-
     }
     //删除作品
     @Override
@@ -28,7 +27,11 @@ public class FileServiceImp implements FileService {
     //修改作品
     @Override
     public void moddifyFile(FileParam file) {
-        worksmapper.updateWorksByAttendorid(file);
+         worksmapper.updateWorksByAttendorid(file);
+    }
+    @Override
+    public void moddifyNoFile(FileParam file){
+        worksmapper.updateWorksByAttendoridNofile(file);
     }
     //显示所有作品
     @Override
