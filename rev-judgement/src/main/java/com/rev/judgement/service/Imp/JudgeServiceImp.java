@@ -1,5 +1,6 @@
 package com.rev.judgement.service.Imp;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
@@ -11,7 +12,7 @@ import com.rev.judgement.dao.WorksInfoMapper;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.WorksInfo;
 import com.rev.judgement.service.JudgeService;
-import org.springframework.stereotype.Service;
+
 
 import javax.annotation.Resource;
 import java.text.DecimalFormat;

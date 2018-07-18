@@ -150,7 +150,7 @@ public class judgeController {
         return result;
     }
     @ResponseBody
-    @RequestMapping(value = "/getReviewByJudgeId",method = RequestMethod.POST)
+    @RequestMapping(value = "/getReviewByAttendorId",method = RequestMethod.POST)
     /**
      * @description 根据参赛者id查询其评论信息
      * @method  getReviewByAttendorId

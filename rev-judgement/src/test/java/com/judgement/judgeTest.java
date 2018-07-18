@@ -23,10 +23,6 @@ import javax.annotation.Resource;
 public class judgeTest {
     @Resource
     JudgeService judgeService;
-    @Resource
-    UserInfoMapper userInfoMapper;
-    @Resource
-    AttendorInfoMapper attendorInfoMapper;
     @Test
     public void getAttendorList(){
         System.out.print("*********************"+ JSONArray.toJSONString(judgeService.getAttendorList(1,1)));
