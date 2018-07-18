@@ -180,8 +180,6 @@ public interface UserService {
 
    /* SponsorBean toHoldActivity(UserParam userParam);*/
 
-    List<ActivityBean> getAllActivity();
-    List<ActivityBean> getActivityByHostId();
 
     List<ActivityBean> getOnePageActivity(ActivityPaginationParam activityPaginationParam);
     List<ActivityBean> getOnePageActivityByHostId(ActivityPaginationParam activityPaginationParam);

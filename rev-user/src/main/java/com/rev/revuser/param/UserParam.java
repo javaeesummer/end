@@ -13,5 +13,5 @@ public class UserParam implements Serializable {
         UserBean = userBean;
     }
 
-    UserBean UserBean;
+    public UserBean UserBean;
 }

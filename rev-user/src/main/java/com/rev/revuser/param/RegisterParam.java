@@ -8,7 +8,7 @@ import java.io.Serializable;
  **/
 
 public class RegisterParam implements Serializable{
-    String username;
+    public String username;
 
     public String getUsername() {
         return username;
@@ -26,7 +26,7 @@ public class RegisterParam implements Serializable{
         this.password = password;
     }
 
-    String password;
+    public String password;
 
     public String getUsertype() {
         return usertype;
@@ -36,5 +36,5 @@ public class RegisterParam implements Serializable{
         this.usertype = usertype;
     }
 
-    String usertype;
+    public String usertype;
 }

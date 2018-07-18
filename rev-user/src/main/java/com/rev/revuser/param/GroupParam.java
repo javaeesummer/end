@@ -8,9 +8,9 @@ import java.io.Serializable;
  **/
 
 public class GroupParam implements Serializable {
-    int activityid;
-    int groupid;
-    String groupname;
+    public int activityid;
+    public int groupid;
+    public String groupname;
 
     public int getActivityid() {
         return activityid;
