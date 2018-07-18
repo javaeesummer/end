@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
+@CrossOrigin
 @RestController
 @Component("userService")
 @RequestMapping("/user")
