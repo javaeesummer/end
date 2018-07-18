@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAutoConfiguration
 @SpringBootApplication
-//@EnableTransactionManagement
 @ComponentScan(basePackages={"com.rev.revuser"})
 @MapperScan("com.rev.revuser.dao")
 public class GaoxiControllerApplication {

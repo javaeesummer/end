@@ -53,7 +53,7 @@ public class userController {
      */
     @ResponseBody
     @RequestMapping(value ="/register")
-    public Result register(HttpServletRequest httpServletRequest,RegisterParam registerParam){
+    public Result register(HttpServletRequest httpServletRequest,@RequestBody RegisterParam registerParam){
         Result result=new Result();
         if(registerParam.getUsername()==null || registerParam.getPassword()==null || registerParam.getUsertype()==null){
             result.setSuccess(false);
@@ -62,6 +62,19 @@ public class userController {
             return result;
         }
         return userService.register(registerParam);
+    }
+    @ResponseBody
+    @RequestMapping(value ="/registerAttendor")
+    public Result registerAttendor(HttpServletRequest httpServletRequest,@RequestBody RegisterAttendorParam registerAttendorParam){
+//        Result result=new Result();
+//        if(registerParam.getUsername()==null || registerParam.getPassword()==null || registerParam.getUsertype()==null){
+//            result.setSuccess(false);
+//            result.setErrorCode(ExpCodeEnum.SOMETHING_NULL.getCode());
+//            result.setMessage(ExpCodeEnum.SOMETHING_NULL.getMessage());
+//            return result;
+//        }
+
+        return userService.registerAttendor(registerAttendorParam);
     }
     @ResponseBody
     @RequestMapping(value ="/getActivity",method = RequestMethod.POST)

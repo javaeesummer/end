@@ -8,9 +8,9 @@ import java.io.Serializable;
  **/
 
 public class    LoginParam implements Serializable{
-    public String username;
-    public String password;
-    public String usertype;
+    String username;
+     String password;
+     String usertype;
 
     public String getUsername() {
         return username;

@@ -11,31 +11,32 @@ import java.io.Serializable;
  **/
 
 public class RegisterAttendorParam implements Serializable {
-    /**
 
-     *@描述 因为我们注册的一个用户分为两部分,基础部分和特殊部分,所以两个类即可
 
-     *@创建人  hxs
+    public Integer userId;
+    public Integer activityId;
+    public String phoneNum;
 
-     *@修改人和其它信息
-
-     */
-    RegisterParam registerParam;
-    AttendorBean attendor;
-
-    public RegisterParam getRegisterParam() {
-        return registerParam;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setRegisterParam(RegisterParam registerParam) {
-        this.registerParam = registerParam;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public AttendorBean getAttendor() {
-        return attendor;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
-    public void setAttendor(AttendorBean attendor) {
-        this.attendor = attendor;
+    public Integer getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(Integer activityId) {
+        this.activityId = activityId;
     }
 }

@@ -178,20 +178,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ActivityBean> getAllActivity() {
-        return null;
-    }
-
-    @Override
-    public List<ActivityBean> getActivityByHostId() {
-        return null;
-    }
-
-    @Override
     public List<ActivityBean> getOnePageActivity(ActivityPaginationParam activityPaginationParam) {
         return ActivityBeanMapper.getActivityList(activityPaginationParam);
-//        System.out.println("aaa%%%%%%%");
-//          return ActivityBeanMapper.selectall();
     }
 
     @Override
@@ -213,19 +201,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result registerAttendor(RegisterAttendorParam registerAttendorParam) {
 
-        String string=this.checkLegalRegister(registerAttendorParam.getRegisterParam());
-    if(!string.equals("可以注册")){
-        CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.REGISTER_ERROR);
-        return Result.newFailureResult(commonBizException);
-    }
-    //本来可以在这一步就获取到Userid的 呜胡
-        this.register(registerAttendorParam.getRegisterParam());
-        AttendorBean attendorBean;
-        attendorBean=(AttendorBean)registerAttendorParam.getAttendor().clone();
-        UserBean userBean=UserBeanMapper.selectByUsername(registerAttendorParam.getRegisterParam().getUsername());
-        attendorBean.setUserid(userBean.getUserid());
-        AttendorBeanMapper.insert(attendorBean);
-        return null;
+        if(null==ActivityBeanMapper.selectByid(registerAttendorParam.getActivityId())){
+            CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.ACTIVITY_NOEXIST);
+            return Result.newFailureResult(commonBizException);
+        }
+        if(null==UserBeanMapper.selectByPrimaryKey(registerAttendorParam.getUserId())){
+            CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.USERID_NULL);
+            return Result.newFailureResult(commonBizException);
+        }
+        AttendorBean attendorBean_tmp=new AttendorBean();
+        attendorBean_tmp.setActivityid(registerAttendorParam.getActivityId());
+        attendorBean_tmp.setUserid(registerAttendorParam.getUserId());
+        if(AttendorBeanMapper.selectByOption(attendorBean_tmp)!=null){
+            CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.ACTIVITY_HASREGISTER);
+            return Result.newFailureResult(commonBizException);
+        }
+        AttendorBean attendorBean=new AttendorBean();
+        attendorBean.setUserid(registerAttendorParam.getUserId());
+        attendorBean.setActivityid(registerAttendorParam.getActivityId());
+        attendorBean.setPhonenum(registerAttendorParam.getPhoneNum());
+//        attendorBean.setAttendorgroupid(0);　似乎为null更为合适
+        AttendorBeanMapper.insertSelective(attendorBean);
+        return Result.newSuccessResult();
     }
 
 

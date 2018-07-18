@@ -18,6 +18,11 @@
     <select id="selectall" resultType="com.rev.revuser.bean.ActivityBean">
         select * from activity
     </select>
+
+    <select id="selectByid" parameterType="java.lang.Integer" resultType="com.rev.revuser.bean.ActivityBean">
+        select * from activity
+        where activityId = #{activityId,jdbcType=INTEGER}
+    </select>
     <select id="getActivityList"   resultType="com.rev.revuser.bean.ActivityBean">
         select
         *

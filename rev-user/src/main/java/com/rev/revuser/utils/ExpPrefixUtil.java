@@ -21,5 +21,7 @@ public class ExpPrefixUtil {
 
     /** Analysis模块异常码前缀 */
     public static final String AnlsExpPrefix = "50";
+    /** **/
+    public static final String ActivityExpPrefix= "60";
 
 }

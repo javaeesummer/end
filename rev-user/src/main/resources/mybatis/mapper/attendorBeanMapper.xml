@@ -47,6 +47,18 @@
       #{votenum,jdbcType=INTEGER}, #{endresult,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{attendorgroupid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER})
   </insert>
+  <!--为什么这里查出多条数据的时候会报错？-->
+  <select id="selectByOption" resultMap="BaseResultMap">
+    select * from attendor
+    <trim prefix="where"  suffixOverrides="AND" >
+      <if test="attendorBean.activityid != null" >
+        activityId = #{attendorBean.activityid,jdbcType=INTEGER} AND
+      </if>
+      <if test="attendorBean.userid != null" >
+        userId = #{attendorBean.userid,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </select>
   <insert id="insertSelective" parameterType="com.rev.revuser.bean.AttendorBean" >
     insert into attendor
     <trim prefix="(" suffix=")" suffixOverrides="," >

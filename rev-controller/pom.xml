@@ -52,17 +52,25 @@
 			<version>${dubbo-spring-boot}</version>
 		</dependency>
 
+
 		<!-- Spring Boot Web 依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<!--<exclusions>-->
-				<!--<exclusion>-->
-					<!--<groupId>org.springframework.boot</groupId>-->
-					<!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
-				<!--</exclusion>-->
-			<!--</exclusions>-->
+		<!--	<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>-->
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
 
 		<!-- Spring Boot Test 依赖 -->
 		<dependency>
@@ -100,6 +108,12 @@
             <artifactId>rev-judgement</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.rev</groupId>
+            <artifactId>rev-file</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
         <!--<dependency>-->
 			<!--<groupId>javax.servlet</groupId>-->
 			<!--<artifactId>servlet-api</artifactId>-->
@@ -111,7 +125,15 @@
 
 
 	<build>
+
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<classifier>exec</classifier>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

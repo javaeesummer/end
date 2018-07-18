@@ -11,13 +11,13 @@ public class AttendorBean implements Serializable,Cloneable {
         this.userBean = userBean;
     }
 
-    private UserBean userBean;
+    private UserBean userBean;//不在此表中，仅为方法用
 
-    private Integer attendorid;
+    private Integer attendorid;  //必须,但是是逐渐，自增
 
-    private Integer activityid;
+    private Integer activityid; //必须
 
-    private String phonenum;
+    private String phonenum; //必须
 
     private Integer votenum;
 
@@ -25,9 +25,9 @@ public class AttendorBean implements Serializable,Cloneable {
 
     private String status;
 
-    private Integer attendorgroupid;
+    private Integer attendorgroupid;//默认为０
 
-    private Integer userid;
+    private Integer userid;//必须
 
 
     /**

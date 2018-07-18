@@ -41,6 +41,9 @@ public enum ExpCodeEnum implements Serializable {
     REGISTER_ERROR(UserExpPrefix + "018", "注册失败"),
     USEREXIST(UserExpPrefix + "018", "用户已经存在"),
     PAGENUM_ERROR(UserExpPrefix+ "019","页数从１开始"),
+    /*　ACtivity模块异常*/
+    ACTIVITY_NOEXIST(ActivityExpPrefix+"001","活动不存在"),
+    ACTIVITY_HASREGISTER(ActivityExpPrefix+"002","已经报名参加，请勿重复报名"),
     /** Product模块异常 */
     PRODUCT_NAME_NULL(ProdExpPrefix + "000", "产品名称为空"),
     PRODUCT_MARKETPRICE_NULL(ProdExpPrefix + "001", "产品市场价为空"),
@@ -82,7 +85,7 @@ public enum ExpCodeEnum implements Serializable {
     PROCESSREQ_USERID_NULL(OrderExpPrefix + "006", "受理请求中的userId为空"),
     AllowStateList_NULL(OrderExpPrefix + "007", "幂等性检查所需的allowStateList为空"),
     ORDER_INSERT_REQ_NULL(OrderExpPrefix + "008", "创建订单的请求参数为空"),
-    USERID_NULL(OrderExpPrefix + "009", "UserId为空"),
+    USERID_NULL(OrderExpPrefix + "009", "UserId不存在"),
     PAYMODE_NULL(OrderExpPrefix + "010", "支付方式不能为空，且必须符合枚举规范"),
     LOCATION_NULL(OrderExpPrefix + "011", "收货地址为空"),
     PRODUCTIDCOUNT_NULL(OrderExpPrefix + "012", "prodIdCountMap为空"),
