@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rev.revuser.dao.GroupBeanMapper" >
+    <resultMap id="BaseResultMap" type="com.rev.revuser.bean.GroupBean" >
+        <id column="groupId" property="groupId" jdbcType="INTEGER" />
+        <result column="activityId" property="activityId" jdbcType="INTEGER" />
+        <result column="groupName" property="groupName" jdbcType="VARCHAR" />
+        </resultMap>
+    <sql id="Base_Column_List" >
+      groupId, activityId, groupName
+    </sql>
+    <insert id="insertActivityGroup" parameterType="com.rev.revuser.bean.GroupBean">
+        insert into groups
+        (activityId,groupName)
+        values(#{activityId,jdbcType=INTEGER},#{groupName,jdbcType=VARCHAR})
+    </insert>
+
+    <!--<insert id="insertActivityGroup">-->
+        <!--insert into group-->
+        <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+            <!--<if test="groupBean.activityId != null" >-->
+                <!--activityId,-->
+            <!--</if>-->
+            <!--<if test="groupBean.groupName != null" >-->
+                <!--groupName,-->
+            <!--</if>-->
+        <!--</trim>-->
+        <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+            <!--<if test="groupBean.activityId != null" >-->
+                <!--#{groupBean.activityId,jdbcType=INTEGER},-->
+            <!--</if>-->
+            <!--<if test="groupBean.groupName != null" >-->
+                <!--#{groupBean.groupName,jdbcType=VARCHAR},-->
+            <!--</if>-->
+        <!--</trim>-->
+    <!--</insert>-->
+</mapper>

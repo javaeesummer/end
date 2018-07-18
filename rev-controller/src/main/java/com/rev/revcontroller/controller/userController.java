@@ -4,7 +4,9 @@ package com.rev.revcontroller.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.rev.revuser.bean.ActivityBean;
+import com.rev.revuser.bean.GroupBean;
 import com.rev.revuser.dao.ActivityBeanMapper;
+import com.rev.revuser.dao.UserBeanMapper;
 import com.rev.revuser.exception.CommonBizException;
 import com.rev.revuser.exception.ExpCodeEnum;
 import com.rev.revuser.param.*;
@@ -35,7 +37,7 @@ public class userController {
     }
     @ResponseBody
     @RequestMapping(value ="/login", method = RequestMethod.POST)
-    public Result login(HttpServletRequest httpServletRequest,@RequestBody LoginParam loginParam){
+    public Result login(HttpServletRequest httpServletRequest,LoginParam loginParam){
         Result result=userService.login(loginParam);
         if(result.isSuccess()){
 //            httpSession.setAttribute("username",username);
@@ -53,7 +55,7 @@ public class userController {
      */
     @ResponseBody
     @RequestMapping(value ="/register")
-    public Result register(HttpServletRequest httpServletRequest,@RequestBody RegisterParam registerParam){
+    public Result register(HttpServletRequest httpServletRequest,RegisterParam registerParam){
         Result result=new Result();
         if(registerParam.getUsername()==null || registerParam.getPassword()==null || registerParam.getUsertype()==null){
             result.setSuccess(false);
@@ -65,20 +67,12 @@ public class userController {
     }
     @ResponseBody
     @RequestMapping(value ="/registerAttendor")
-    public Result registerAttendor(HttpServletRequest httpServletRequest,@RequestBody RegisterAttendorParam registerAttendorParam){
-//        Result result=new Result();
-//        if(registerParam.getUsername()==null || registerParam.getPassword()==null || registerParam.getUsertype()==null){
-//            result.setSuccess(false);
-//            result.setErrorCode(ExpCodeEnum.SOMETHING_NULL.getCode());
-//            result.setMessage(ExpCodeEnum.SOMETHING_NULL.getMessage());
-//            return result;
-//        }
-
+    public Result registerAttendor(HttpServletRequest httpServletRequest,RegisterAttendorParam registerAttendorParam){
         return userService.registerAttendor(registerAttendorParam);
     }
     @ResponseBody
     @RequestMapping(value ="/getActivity",method = RequestMethod.POST)
-    public Result getOnePageActivity(HttpServletRequest httpServletRequest,@RequestBody ActivityPaginationParam activityPaginationParam){
+    public Result getOnePageActivity(HttpServletRequest httpServletRequest,ActivityPaginationParam activityPaginationParam){
         if(activityPaginationParam.getPagenum()<1){
             CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.PAGENUM_ERROR);
             return Result.newFailureResult(commonBizException);
@@ -95,5 +89,26 @@ public class userController {
     @RequestMapping(value ="/holdAcitivity",method = RequestMethod.POST)
     public Result holdActivity(HttpServletRequest httpServletRequest, ActivityBean activityBean){
         return userService.toHoldActivity(activityBean);
+    }
+    /**
+
+     *@描述 初始化，批量创建组，组名默认是1，2，3，4．．．
+     *@参数
+     *@返回值
+     *@创建人  hxs
+     *@修改人和其它信息
+
+     */
+    @ResponseBody
+    @RequestMapping(value ="/MakeActivityGroup",method = RequestMethod.POST)
+    public Result MakeActivityGroup(HttpServletRequest httpServletRequest, MakeGroupParam param){
+        //因为分组表里没有每组多少人这个字段....
+        for(int i=0;i<param.getGroupnum();i++){
+            GroupBean groupBean=new GroupBean();
+            groupBean.setActivityId(param.getActivityId());
+            groupBean.setGroupName(""+(i+1));
+            userService.setGroup(groupBean);
+        }
+        return null;
     }
 }

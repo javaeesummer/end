@@ -2,10 +2,7 @@ package com.rev.revuser.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.rev.revuser.bean.*;
-import com.rev.revuser.dao.ActivityBeanMapper;
-import com.rev.revuser.dao.AttendorBeanMapper;
-import com.rev.revuser.dao.JudgeBeanMapper;
-import com.rev.revuser.dao.UserBeanMapper;
+import com.rev.revuser.dao.*;
 import com.rev.revuser.exception.CommonBizException;
 import com.rev.revuser.exception.ExpCodeEnum;
 import com.rev.revuser.param.*;
@@ -29,6 +26,8 @@ public class UserServiceImpl implements UserService {
     AttendorBeanMapper AttendorBeanMapper;
     @Resource
     ActivityBeanMapper ActivityBeanMapper;
+    @Resource
+    GroupBeanMapper GroupBeanMapper;
 //　　todo 事务事务 何苦事物
     @Override
     public Result login(LoginParam loginParam) {
@@ -164,6 +163,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean setGroupId(List<GroupParam> groupParamList) {
         return null;
+    }
+
+    @Override
+    public Boolean setGroup(GroupBean groupBean) {
+        GroupBeanMapper.insertActivityGroup(groupBean);
+        return true;
     }
 
 

@@ -1,6 +1,7 @@
 package com.rev.revuser.service;
 
 import com.rev.revuser.bean.ActivityBean;
+import com.rev.revuser.bean.GroupBean;
 import com.rev.revuser.bean.SponsorBean;
 import com.rev.revuser.param.*;
 import com.rev.revuser.result.AttendorView;
@@ -175,7 +176,7 @@ public interface UserService {
 
      */
     Boolean setGroupId(List<GroupParam> groupParamList);
-
+    Boolean setGroup(GroupBean groupBean);
     UserView getUserById(int userid);
 
     SponsorBean toHoldActivity(UserParam userParam);

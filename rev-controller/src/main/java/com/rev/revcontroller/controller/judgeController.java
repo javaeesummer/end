@@ -9,7 +9,7 @@ import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.bean.WorksInfo;
 import com.rev.judgement.service.JudgeService;
-import com.rev.revfile.param.FileParam;
+//import com.rev.revfile.param.FileParam;
 import com.rev.revuser.result.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
