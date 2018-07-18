@@ -171,11 +171,13 @@ public class UserServiceImpl implements UserService {
     public UserView getUserById(int userid) {
         return null;
     }
+/*
 
     @Override
     public SponsorBean toHoldActivity(UserParam userParam) {
         return null;
     }
+*/
 
     @Override
     public List<ActivityBean> getAllActivity() {

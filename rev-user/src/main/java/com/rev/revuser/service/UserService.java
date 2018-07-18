@@ -178,7 +178,7 @@ public interface UserService {
 
     UserView getUserById(int userid);
 
-    SponsorBean toHoldActivity(UserParam userParam);
+   /* SponsorBean toHoldActivity(UserParam userParam);*/
 
     List<ActivityBean> getAllActivity();
     List<ActivityBean> getActivityByHostId();

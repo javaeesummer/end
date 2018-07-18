@@ -113,7 +113,7 @@ public class FileController {
             System.out.println("ppppp"+param.getWorkname());
             param.setSubmittime(new Date());
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-            File f = new File("\\file"+ fmt.format(new Date()),param.getFile().getOriginalFilename());
+            File f = new File("/file/"+ fmt.format(new Date()),param.getFile().getOriginalFilename());
             if(!f.getParentFile().exists()){
                 f.getParentFile().mkdirs();
             }
@@ -181,7 +181,7 @@ public class FileController {
         }
 //        long startTime = System.currentTimeMillis();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        File f = new File("\\file"+ fmt.format(new Date()),param.getFile().getOriginalFilename());
+        File f = new File("/file/"+ fmt.format(new Date()),param.getFile().getOriginalFilename());
         if(!f.getParentFile().exists()){
             f.getParentFile().mkdirs();
         }
