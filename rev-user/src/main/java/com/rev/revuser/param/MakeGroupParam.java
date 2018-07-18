@@ -10,8 +10,8 @@ import java.io.Serializable;
 public class MakeGroupParam implements Serializable{
 
 
-    int activityId;
-    int groupnum;
+    private int activityId;
+    private int groupnum;
     public int getActivityId() {
         return activityId;
     }

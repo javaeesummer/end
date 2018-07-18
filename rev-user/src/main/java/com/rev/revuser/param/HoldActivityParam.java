@@ -10,5 +10,5 @@ import java.io.Serializable;
  **/
 
 public class HoldActivityParam implements Serializable {
-    ActivityBean activityBean;
+   private ActivityBean activityBean;
 }

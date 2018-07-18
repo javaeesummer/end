@@ -8,8 +8,8 @@ import java.io.Serializable;
  **/
 
 public class RegisterJudgeParam implements Serializable{
-    RegisterParam registerParam;
-    int activityid;
+    private RegisterParam registerParam;
+    private int activityid;
 
     public RegisterParam getRegisterParam() {
         return registerParam;

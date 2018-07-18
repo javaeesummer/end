@@ -13,9 +13,9 @@ import java.io.Serializable;
 public class RegisterAttendorParam implements Serializable {
 
 
-    public Integer userId;
-    public Integer activityId;
-    public String phoneNum;
+    private Integer userId;
+    private Integer activityId;
+    private String phoneNum;
 
     public Integer getUserId() {
         return userId;

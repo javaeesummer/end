@@ -16,5 +16,5 @@ public class ActivityPaginationParam extends PaginationParam implements Serializ
         this.hostId = hostId;
     }
 
-    public int hostId;
+    private int hostId;
 }
