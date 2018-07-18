@@ -1,5 +1,6 @@
 package com.rev.judgement.service.Imp;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
@@ -11,7 +12,7 @@ import com.rev.judgement.dao.WorksInfoMapper;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.WorksInfo;
 import com.rev.judgement.service.JudgeService;
-import org.springframework.stereotype.Service;
+
 
 import javax.annotation.Resource;
 import java.text.DecimalFormat;
@@ -58,7 +59,6 @@ public class JudgeServiceImp implements JudgeService{
             reqAttendorInfo.setUserid(attendorInfo.getUserid());
             reqAttendorInfo.setVotenum(attendorInfo.getVotenum());
             reqAttendorInfo.setUsername(userInfoMapper.getUserByUserId(attendorInfo.getUserid()).getUsername());
-
             list.add(reqAttendorInfo);
         }
         return list;
@@ -77,11 +77,16 @@ public class JudgeServiceImp implements JudgeService{
         int result=0;
         for (ReviewInfo reviewInfo:reviewInfoMapper.getReviewByJudgeId(param.getAttendorId()))
         {
-            result=result+Integer.parseInt(reviewInfo.getResult());
+            if(reviewInfo.getResult()==null)
+            { result=result+0;i--;}
+            else
+            {result=result+Integer.parseInt(reviewInfo.getResult());}
             i++;
         }
+        if(i==0)
+        {return "0";}
         DecimalFormat df = new DecimalFormat("00.00");//格式化小数
-    String num = df.format((float)result/i);//返回的是String类型
+        String num = df.format((float)result/i);//返回的是String类型
         return num;
 }
     public int modifyEndResult(AttendorParam param)

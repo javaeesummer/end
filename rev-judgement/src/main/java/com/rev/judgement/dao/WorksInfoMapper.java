@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface WorksInfoMapper {
     List<WorksInfo> getWorksDetail(@Param("attendorId") int attendorId);
+
 }

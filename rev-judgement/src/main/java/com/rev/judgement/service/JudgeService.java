@@ -13,7 +13,7 @@ public interface JudgeService{
     /**
     * @description 评委显示的同一分组的参赛者记录表
      * @method  getAttendorList
-     * @param activityId
+     * @param activityId,groupId
     * @param groupId
       * @return java.util.List<com.rev.judgement.bean.AttendorInfo>
       * @date: 2018/7/13 22:39
@@ -50,7 +50,7 @@ public interface JudgeService{
      **/
     int modifyReview(ReviewInfo reviewInfo);
     /**
-     * @description 参赛者看到的参赛者的列表，包括票数,成绩
+     * @description 看到的参赛者的列表，包括票数,成绩
      * @method  showAllAttendor
      * @param
      * @return
@@ -79,7 +79,7 @@ public interface JudgeService{
       /**
        * @description 计算某参赛者的成绩返回String
        * @method
-       * @param attendorId
+       * @param param
        * @return
        * @date: 2018/7/16 23:04
        * @author:DKC
@@ -88,7 +88,7 @@ public interface JudgeService{
       /**
        * @description 更新attendor表中最终成绩
        * @method
-       * @param endResult,attendorId
+       * @param param
        * @return
        * @date: 2018/7/16 23:17
        * @author:DKC
