@@ -4,6 +4,7 @@ package com.rev.revcontroller.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.rev.revuser.bean.ActivityBean;
+import com.rev.revuser.bean.ActivityNodeBean;
 import com.rev.revuser.bean.GroupBean;
 import com.rev.revuser.dao.ActivityBeanMapper;
 import com.rev.revuser.dao.UserBeanMapper;
@@ -13,6 +14,7 @@ import com.rev.revuser.param.*;
 import com.rev.revuser.result.Result;
 import com.rev.revuser.service.UserService;
 
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -100,10 +102,34 @@ public class userController {
 
      */
     @ResponseBody
-    @RequestMapping(value ="/holdAcitivity",method = RequestMethod.POST)
-    public Result holdActivity(HttpServletRequest httpServletRequest,HoldActivityParam holdActivityParam){
-        return userService.toHoldActivity(holdActivityParam);
+    @RequestMapping(value ="/holdActivity",method = RequestMethod.POST)
+    public Result holdActivity(HttpServletRequest httpServletRequest,HoldActivityParam param){
+        ActivityBean activityBean=userService.toHoldActivity(param);
+        if(activityBean==null){
+            CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.SEARCH_NULL);
+            return Result.newFailureResult(commonBizException);
+        }
+        if(param.getUpload().equals("是")){
+            ActivityNodeBean activityNodeBean=new ActivityNodeBean();
+            activityNodeBean.setActivityId(activityBean.getActivityId());
+            activityNodeBean.setPriority(3);
+            userService.addActivityNode(activityNodeBean);
+        }
+        if(param.getVote().equals("是")){
+            ActivityNodeBean activityNodeBean=new ActivityNodeBean();
+            activityNodeBean.setActivityId(activityBean.getActivityId());
+            activityNodeBean.setPriority(4);
+            userService.addActivityNode(activityNodeBean);
+        }
+        if(param.getJudge().equals("是")){
+            ActivityNodeBean activityNodeBean=new ActivityNodeBean();
+            activityNodeBean.setActivityId(activityBean.getActivityId());
+            activityNodeBean.setPriority(5);
+            userService.addActivityNode(activityNodeBean);
+        }
+        return Result.newSuccessResult();
     }
+
     /**
 
      *@描述 初始化，批量创建组，组名默认是1，2，3，4．．．

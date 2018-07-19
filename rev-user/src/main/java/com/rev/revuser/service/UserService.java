@@ -1,6 +1,7 @@
 package com.rev.revuser.service;
 
 import com.rev.revuser.bean.ActivityBean;
+import com.rev.revuser.bean.ActivityNodeBean;
 import com.rev.revuser.bean.GroupBean;
 import com.rev.revuser.bean.SponsorBean;
 import com.rev.revuser.param.*;
@@ -78,7 +79,8 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    Result toHoldActivity(HoldActivityParam holdActivityParam);
+    ActivityBean toHoldActivity(HoldActivityParam holdActivityParam);
+    Result addActivityNode(ActivityNodeBean activityNodeBean);
     /**
 
      *@描述 基础注册方法,除了主板放,注册得时候这样就行了,其他得都要在这个

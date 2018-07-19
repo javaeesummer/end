@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rev.revuser.dao.ActivityNodeBeanMapper" >
+    <resultMap id="BaseResultMap" type="com.rev.revuser.bean.ActivityNodeBean">
+        <id column="activityPointsId" property="activityPointsId" jdbcType="INTEGER"/>
+        <result column="activityId" property="activityId" jdbcType="INTEGER"/>
+        <result column="priority" property="priority" jdbcType="INTEGER"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="startTime" property="startTime" jdbcType="DATE"/>
+        <result column="endTime" property="endTime" jdbcType="DATE"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        activityPointsId, activityId, priority, description, startTime, endTime
+    </sql>
+    <!--<select id="selectall" resultType="com.rev.revuser.bean.ActivityBean">-->
+        <!--select * from activity-->
+    <!--</select>-->
+
+    <!--<select id="selectByid" parameterType="java.lang.Integer" resultType="com.rev.revuser.bean.ActivityBean">-->
+        <!--select * from activity-->
+        <!--where activityId = #{activityId,jdbcType=INTEGER}-->
+    <!--</select>-->
+    <!--<select id="getActivityList"   resultType="com.rev.revuser.bean.ActivityBean">-->
+        <!--select-->
+        <!--*-->
+        <!--from activity-->
+        <!--<if test="activityPaginationParam.hostId != 0">-->
+            <!--where-->
+            <!--hostId = #{activityPaginationParam.hostId,jdbcType=INTEGER}-->
+        <!--</if>-->
+        <!--limit #{activityPaginationParam.limit1,jdbcType=INTEGER},#{activityPaginationParam.limit2,jdbcType=INTEGER}-->
+
+    <!--</select>-->
+    <insert id="insertActivityNode" useGeneratedKeys="true" keyProperty="activityId" parameterType="com.rev.revuser.bean.ActivityNodeBean">
+        insert into activity_points
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="activityId !=null" >
+                activityId,
+            </if>
+            <if test="priority != null" >
+                priority,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="startTime != null" >
+                startTime,
+            </if>
+            <if test="endTime != null" >
+                endTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="activityId !=null" >
+                #{activityId,jdbcType=INTEGER},
+            </if>
+            <if test="priority != null" >
+                #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null" >
+                #{startTime,jdbcType=DATE},
+            </if>
+            <if test="endTime != null" >
+                #{endTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+</mapper>
