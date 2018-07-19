@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
+import com.rev.judgement.Req.ReqAttendorList;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.dao.AttendorInfoMapper;
 import com.rev.judgement.dao.ReviewInfoMapper;
@@ -93,5 +94,11 @@ public class JudgeServiceImp implements JudgeService{
     {
         return attendorInfoMapper.modifyEndResultByAttendorId(param.getAttendorId(),param.getEndResult());
     }
-
+    public Boolean isReviewed(JudgeParam param)
+    {
+        if(reviewInfoMapper.isReviewed(param.getAttendorId(),param.getJudgeId()).isEmpty())
+        { return false;}
+        else
+        { return true;}
+    }
 }

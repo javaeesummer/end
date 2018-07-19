@@ -3,6 +3,7 @@ package com.rev.judgement.service;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
+import com.rev.judgement.Req.ReqAttendorList;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.bean.WorksInfo;
@@ -94,6 +95,14 @@ public interface JudgeService{
        * @author:DKC
        **/
     int modifyEndResult(AttendorParam param);
-
-
+    /**
+     * @description  判断评委是否评了某参赛者
+     * @method
+     * @param
+     * @return
+     * @date: 2018/7/19 10:47
+     * @author:DKC
+     **/
+    Boolean isReviewed(JudgeParam param);
+   // List<ReqAttendorList> getReqAttendorList(int activityId,int groupId);
 }

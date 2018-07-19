@@ -3,8 +3,11 @@ package com.judgement;
 import com.rev.application.controllerApplication;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
+import com.rev.judgement.Req.ReqAttendorList;
+import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.dao.AttendorInfoMapper;
+import com.rev.judgement.dao.ReviewInfoMapper;
 import com.rev.judgement.dao.UserInfoMapper;
 import com.rev.judgement.service.Imp.JudgeServiceImp;
 import com.rev.judgement.service.JudgeService;
@@ -17,12 +20,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = controllerApplication.class)
 public class judgeTest {
     @Resource
     JudgeService judgeService;
+    @Resource
+    ReviewInfoMapper reviewInfoMapper;
     @Test
     public void getAttendorList(){
         System.out.print("*********************"+ JSONArray.toJSONString(judgeService.getAttendorList(1,1)));
@@ -81,6 +90,21 @@ public class judgeTest {
         param.setAttendorId(1);
         param.setEndResult("200");
         System.out.print("*********************"+ judgeService.modifyEndResult(param));
+    }
+    @Test
+    public void isReviewed()
+    {
+        JudgeParam param=new JudgeParam();
+        param.setAttendorId(1);
+        param.setJudgeId(2);
+        System.out.println(judgeService.isReviewed(param));
+    }
+    @Test
+    public void reviewmap()
+    {
+
+       System.out.println(reviewInfoMapper.isReviewed(1,2).isEmpty());
+
     }
 
 }

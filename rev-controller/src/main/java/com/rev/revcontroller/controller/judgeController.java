@@ -5,17 +5,19 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
+import com.rev.judgement.Req.ReqAttendorList;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.bean.WorksInfo;
 import com.rev.judgement.service.JudgeService;
-//import com.rev.revfile.param.FileParam;
+
 import com.rev.revuser.result.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -38,10 +40,23 @@ public class judgeController {
      * @date: 2018/7/17 9:53
      * @author:DKC
      **/
-    public Result<List<AttendorInfo>> getAttendorList(HttpServletResponse response, HttpServletRequest request, JudgeParam param)
+    public Result<List<ReqAttendorList>> getAttendorList(HttpServletResponse response, HttpServletRequest request, JudgeParam param)
     {
-        Result<List<AttendorInfo>> result=new Result<List<AttendorInfo>>();
-        result.setData(judgeService.getAttendorList(param.getActivityId(),param.getGroupId()));
+        Result<List<ReqAttendorList>> result=new Result<List<ReqAttendorList>>();
+        List<ReqAttendorList> list=new ArrayList<ReqAttendorList>();
+        ReqAttendorList reqAttendorList=new ReqAttendorList();
+        for (AttendorInfo attendorInfo:judgeService.getAttendorList(param.getActivityId(),param.getGroupId()))
+        {
+            reqAttendorList.setAttendorid(attendorInfo.getAttendorid());
+            String workname=judgeService.getWorksDetail(attendorInfo.getAttendorid()).get(0).getWorkname();
+            reqAttendorList.setWorkname(workname);
+            JudgeParam param1=new JudgeParam();
+            param1.setAttendorId(attendorInfo.getAttendorid());
+            param1.setJudgeId(param.getJudgeId());
+            reqAttendorList.setIfjudged(judgeService.isReviewed(param1));
+            list.add(reqAttendorList);
+        }
+        result.setData(list);
         result.setSuccess(true);
         return result;
     }

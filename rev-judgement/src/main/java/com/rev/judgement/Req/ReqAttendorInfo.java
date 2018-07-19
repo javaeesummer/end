@@ -1,6 +1,8 @@
 package com.rev.judgement.Req;
 
-public class ReqAttendorInfo {
+import java.io.Serializable;
+
+public class ReqAttendorInfo implements Serializable {
     private Integer userid;
     private String username;
     private Integer activityid;

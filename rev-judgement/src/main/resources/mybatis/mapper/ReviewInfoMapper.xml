@@ -9,6 +9,9 @@
     <select id="getReviewByAttendorId" resultType="com.rev.judgement.bean.ReviewInfo">
         SELECT * from review WHERE attendorId=#{attendorId}
     </select>
+    <select id="isReviewed" resultType="com.rev.judgement.bean.ReviewInfo">
+        SELECT * from review WHERE attendorId=#{attendorId} AND judgeId=#{judgeId}
+    </select>
   <insert id="addReview" parameterType="com.rev.judgement.bean.ReviewInfo">
     insert into review (attendorId, judgeId)
     values (#{attendorid,jdbcType=INTEGER},#{judgeid,jdbcType=INTEGER})
