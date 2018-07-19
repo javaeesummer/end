@@ -2,7 +2,9 @@ package com.rev.judgement.Param;
 
 import com.rev.judgement.bean.ReviewInfo;
 
-public class JudgeParam {
+import java.io.Serializable;
+
+public class JudgeParam implements Serializable {
     int judgeId;
     int activityId;
     int attendorId;

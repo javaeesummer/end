@@ -1,6 +1,8 @@
 package com.rev.judgement.Param;
 
-public class AttendorParam {
+import java.io.Serializable;
+
+public class AttendorParam implements Serializable {
     int attendorId;
     String endResult;
 

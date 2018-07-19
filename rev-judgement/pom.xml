@@ -6,7 +6,7 @@
 	<groupId>com.rev</groupId>
 	<artifactId>rev-judgement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>rev-judgement</name>
 	<description></description>
