@@ -34,7 +34,7 @@
         limit #{activityPaginationParam.limit1,jdbcType=INTEGER},#{activityPaginationParam.limit2,jdbcType=INTEGER}
 
     </select>
-    <select id="insertActivity" parameterType="com.rev.revuser.bean.ActivityBean">
+    <insert id="insertActivity" useGeneratedKeys="true" keyProperty="activityId" parameterType="com.rev.revuser.bean.ActivityBean">
         insert into activity
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="activityId !=null" >
@@ -88,5 +88,5 @@
                 #{totalCount,jdbcType=INTEGER},
             </if>
         </trim>
-    </select>
+    </insert>
 </mapper>

@@ -78,7 +78,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
-    Result toHoldActivity(ActivityBean activityBean);
+    Result toHoldActivity(HoldActivityParam holdActivityParam);
     /**
 
      *@描述 基础注册方法,除了主板放,注册得时候这样就行了,其他得都要在这个

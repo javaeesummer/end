@@ -85,10 +85,23 @@ public class userController {
 //            return Result.newSuccessResult(userService.getOnePageActivityByHostId(activityPaginationParam));
 //        }
     }
+    /**
+
+     *@描述 注册一个活动　除了活动表　也将为企业用户注册一张sponsor表　
+
+     *@参数
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
     @ResponseBody
     @RequestMapping(value ="/holdAcitivity",method = RequestMethod.POST)
-    public Result holdActivity(HttpServletRequest httpServletRequest, ActivityBean activityBean){
-        return userService.toHoldActivity(activityBean);
+    public Result holdActivity(HttpServletRequest httpServletRequest,HoldActivityParam holdActivityParam){
+        return userService.toHoldActivity(holdActivityParam);
     }
     /**
 
@@ -109,6 +122,13 @@ public class userController {
             groupBean.setGroupName(""+(i+1));
             userService.setGroup(groupBean);
         }
+        return Result.newSuccessResult();
+    }
+
+    @ResponseBody
+    @RequestMapping(value ="/nextNode",method = RequestMethod.POST)
+    public Result NextNode(HttpServletRequest httpServletRequest){
+
         return null;
     }
 }

@@ -3,6 +3,7 @@ package com.rev.revuser.param;
 import com.rev.revuser.bean.ActivityBean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author hxs
@@ -10,5 +11,59 @@ import java.io.Serializable;
  **/
 
 public class HoldActivityParam implements Serializable {
-   private ActivityBean activityBean;
+   int userId;
+   String activityName;
+   String description;
+   String startTime; //date传送有点问题
+   String endTime;
+   int totalCount;//总共选了几个节点
+
+   public int getUserId() {
+      return userId;
+   }
+
+   public void setUserId(int userId) {
+      this.userId = userId;
+   }
+
+   public String getActivityName() {
+      return activityName;
+   }
+
+   public void setActivityName(String activityName) {
+      this.activityName = activityName;
+   }
+
+   public String getDescription() {
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
+   }
+
+   public String getStartTime() {
+      return startTime;
+   }
+
+   public void setStartTime(String startTime) {
+      this.startTime = startTime;
+   }
+
+   public String getEndTime() {
+      return endTime;
+   }
+
+   public void setEndTime(String endTime) {
+      this.endTime = endTime;
+   }
+
+
+   public int getTotalCount() {
+      return totalCount;
+   }
+
+   public void setTotalCount(int totalCount) {
+      this.totalCount = totalCount;
+   }
 }

@@ -13,11 +13,25 @@ public class SponsorBean implements Serializable ,Cloneable{
 
     private UserBean userBean;
 
-    private Integer hostid;
+    private Integer hostid; //主键
 
     private Integer uerid;
 
     private Integer companyid;
+
+    private Integer activityId;
+
+    public Integer getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(Integer activityId) {
+        this.activityId = activityId;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     private static final long serialVersionUID = 1L;
 

@@ -103,11 +103,11 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.2</version>
 		</dependency>
-        <dependency>
-            <groupId>com.rev</groupId>
-            <artifactId>rev-judgement</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.rev</groupId>-->
+            <!--<artifactId>rev-judgement</artifactId>-->
+            <!--<version>0.0.1-SNAPSHOT</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.rev</groupId>
             <artifactId>rev-file</artifactId>

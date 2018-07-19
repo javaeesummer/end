@@ -11,6 +11,8 @@ import com.rev.revuser.result.JudgeView;
 import com.rev.revuser.result.Result;
 import com.rev.revuser.result.UserView;
 import com.rev.revuser.service.UserService;
+
+import javax.annotation.RegEx;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,10 @@ public class UserServiceImpl implements UserService {
     ActivityBeanMapper ActivityBeanMapper;
     @Resource
     GroupBeanMapper GroupBeanMapper;
+    @Resource
+    CompanyUserBeanMapper CompanyUserBeanMapper;
+    @Resource
+    SponsorBeanMapper sponsorBeanMapper;
 //　　todo 事务事务 何苦事物
     @Override
     public Result login(LoginParam loginParam) {
@@ -63,8 +69,30 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public Result toHoldActivity(ActivityBean activityBean) {
+    public Result toHoldActivity(HoldActivityParam holdActivityParam) {
+        SponsorBean sponsorBean=new SponsorBean();
+        CompanyUserBean selectOption=new CompanyUserBean();
+        selectOption.setUserId(holdActivityParam.getUserId());
+        CompanyUserBean companyUserBean=CompanyUserBeanMapper.selectByOption(selectOption);
+        if(companyUserBean==null){
+            CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.SEARCH_NULL);
+            return  Result.newFailureResult(commonBizException);
+        }
+        sponsorBean.setCompanyid(companyUserBean.getCompanyId());
+        sponsorBean.setUerid(companyUserBean.getUserId());
+        sponsorBean.setActivityId(1);
+        sponsorBeanMapper.insert(sponsorBean);
+        ActivityBean activityBean=new ActivityBean();
+        activityBean.setActivityName(holdActivityParam.getActivityName());
+        activityBean.setDescription(holdActivityParam.getDescription());
+        activityBean.setConutStatus(0);
+        activityBean.setTotalCount(holdActivityParam.getTotalCount());
+        activityBean.setStartTime(holdActivityParam.getStartTime());
+        activityBean.setEndTime(holdActivityParam.getEndTime());
+        activityBean.setHostId(sponsorBean.getHostid());
         ActivityBeanMapper.insertActivity(activityBean);
+        sponsorBean.setActivityId(activityBean.getActivityId());
+        sponsorBeanMapper.updateByPrimaryKey(sponsorBean);
         return Result.newSuccessResult();
     }
 

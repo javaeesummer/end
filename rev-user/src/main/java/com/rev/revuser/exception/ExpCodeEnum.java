@@ -16,6 +16,7 @@ public enum ExpCodeEnum implements Serializable {
     SESSION_NULL(ComExpPrefix + "004", "请求头中SessionId不存在"),
     HTTP_REQ_METHOD_ERROR(ComExpPrefix + "005", "HTTP请求方法不正确"),
     JSONERROR(ComExpPrefix + "006", "JSON解析异常"),
+    SEARCH_NULL(ComExpPrefix + "007", "所输入参数不存在于数据库中"),
 
     /** User模块异常 */
     USERNAME_NULL(UserExpPrefix + "000", "用户名为空"),
