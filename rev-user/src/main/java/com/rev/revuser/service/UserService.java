@@ -183,7 +183,8 @@ public interface UserService {
 
    /* SponsorBean toHoldActivity(UserParam userParam);*/
 
-
+    int getActivityCount(Integer hostId);
+    ActivityBean getActivityId(int activityId);
     List<ActivityBean> getOnePageActivity(ActivityPaginationParam activityPaginationParam);
     List<ActivityBean> getOnePageActivityByHostId(ActivityPaginationParam activityPaginationParam);
 

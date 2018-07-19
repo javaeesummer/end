@@ -213,6 +213,18 @@ public class UserServiceImpl implements UserService {
     public UserView getUserById(int userid) {
         return null;
     }
+
+    @Override
+    public int getActivityCount(Integer hostId) {
+        return ActivityBeanMapper.selectCount(hostId);
+
+    }
+
+    @Override
+    public ActivityBean getActivityId(int activityId) {
+        return ActivityBeanMapper.selectByid(activityId);
+
+    }
 /*
 
     @Override

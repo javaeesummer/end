@@ -82,11 +82,17 @@ public class userController {
         }
         activityPaginationParam.setLimit1((activityPaginationParam.getPagenum()-1)*activityPaginationParam.getPagesize());
         activityPaginationParam.setLimit2(activityPaginationParam.getLimit1()+activityPaginationParam.getPagesize());
-//        if(activityPaginationParam.getHostId()==0){
-            return Result.newSuccessResult(userService.getOnePageActivity(activityPaginationParam));
-//        }else{
-//            return Result.newSuccessResult(userService.getOnePageActivityByHostId(activityPaginationParam));
-//        }
+        return Result.newSuccessResult(userService.getOnePageActivity(activityPaginationParam));
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getActivityById",method = RequestMethod.POST)
+    public Result getActivityById(HttpServletRequest httpServletRequest,int activityId){
+        return  Result.newSuccessResult(userService.getActivityId(activityId));
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getActivityCount",method = RequestMethod.POST)
+    public Result getActivityCount(HttpServletRequest httpServletRequest,@Param(value="hostId")Integer hostId){
+        return  Result.newSuccessResult(userService.getActivityCount(hostId));
     }
     /**
 
