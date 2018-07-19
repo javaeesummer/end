@@ -154,6 +154,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public AttendorBean getAttendorById(Integer attendorId) {
+        return  AttendorBeanMapper.selectByPrimaryKey(attendorId);
+
+    }
+
+    @Override
+    public JudgeBean getJudgeById(Integer judgeId) {
+        return JudgeBeanMapper.selectByPrimaryKey(judgeId);
+
+    }
+
+    @Override
+    public SponsorBean getSponsorById(Integer sponsorId) {
+        return sponsorBeanMapper.selectByPrimaryKey(sponsorId);
+
+    }
+
+    @Override
     public List<AttendorView> getAllAttendor(GroupParam groupParam) {
         List<UserBean> userBeanList= AttendorBeanMapper.selectUserByActivityId(groupParam.getActivityid());
         List<AttendorView>  attendorViewList=new ArrayList<>();

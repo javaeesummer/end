@@ -164,4 +164,22 @@ public class userController {
 
         return null;
     }
+    @ResponseBody
+    @RequestMapping(value ="/getAttendor",method = RequestMethod.POST)
+    public Result getAttendor(HttpServletRequest httpServletRequest,Integer attendorId){
+
+        return Result.newSuccessResult(userService.getAttendorById(attendorId));
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getJudge",method = RequestMethod.POST)
+    public Result getJudge(HttpServletRequest httpServletRequest,Integer judgeId){
+
+        return Result.newSuccessResult(userService.getJudgeById(judgeId));
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getHost",method = RequestMethod.POST)
+    public Result getHost(HttpServletRequest httpServletRequest,Integer hostId){
+
+        return Result.newSuccessResult(userService.getSponsorById(hostId));
+    }
 }

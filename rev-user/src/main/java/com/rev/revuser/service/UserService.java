@@ -1,9 +1,6 @@
 package com.rev.revuser.service;
 
-import com.rev.revuser.bean.ActivityBean;
-import com.rev.revuser.bean.ActivityNodeBean;
-import com.rev.revuser.bean.GroupBean;
-import com.rev.revuser.bean.SponsorBean;
+import com.rev.revuser.bean.*;
 import com.rev.revuser.param.*;
 import com.rev.revuser.result.AttendorView;
 import com.rev.revuser.result.JudgeView;
@@ -126,6 +123,10 @@ public interface UserService {
      *@修改人和其它信息
 
      */
+    AttendorBean getAttendorById(Integer attendorId);
+    JudgeBean getJudgeById(Integer judgeId);
+    SponsorBean getSponsorById(Integer sponsorId);
+
     List<AttendorView> getAllAttendor(GroupParam groupParam);
     List<AttendorView> getGroupAttendorById(GroupParam groupParam);
     List<AttendorView> getGroupAttendorByName(GroupParam groupParam);
