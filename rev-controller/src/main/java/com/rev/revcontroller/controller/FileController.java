@@ -171,6 +171,14 @@ public class FileController {
     @RequestMapping(value = "/uploadFile",method=RequestMethod.POST)
     public Result<FileResult> uploadFile(UploadFileParam param, HttpServletRequest request) {
         Result result=new Result();
+//        FileParam fileParam1=new FileParam();
+//        fileParam1.setAttendorid(param.getAttendorid());
+//        FileResult fileResult = new FileResult();
+//        fileResult=fileService.getFileByAttendorId(fileParam1);
+//        if(fileResult.getFilepath()!=null){
+//           result.setMessage("您已经提交过作品，请勿多次提交");
+//           return  result;
+//        }
 //        System.out.println("*******"+param.getAttendorid());
        // param.setAttendorid(Integer.valueOf((String) request.getSession().getAttribute("aId")));
         param.setSubmittime(new Date());
@@ -180,6 +188,7 @@ public class FileController {
 //        long startTime = System.currentTimeMillis();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         File f = new File("/file/"+ fmt.format(new Date()),param.getFile().getOriginalFilename());
+        //File f = new File("C:\\Users\\lenovo\\Downloads\\"+ fmt.format(new Date()),param.getFile().getOriginalFilename());
         if(!f.getParentFile().exists()){
             f.getParentFile().mkdirs();
         }
@@ -197,10 +206,27 @@ public class FileController {
         fileParam.setFileSize(String.valueOf(param.getFile().getSize()));
         fileParam.setFilepath(f.getAbsolutePath());
         System.out.println(f.getAbsolutePath());
-        fileService.uploadFile(fileParam);
-        return result.newSuccessResult();
+       // fileService.uploadFile(fileParam);
+        result.setData(fileParam);
+       // return result.newSuccessResult();
+        return result;
     }
-
-
+    //上传文件信息插入数据库中
+    @ResponseBody
+    @RequestMapping(value = "/uploadFileDAate",method=RequestMethod.POST)
+    public Result<FileResult> uploadFileDAate(UploadFileParam param, HttpServletRequest request){
+        Result result=new Result();
+        FileParam fileParam =new FileParam();
+        fileParam.setAttendorid(param.getAttendorid());
+        fileParam.setWorkname(param.getWorkname());
+        fileParam.setFileSize(param.getFileSize());
+        fileParam.setFilepath(param.getFilepath());
+        fileParam.setDescription(param.getDescription());
+        fileParam.setSubmittime(new Date());
+        fileService.uploadFile(fileParam);
+        result.setData("插入成功");
+       // result.newSuccessResult();
+        return result;
+    }
 
 }
