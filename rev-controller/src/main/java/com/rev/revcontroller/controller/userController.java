@@ -202,4 +202,11 @@ public class userController {
 
         return Result.newSuccessResult(userService.getSponsorById(hostId));
     }
+    @ResponseBody
+    @RequestMapping(value ="/getUserInfo",method = RequestMethod.POST)
+    public Result getUserInfo(HttpServletRequest httpServletRequest,GetUserInfoParam param){
+
+        return userService.getUser(param);
+    }
+
 }

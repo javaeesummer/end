@@ -19,6 +19,15 @@ public class JudgeBean implements Serializable ,Cloneable{
     private Integer judgegroupid;
 
     private Integer userid;
+    private int groupId;
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 
     private static final long serialVersionUID = 1L;
 

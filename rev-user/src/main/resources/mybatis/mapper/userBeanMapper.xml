@@ -7,7 +7,7 @@
     <result column="userpwd" property="userpwd" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    userId, userName, userpwd
+    userId, userName, userpwd, userType
   </sql>
 
 
@@ -22,6 +22,42 @@
     from user
     where username = #{username,jdbcType=VARCHAR}
   </select>
+  <select id="getJudgeInfo" resultType="com.rev.revuser.bean.JudgeBean" parameterType="java.lang.Integer">
+    SELECT
+    judgeId,
+    activityId,
+    groupId,
+    userId
+    FROM  judge
+    WHERE
+    userId=#{userId}
+  </select>
+  <select id="getSponsorInfo" resultType="com.rev.revuser.bean.SponsorBean" parameterType="java.lang.Integer">
+    SELECT
+    userId,
+    hostId,
+    companyId,
+    activityId
+    FROM  sponsor
+    WHERE
+    userId=#{userId}
+  </select>
+  <select id="getAttendorInfo" resultType="com.rev.revuser.bean.AttendorBean" parameterType="java.lang.Integer">
+    SELECT
+    attendorId,
+    activityId,
+    phoneNum,
+    voteNum,
+    endResult,
+    status,
+    status,
+    groupId,
+    userId
+    FROM  attendor
+    WHERE
+    userId=#{userId}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
