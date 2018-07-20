@@ -8,6 +8,7 @@ import com.rev.revuser.param.RegisterAttendorParam;
 import com.rev.revuser.param.RegisterJudgeParam;
 import com.rev.revuser.param.RegisterParam;
 import com.rev.revuser.result.AttendorView;
+import com.rev.revuser.result.Result;
 import com.rev.revuser.result.UserView;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,14 +51,15 @@ public class UserServiceImplTest {
 
     @Test
     public void register() {
-//        RegisterParam registerParam=new RegisterParam();
-//        registerParam.setPassword("123");
-//        registerParam.setUsername("a");
-//        String result=userServiceimp.register(registerParam);
-//        assertEquals("用户名已存在",result);
-//        registerParam.setUsername("clggggglhgggh");
-//        result=userServiceimp.register(registerParam);
-//        assertEquals("注册成功",result);
+        RegisterParam registerParam=new RegisterParam();
+        registerParam.setPassword("123");
+        registerParam.setUsername("abbb");
+        registerParam.setUsertype("2");
+        Result result=userServiceimp.register(registerParam);
+        assertEquals("用户名已存在",result);
+
+        result=userServiceimp.register(registerParam);
+        assertEquals("注册成功",result);
     }
 
     @Test

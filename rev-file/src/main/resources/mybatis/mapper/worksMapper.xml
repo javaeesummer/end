@@ -33,7 +33,7 @@
   </select>
 
   <select id="getAllFile"  parameterType="com.rev.revfile.bean.works" resultType="com.rev.revfile.result.FileResult">
-      SELECT worksId,workName,submitTime,filePath,description,fileSize from works where attendorId in(select attendorid from attendor where activityId=#{activityId})
+      SELECT worksId,workName,submitTime,filePath,description,fileSize from works  where attendorId  in(select attendorid from attendor where activityId=#{activityId})
   </select>
     <insert id="insertFile" parameterType="com.rev.revfile.param.FileParam">
         insert into works

@@ -16,9 +16,18 @@ public class FileParam implements Serializable {
     private String workName;
     //参赛者作品详情描述
     private String description;
-
+    //文件大小
     private String filesize;
+    //文件名
+    private String fileName;
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
     public Integer getAttendorid(){
         return attendorId;
