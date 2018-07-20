@@ -76,6 +76,19 @@ public class userController {
     public Result registerAttendor(HttpServletRequest httpServletRequest,RegisterAttendorParam registerAttendorParam){
         return userService.registerAttendor(registerAttendorParam);
     }
+    /**
+
+     *@描述 按照分页请求活动信息
+
+     *@参数  可以根据主办方请求
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
     @ResponseBody
     @RequestMapping(value ="/getActivity",method = RequestMethod.POST)
     public Result getOnePageActivity(HttpServletRequest httpServletRequest,ActivityPaginationParam activityPaginationParam){
@@ -181,7 +194,6 @@ public class userController {
     @RequestMapping(value ="/getJudge",method = RequestMethod.POST)
     public Result getJudge(HttpServletRequest httpServletRequest,Integer judgeId){
         List<JudgeView> judgeViewList=userService.getJudgeById(judgeId);
-
         return Result.newSuccessResult(judgeViewList);
     }
     @ResponseBody
