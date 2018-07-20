@@ -4,10 +4,13 @@ import com.alibaba.dubbo.config.annotation.Reference;
 
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
+import com.rev.judgement.Param.UserParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
 import com.rev.judgement.Req.ReqAttendorList;
+import com.rev.judgement.Req.ReqUserInfo;
 import com.rev.judgement.Req.ReqWorkAndReview;
 import com.rev.judgement.bean.AttendorInfo;
+import com.rev.judgement.bean.JudgeInfo;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.bean.WorksInfo;
 import com.rev.judgement.service.JudgeService;
@@ -78,7 +81,7 @@ public class judgeController {
      * @date: 2018/7/17 10:04
      * @author:DKC
      **/
-    public Result<List<ReqAttendorInfo>> showAllAttendor(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
+    public Result<List<ReqAttendorInfo>> showAllAttendor(HttpServletResponse response, HttpServletRequest request, @RequestBody AttendorParam param)
     {
         Result<List<ReqAttendorInfo>> result=new Result<List<ReqAttendorInfo>>();
         result.setData(judgeService.showAllAttendor(param.getActivityId()));
@@ -229,7 +232,7 @@ public class judgeController {
         return result;
     }
     @ResponseBody
-    @RequestMapping(value = "getAddress",method = RequestMethod.POST)
+    @RequestMapping(value = "/getAddress",method = RequestMethod.POST)
     /**
      * @description   参赛者获取推荐链接
      * @method  openReview
@@ -248,7 +251,7 @@ public class judgeController {
         return result;
     }
      @ResponseBody
-    @RequestMapping(value = "addVote",method = RequestMethod.POST)
+    @RequestMapping(value = "/ddVote",method = RequestMethod.POST)
     /**
      * @description 游客给参赛者投一票
      * @method  addVote
@@ -266,5 +269,16 @@ public class judgeController {
         result.setData(judgeService.addVote(param));
         return result;
     }
+    @ResponseBody
+    @RequestMapping(value = "/getUserInfo",method = RequestMethod.POST)
+    public Result<List<ReqUserInfo>> getUserInfo(HttpServletResponse response, HttpServletRequest request, @RequestBody UserParam param)
+    {
+        Result<List<ReqUserInfo>> result=new Result<List<ReqUserInfo>>();
+        result.setSuccess(true);
+        result.setData(judgeService.getUserInfoByUserId(param));
+        return result;
+    }
+
+
 
 }
