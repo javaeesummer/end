@@ -39,15 +39,15 @@ public class UserServiceImpl implements UserService {
 //　　todo 事务事务 何苦事物
     @Override
     public Result login(LoginParam loginParam) {
-        UserBean UserBean = UserBeanMapper.selectByUsername(loginParam.getUsername());
+        UserBean userBean = UserBeanMapper.selectByUsername(loginParam.getUsername());
         Result result=new Result();
-        if(null== UserBean){
+        if(null== userBean){
             result.setSuccess(false);
             result.setErrorCode(ExpCodeEnum.USERNAME_NULL.getCode());
             result.setMessage(ExpCodeEnum.USERNAME_NULL.getMessage());
             return result;
         }else{
-            if(!UserBean.getUserpwd().equals(loginParam.getPassword())){
+            if(!userBean.getUserpwd().equals(loginParam.getPassword())){
                 result.setSuccess(false);
                 result.setErrorCode(ExpCodeEnum.PASSWORD_WRONG.getCode());
                 result.setMessage(ExpCodeEnum.PASSWORD_WRONG.getMessage());
@@ -56,6 +56,12 @@ public class UserServiceImpl implements UserService {
             else{
                 result.setSuccess(true);
                 result.setMessage("登录成功");
+                SponsorBean sponsorBean=sponsorBeanMapper.selectSponsorByUserId(userBean.getUserid());
+                if(sponsorBean!=null) {
+                    result.setData(sponsorBean);
+                }else {
+                    result.setData(userBean);
+                }
                 return result;
             }
         }
