@@ -5,4 +5,5 @@ import org.apache.ibatis.annotations.Param;
 
 public interface UserInfoMapper {
    UserInfo getUserByUserId(@Param("userId")int userId);
+
 }

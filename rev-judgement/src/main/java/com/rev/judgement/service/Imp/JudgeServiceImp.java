@@ -101,4 +101,32 @@ public class JudgeServiceImp implements JudgeService{
         else
         { return true;}
     }
+    public List<ReviewInfo> getReview(JudgeParam param)
+    {
+        return reviewInfoMapper.getReview(param.getAttendorId(),param.getJudgeId());
+    }
+    public Boolean isResult(JudgeParam param)
+    {
+        if(reviewInfoMapper.isReviewed(param.getAttendorId(),param.getJudgeId()).isEmpty())
+        { return false;
+        }
+        else
+            if(reviewInfoMapper.isReviewed(param.getAttendorId(),param.getJudgeId()).get(0).getResult()==null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+    }
+    public String getAddress(AttendorParam param)
+    {
+        return "127.0.0.1"+Integer.toString(param.getActivityId());
+    }
+    public Boolean addVote(AttendorParam param)
+    {
+        attendorInfoMapper.addVote(param.getActivityId(),param.getAttendorId());
+        return true;
+    }
 }

@@ -104,5 +104,41 @@ public interface JudgeService{
      * @author:DKC
      **/
     Boolean isReviewed(JudgeParam param);
+    /**
+     * @description 裁判去查其中一条评论记录
+     * @method
+     * @param null
+     * @return
+     * @date: 2018/7/20 9:29
+     * @author:DKC
+     **/
+    List<ReviewInfo> getReview(JudgeParam param);
+    /**
+     * @description 判断该裁判是否给该参赛者打过分数
+     * @method
+     * @param null
+     * @return
+     * @date: 2018/7/20 10:22
+     * @author:DKC
+     **/
+    Boolean isResult(JudgeParam param);
+    /**
+     * @description 参赛者获取推荐链接
+     * @method
+     * @param null
+     * @return
+     * @date: 2018/7/20 10:57
+     * @author:DKC
+     **/
+    String getAddress(AttendorParam param);
+    /**
+     * @description 给参赛者投上一票
+     * @method
+     * @param null
+     * @return
+     * @date: 2018/7/20 10:58
+     * @author:DKC
+     **/
+    Boolean addVote(AttendorParam param);
    // List<ReqAttendorList> getReqAttendorList(int activityId,int groupId);
 }

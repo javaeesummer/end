@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ReviewInfoMapper {
     List<ReviewInfo> getReviewByJudgeId(@Param("judgeId") int judgeId);
+    List<ReviewInfo> getReview(@Param("attendorId") int attendorId,@Param("judgeId") int judgeId);
     List<ReviewInfo> getReviewByAttendorId(@Param("attendorId") int attendorId);
     List<ReviewInfo> isReviewed(@Param("attendorId") int attendorId,@Param("judgeId") int judgeId);
     int addReview(ReviewInfo reviewInfo);
