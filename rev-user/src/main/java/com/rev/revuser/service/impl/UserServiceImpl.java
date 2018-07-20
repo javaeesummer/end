@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService {
     public ActivityBean toHoldActivity(HoldActivityParam holdActivityParam) {
         SponsorBean sponsorBean=new SponsorBean();
         CompanyUserBean selectOption=new CompanyUserBean();
+        //验证哟用户是否是企业用户
         selectOption.setUserId(holdActivityParam.getUserId());
         CompanyUserBean companyUserBean=CompanyUserBeanMapper.selectByOption(selectOption);
         if(companyUserBean==null){
@@ -80,7 +81,9 @@ public class UserServiceImpl implements UserService {
         }
         sponsorBean.setCompanyid(companyUserBean.getCompanyId());
         sponsorBean.setUserid(companyUserBean.getUserId());
-        sponsorBean.setActivityId(1);
+        //这里还在创建　所以没有activityid　但是由于mapper中写死了插入的数据，
+        //所以这里要写一个没用的数据　要是有时间再回来该吧（虽然打概率是不会回来了　，　再会，代码君！:)
+        sponsorBean.setActivityId(0);
         sponsorBeanMapper.insert(sponsorBean);
         ActivityBean activityBean=new ActivityBean();
         activityBean.setActivityName(holdActivityParam.getActivityName());
