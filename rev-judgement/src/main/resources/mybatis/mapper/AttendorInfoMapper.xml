@@ -20,6 +20,9 @@
   <select id="getAttendorByActivityId" resultType="com.rev.judgement.bean.AttendorInfo">
     SELECT * from attendor WHERE activityId=#{activityId}
   </select>
+    <select id="getAttendorByUserId" resultType="com.rev.judgement.bean.AttendorInfo">
+        SELECT * from attendor WHERE activityId=#{activityId} AND userId=#{userId}
+    </select>
     <update id="modifyEndResultByAttendorId">
         update attendor
         set endResult = #{endResult}
@@ -27,7 +30,7 @@
     </update>
     <update id="addVote">
         update attendor
-        set voteNum +1
+        set voteNum =voteNum+1
         where attendorId = #{attendorId} AND activityId=#{activityId}
     </update>
 </mapper>

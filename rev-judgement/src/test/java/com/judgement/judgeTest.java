@@ -3,6 +3,7 @@ package com.judgement;
 import com.rev.application.controllerApplication;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
+import com.rev.judgement.Param.UserParam;
 import com.rev.judgement.Req.ReqAttendorList;
 import com.rev.judgement.Req.ReqWorkAndReview;
 import com.rev.judgement.bean.AttendorInfo;
@@ -154,5 +155,14 @@ public class judgeTest {
         System.out.println(reqWorkAndReview.getResult());
         System.out.println(reqWorkAndReview.getReviewid());
     }
+    @Test
+    public void addVote()
+    {
+        AttendorParam param=new AttendorParam();
+        param.setActivityId(1);
+        param.setAttendorId(1);
+        judgeService.addVote(param);
+    }
+
 
 }

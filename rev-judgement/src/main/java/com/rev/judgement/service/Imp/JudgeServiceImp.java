@@ -1,15 +1,16 @@
 package com.rev.judgement.service.Imp;
 
+import com.alibaba.dubbo.common.threadpool.support.limited.LimitedThreadPool;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
+import com.rev.judgement.Param.UserParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
 import com.rev.judgement.Req.ReqAttendorList;
+import com.rev.judgement.Req.ReqUserInfo;
+import com.rev.judgement.bean.JudgeInfo;
 import com.rev.judgement.bean.ReviewInfo;
-import com.rev.judgement.dao.AttendorInfoMapper;
-import com.rev.judgement.dao.ReviewInfoMapper;
-import com.rev.judgement.dao.UserInfoMapper;
-import com.rev.judgement.dao.WorksInfoMapper;
+import com.rev.judgement.dao.*;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.WorksInfo;
 import com.rev.judgement.service.JudgeService;
@@ -30,6 +31,8 @@ public class JudgeServiceImp implements JudgeService{
     ReviewInfoMapper reviewInfoMapper;
     @Resource
     UserInfoMapper userInfoMapper;
+    @Resource
+    JudgeInfoMapper judgeInfoMapper;
     @Override
     public  List<AttendorInfo> getAttendorList(int activityId, int groupId)
     {
@@ -56,9 +59,19 @@ public class JudgeServiceImp implements JudgeService{
         for (AttendorInfo attendorInfo:attendorInfoMapper.getAttendorByActivityId(activityId))
         {
             ReqAttendorInfo reqAttendorInfo=new ReqAttendorInfo();
-            reqAttendorInfo.setActivityid(activityId);
             reqAttendorInfo.setUserid(attendorInfo.getUserid());
+            reqAttendorInfo.setStatus(attendorInfo.getStatus());
+            reqAttendorInfo.setAttendorId(attendorInfo.getAttendorid());
             reqAttendorInfo.setVotenum(attendorInfo.getVotenum());
+            if (worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).isEmpty()) {
+                reqAttendorInfo.setWorkname(null);
+                reqAttendorInfo.setFilepath(null);
+                reqAttendorInfo.setDescription(null);
+            }
+            else
+            {reqAttendorInfo.setWorkname(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getWorkname());
+            reqAttendorInfo.setDescription(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getDescription());
+            reqAttendorInfo.setFilepath(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getFilepath());}
             reqAttendorInfo.setUsername(userInfoMapper.getUserByUserId(attendorInfo.getUserid()).getUsername());
             list.add(reqAttendorInfo);
         }
@@ -128,5 +141,28 @@ public class JudgeServiceImp implements JudgeService{
     {
         attendorInfoMapper.addVote(param.getActivityId(),param.getAttendorId());
         return true;
+    }
+    public List<ReqUserInfo> getUserInfoByUserId(UserParam param)
+    {
+        List<ReqUserInfo> list=new ArrayList<ReqUserInfo>();
+        ReqUserInfo reqUserInfo=new ReqUserInfo();
+        reqUserInfo.setActivityId(param.getActivityId());
+        if(judgeInfoMapper.getJudgeByUserId(param.getActivityId(),param.getUserId()).isEmpty())
+        {
+            if(attendorInfoMapper.getAttendorByUserId(param.getActivityId(),param.getUserId()).isEmpty())
+            {
+                return list;
+            }
+            else
+            {
+                reqUserInfo.setAttendorId(attendorInfoMapper.getAttendorByUserId(param.getActivityId(),param.getUserId()).get(0).getAttendorid());
+            }
+        }
+        else
+        {
+            reqUserInfo.setJudgeId(judgeInfoMapper.getJudgeByUserId(param.getActivityId(),param.getUserId()).get(0).getJudgeid());
+        }
+
+        return list;
     }
 }

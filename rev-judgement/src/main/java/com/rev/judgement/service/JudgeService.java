@@ -2,9 +2,11 @@ package com.rev.judgement.service;
 
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
+import com.rev.judgement.Param.UserParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
-import com.rev.judgement.Req.ReqAttendorList;
+import com.rev.judgement.Req.ReqUserInfo;
 import com.rev.judgement.bean.AttendorInfo;
+import com.rev.judgement.bean.JudgeInfo;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.bean.WorksInfo;
 
@@ -51,7 +53,7 @@ public interface JudgeService{
      **/
     int modifyReview(ReviewInfo reviewInfo);
     /**
-     * @description 看到的参赛者的列表，包括票数,成绩
+     * @description 看到的参赛者的列表，包括票数
      * @method  showAllAttendor
      * @param
      * @return
@@ -140,5 +142,15 @@ public interface JudgeService{
      * @author:DKC
      **/
     Boolean addVote(AttendorParam param);
+    /**
+     * @description 根据userId获取attendorId或者judgeId
+     * @method
+     * @param
+     * @return
+     * @date: 2018/7/20 14:20
+     * @author:DKC
+     **/
+    List<ReqUserInfo> getUserInfoByUserId(UserParam param);
+
    // List<ReqAttendorList> getReqAttendorList(int activityId,int groupId);
 }

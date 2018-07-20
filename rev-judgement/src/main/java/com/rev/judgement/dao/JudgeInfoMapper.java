@@ -1,17 +1,11 @@
 package com.rev.judgement.dao;
 
+import com.rev.judgement.Param.UserParam;
 import com.rev.judgement.bean.JudgeInfo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface JudgeInfoMapper {
-    int deleteByPrimaryKey(Integer judgeid);
-
-    int insert(JudgeInfo record);
-
-    int insertSelective(JudgeInfo record);
-
-    JudgeInfo selectByPrimaryKey(Integer judgeid);
-
-    int updateByPrimaryKeySelective(JudgeInfo record);
-
-    int updateByPrimaryKey(JudgeInfo record);
+    List<JudgeInfo> getJudgeByUserId(@Param("activityId")int activityId,@Param("userId") int userId);
 }
