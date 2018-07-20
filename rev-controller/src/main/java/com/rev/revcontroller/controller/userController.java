@@ -6,11 +6,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.rev.revuser.bean.ActivityBean;
 import com.rev.revuser.bean.ActivityNodeBean;
 import com.rev.revuser.bean.GroupBean;
+import com.rev.revuser.bean.JudgeBean;
 import com.rev.revuser.dao.ActivityBeanMapper;
 import com.rev.revuser.dao.UserBeanMapper;
 import com.rev.revuser.exception.CommonBizException;
 import com.rev.revuser.exception.ExpCodeEnum;
 import com.rev.revuser.param.*;
+import com.rev.revuser.result.JudgeView;
 import com.rev.revuser.result.Result;
 import com.rev.revuser.service.UserService;
 
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @CrossOrigin
@@ -83,6 +86,11 @@ public class userController {
         activityPaginationParam.setLimit1((activityPaginationParam.getPagenum()-1)*activityPaginationParam.getPagesize());
         activityPaginationParam.setLimit2(activityPaginationParam.getLimit1()+activityPaginationParam.getPagesize());
         return Result.newSuccessResult(userService.getOnePageActivity(activityPaginationParam));
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getActivityNode",method = RequestMethod.POST)
+    public Result getActivityNode(HttpServletRequest httpServletRequest,Integer activityId){
+        return Result.newSuccessResult(userService.getActivityNode(activityId));
     }
     @ResponseBody
     @RequestMapping(value ="/getActivityById",method = RequestMethod.POST)
@@ -167,14 +175,14 @@ public class userController {
     @ResponseBody
     @RequestMapping(value ="/getAttendor",method = RequestMethod.POST)
     public Result getAttendor(HttpServletRequest httpServletRequest,Integer attendorId){
-
         return Result.newSuccessResult(userService.getAttendorById(attendorId));
     }
     @ResponseBody
     @RequestMapping(value ="/getJudge",method = RequestMethod.POST)
     public Result getJudge(HttpServletRequest httpServletRequest,Integer judgeId){
+        List<JudgeView> judgeViewList=userService.getJudgeById(judgeId);
 
-        return Result.newSuccessResult(userService.getJudgeById(judgeId));
+        return Result.newSuccessResult(judgeViewList);
     }
     @ResponseBody
     @RequestMapping(value ="/getHost",method = RequestMethod.POST)

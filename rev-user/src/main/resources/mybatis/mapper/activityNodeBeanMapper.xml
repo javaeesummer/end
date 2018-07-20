@@ -31,6 +31,10 @@
         <!--limit #{activityPaginationParam.limit1,jdbcType=INTEGER},#{activityPaginationParam.limit2,jdbcType=INTEGER}-->
 
     <!--</select>-->
+    <select id="selectActivityNode" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from activity_points
+        where activityId = #{activityId,jdbcType=INTEGER}
+    </select>
     <insert id="insertActivityNode" useGeneratedKeys="true" keyProperty="activityId" parameterType="com.rev.revuser.bean.ActivityNodeBean">
         insert into activity_points
         <trim prefix="(" suffix=")" suffixOverrides="," >

@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JudgeBean getJudgeById(Integer judgeId) {
+    public List<JudgeView> getJudgeById(Integer judgeId) {
         return JudgeBeanMapper.selectByPrimaryKey(judgeId);
 
     }
@@ -230,6 +230,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserView getUserById(int userid) {
         return null;
+    }
+
+    @Override
+    public List<ActivityNodeBean> getActivityNode(Integer activityId) {
+        return activityNodeBeanMapper.selectActivityNode(activityId);
     }
 
     @Override

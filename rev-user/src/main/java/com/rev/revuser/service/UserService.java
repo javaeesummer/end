@@ -124,7 +124,7 @@ public interface UserService {
 
      */
     AttendorBean getAttendorById(Integer attendorId);
-    JudgeBean getJudgeById(Integer judgeId);
+    List<JudgeView> getJudgeById(Integer judgeId);
     SponsorBean getSponsorById(Integer sponsorId);
 
     List<AttendorView> getAllAttendor(GroupParam groupParam);
@@ -184,6 +184,7 @@ public interface UserService {
 
    /* SponsorBean toHoldActivity(UserParam userParam);*/
 
+    List<ActivityNodeBean> getActivityNode(Integer activityId);
     int getActivityCount(Integer hostId);
     ActivityBean getActivityId(int activityId);
     List<ActivityBean> getOnePageActivity(ActivityPaginationParam activityPaginationParam);

@@ -1,6 +1,9 @@
 package com.rev.revuser.dao;
 
 import com.rev.revuser.bean.ActivityNodeBean;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author hxs
@@ -9,4 +12,5 @@ import com.rev.revuser.bean.ActivityNodeBean;
 
 public interface ActivityNodeBeanMapper {
     void insertActivityNode(ActivityNodeBean activityNodeBean);
+    List<ActivityNodeBean> selectActivityNode(@Param("activityId") Integer activityId);
 }

@@ -7,14 +7,30 @@
     <result column="groupId" property="judgegroupid" jdbcType="INTEGER" />
     <result column="userId" property="userid" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="JudgeViewResultMap" type="com.rev.revuser.result.JudgeView" >
+    <id column="judgeId" property="judgeid" jdbcType="INTEGER" />
+    <result column="activityId" property="activityid" jdbcType="INTEGER" />
+    <result column="groupId" property="judgegroupid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR"/>
+    <result column="userpwd" property="userpwd" jdbcType="VARCHAR"/>
+  </resultMap>
   <sql id="Base_Column_List" >
     judgeId, activityId, groupId, userId
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <sql id="join_user">
+    judgeId, activityId, groupId, user.userId,userName,userpwd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="JudgeViewResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="Base_Column_List" />
-    from judge
-    where judgeId = #{judgeid,jdbcType=INTEGER}
+    <include refid="join_user" />
+    from judge,user
+    <trim prefix="where" suffixOverrides=",">
+      judge.userId = user.userId,
+      <if test="judgeid!=null">
+        judgeId = #{judgeid,jdbcType=INTEGER}
+      </if>
+    </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from judge
