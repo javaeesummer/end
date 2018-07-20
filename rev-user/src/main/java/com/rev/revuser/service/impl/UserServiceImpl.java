@@ -267,20 +267,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public Result getUser(GetUserInfoParam param) {
-        UserBean userBean=UserBeanMapper.selectByPrimaryKey(param.getUserId());
-        if(userBean.getUserType().equals("1")){
-           JudgeBean judgeBean=UserBeanMapper.getJudgeInfo(param.getUserId());
-            return Result.newSuccessResult(UserBeanMapper.getJudgeInfo(param.getUserId()));
-        }
-        else if(userBean.getUserType().equals("2")){
-            return Result.newSuccessResult(UserBeanMapper.getAttendorInfo(param.getUserId()));
-        }
-        else{
-            return Result.newSuccessResult(UserBeanMapper.getSponsorInfo(param.getUserId()));
-        }
-    }
+
+
+
 
 
     @Override
