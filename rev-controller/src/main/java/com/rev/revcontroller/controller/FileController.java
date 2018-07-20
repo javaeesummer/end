@@ -51,26 +51,30 @@ public class FileController {
         System.out.println("############"+fileParam.getAttendorid());
         FileResult fileResult = fileService.getFileByAttendorId(fileParam);//从数据库中取出作品表的信息
         String filePath = fileResult.getFilepath();
+        int len=filePath.length();
+        String fname=filePath.substring(17,len);
         System.out.println("-----"+filePath);
         if (filePath == null || filePath == "") {
 //            CommonBizException commonBizException = new CommonBizException(ExpCodeEnum.FILE_NO_NULL);
 //            return Result.newFailureResult(commonBizException);
             result.setMessage("文件路径不存在");
+
         }
         File file = new File(filePath);
         String difileName=null;
         try {
-            difileName= new String(filePath.getBytes("UTF-8"));
+            difileName= new String(fname.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         HttpHeaders headers=new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);//字节流
-        headers.setContentDispositionFormData("attachment",difileName);//文件名
+        headers.setContentDispositionFormData("attachment",fname);//文件名
         ResponseEntity<byte[]> responseEntity=null;
         try {
              responseEntity= new ResponseEntity< byte[]>(FileUtils.readFileToByteArray(file),headers,HttpStatus.CREATED);
             result.setData(responseEntity);
+            result.setSuccess(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -230,6 +234,8 @@ public class FileController {
         BeanUtils.copyProperties(param,fileParam);
         fileParam.setFileSize(String.valueOf(param.getFile().getSize()));
         fileParam.setFilepath(f.getAbsolutePath());
+        //获取上传的文件名
+        fileParam.setFileName(param.getFile().getOriginalFilename());
         System.out.println(f.getAbsolutePath());
        // fileService.uploadFile(fileParam);
         result.setData(fileParam);
