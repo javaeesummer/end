@@ -43,6 +43,12 @@ public class Result<T> implements Serializable {
         return result;
     }
 
+    public static <T> Result<T> newFailureResult(String msg){
+        Result<T> result = new Result<>();
+        result.isSuccess = false;
+        result.message = msg;
+        return result;
+    }
     /**
      * 返回失败的结果
      * PS：返回"未知异常"

@@ -20,11 +20,13 @@ import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -71,17 +73,8 @@ public class userController {
         return userService.registerAttendor(registerAttendorParam);
     }
     /**
-
      *@描述 按照分页请求活动信息
-
      *@参数  可以根据主办方请求
-
-     *@返回值
-
-     *@创建人  hxs
-
-     *@修改人和其它信息
-
      */
     @ResponseBody
     @RequestMapping(value ="/getActivity",method = RequestMethod.POST)
@@ -96,8 +89,11 @@ public class userController {
     }
     @ResponseBody
     @RequestMapping(value ="/getActivityNode",method = RequestMethod.POST)
-    public Result getActivityNode(HttpServletRequest httpServletRequest,Integer activityId){
-        return Result.newSuccessResult(userService.getActivityNode(activityId));
+    public Result getActivityNode(HttpServletRequest httpServletRequest, @Valid ActivityIdParam param,BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return Result.newFailureResult(bindingResult.getFieldError().getDefaultMessage());
+        }
+        return Result.newSuccessResult(userService.getActivityNode(param.getActivityId()));
     }
     @ResponseBody
     @RequestMapping(value ="/getActivityById",method = RequestMethod.POST)
