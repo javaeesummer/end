@@ -247,6 +247,14 @@ public class FileController {
     @RequestMapping(value = "/uploadFileDAate",method=RequestMethod.POST)
     public Result<FileResult> uploadFileDAate(UploadFileParam param, HttpServletRequest request){
         Result result=new Result();
+        FileParam fileParam1=new FileParam();
+        fileParam1.setAttendorid(param.getAttendorid());
+        FileResult fileResult=fileService.getFileByAttendorId(fileParam1);
+        if(fileResult.getFilepath()!=null){
+            result.setMessage("您已经上传过作品，请勿多次提交");
+            result.setSuccess(false);
+            return result;
+        }
         FileParam fileParam =new FileParam();
         fileParam.setAttendorid(param.getAttendorid());
         fileParam.setWorkname(param.getWorkname());
