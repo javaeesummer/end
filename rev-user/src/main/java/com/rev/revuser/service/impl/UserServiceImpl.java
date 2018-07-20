@@ -62,14 +62,6 @@ public class UserServiceImpl implements UserService {
 //        return null;
 //
     }
-    private String checkLegalRegister(RegisterParam registerParam){
-        UserBean userBean=UserBeanMapper.selectByUsername(registerParam.getUsername());
-        if(null!=userBean) {
-            return "用户名已存在";
-        }else{
-            return "可以注册";
-        }
-    }
     @Override
     public ActivityBean toHoldActivity(HoldActivityParam holdActivityParam) {
         SponsorBean sponsorBean=new SponsorBean();
@@ -81,7 +73,7 @@ public class UserServiceImpl implements UserService {
             return  null;
         }
         sponsorBean.setCompanyid(companyUserBean.getCompanyId());
-        sponsorBean.setUerid(companyUserBean.getUserId());
+        sponsorBean.setUserid(companyUserBean.getUserId());
         sponsorBean.setActivityId(1);
         sponsorBeanMapper.insert(sponsorBean);
         ActivityBean activityBean=new ActivityBean();
@@ -108,19 +100,21 @@ public class UserServiceImpl implements UserService {
     @Override
 //    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
     public Result register(RegisterParam registerParam) {
-//        return null;
+        if(registerParam.getUsername()==null || registerParam.getPassword()==null){
+            Result result=new Result();
+            result.setSuccess(false);
+            result.setErrorCode(ExpCodeEnum.SOMETHING_NULL.getCode());
+            result.setMessage(ExpCodeEnum.SOMETHING_NULL.getMessage());
+            return result;
+        }
         UserBean userBean=UserBeanMapper.selectByUsername(registerParam.getUsername());
-        Result result=new Result();
         if(null!=userBean){
             CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.USEREXIST);
             return Result.newFailureResult(commonBizException);
         }else{
             UserBean userBean1=new UserBean();
-
-            //还有一些权限设置没做过　，比如普通参赛者不能注册裁判
             userBean1.setUsername(registerParam.getUsername());
             userBean1.setUserpwd(registerParam.getPassword());
-            //哪位好心人知道怎么返回刚插入的主键的,请通知我,谢谢 @黄枭帅
             UserBeanMapper.insertSelective(userBean1);
             return Result.newSuccessResult();
         }
