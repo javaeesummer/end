@@ -38,9 +38,9 @@ public enum ExpCodeEnum implements Serializable {
     LOCATIONID_NULL(UserExpPrefix + "016", "locationId为空"),
     LOCATIONUPDATEREQ_NULL(UserExpPrefix + "017", "LocationUpdateReq为空"),
     PASSWORD_WRONG(UserExpPrefix + "016", "密码错误"),
-    SOMETHING_NULL(UserExpPrefix + "017", "用户名/密码/用户类型都不能为空"),
+    SOMETHING_NULL(UserExpPrefix + "017", "用户名/密码都不能为空"),
     REGISTER_ERROR(UserExpPrefix + "018", "注册失败"),
-    USEREXIST(UserExpPrefix + "018", "用户已经存在"),
+    USEREXIST(UserExpPrefix + "018", "用户名已经存在"),
     PAGENUM_ERROR(UserExpPrefix+ "019","页数从１开始"),
     /*　ACtivity模块异常*/
     ACTIVITY_NOEXIST(ActivityExpPrefix+"001","活动不存在"),

@@ -6,6 +6,7 @@ import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
 import com.rev.judgement.Req.ReqAttendorList;
+import com.rev.judgement.Req.ReqWorkAndReview;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.bean.WorksInfo;
@@ -25,13 +26,13 @@ import java.util.List;
 @Component("judgeService")
 @RequestMapping("/judge")
 public class judgeController {
-    @Reference
+    @Reference(timeout=100000)
     JudgeService judgeService;
 
     @ResponseBody
     @RequestMapping(value = "/getAttendorList",method = RequestMethod.POST)
     /**
-     * @description 获取所有和裁判同组的参赛者列表
+     * @description 获取所有和裁判同组的参赛者列表/改进版
      * @method  getAttendorList
      * @param response
      * @param request
@@ -40,20 +41,24 @@ public class judgeController {
      * @date: 2018/7/17 9:53
      * @author:DKC
      **/
-    public Result<List<ReqAttendorList>> getAttendorList(HttpServletResponse response, HttpServletRequest request, JudgeParam param)
+    public Result<List<ReqAttendorList>> getAttendorList(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
     {
         Result<List<ReqAttendorList>> result=new Result<List<ReqAttendorList>>();
         List<ReqAttendorList> list=new ArrayList<ReqAttendorList>();
-        ReqAttendorList reqAttendorList=new ReqAttendorList();
         for (AttendorInfo attendorInfo:judgeService.getAttendorList(param.getActivityId(),param.getGroupId()))
         {
+            ReqAttendorList reqAttendorList=new ReqAttendorList();
             reqAttendorList.setAttendorid(attendorInfo.getAttendorid());
-            String workname=judgeService.getWorksDetail(attendorInfo.getAttendorid()).get(0).getWorkname();
+            String workname=null;
+            if (judgeService.getWorksDetail(attendorInfo.getAttendorid()).isEmpty())
+            {workname=null;}
+            else
+            {workname=judgeService.getWorksDetail(attendorInfo.getAttendorid()).get(0).getWorkname();}
             reqAttendorList.setWorkname(workname);
             JudgeParam param1=new JudgeParam();
             param1.setAttendorId(attendorInfo.getAttendorid());
             param1.setJudgeId(param.getJudgeId());
-            reqAttendorList.setIfjudged(judgeService.isReviewed(param1));
+            reqAttendorList.setIfjudged(judgeService.isResult(param1));
             list.add(reqAttendorList);
         }
         result.setData(list);
@@ -73,7 +78,7 @@ public class judgeController {
      * @date: 2018/7/17 10:04
      * @author:DKC
      **/
-    public Result<List<ReqAttendorInfo>> showAllAttendor(HttpServletResponse response, HttpServletRequest request, JudgeParam param)
+    public Result<List<ReqAttendorInfo>> showAllAttendor(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
     {
         Result<List<ReqAttendorInfo>> result=new Result<List<ReqAttendorInfo>>();
         result.setData(judgeService.showAllAttendor(param.getActivityId()));
@@ -102,7 +107,7 @@ public class judgeController {
     @ResponseBody
     @RequestMapping(value = "/addReview",method = RequestMethod.POST)
     /**
-     * @description 新建一条评论记录
+     * @description 新建一条评论记录。目前用不到
      * @method  addReview
      * @param response
      * @param request
@@ -130,7 +135,7 @@ public class judgeController {
      * @date: 2018/7/17 11:09
      * @author:DKC
      **/
-    public Result modifyReview(HttpServletResponse response, HttpServletRequest request, JudgeParam param)
+    public Result modifyReview(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
     {
         Result result=new Result();
         judgeService.modifyReview(param.getReviewInfo());
@@ -138,6 +143,7 @@ public class judgeController {
         if(endResult==null)
         {
             result.setSuccess(false);
+            result.setMessage("结果为空");
             return result;
         }
         AttendorParam param2=new AttendorParam();
@@ -158,7 +164,7 @@ public class judgeController {
      * @date: 2018/7/17 23:20
      * @author:DKC
      **/
-    public Result<List<ReviewInfo>> getReviewByJudgeId(HttpServletResponse response, HttpServletRequest request, JudgeParam param)
+    public Result<List<ReviewInfo>> getReviewByJudgeId(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
     {
         Result<List<ReviewInfo>> result=new Result<List<ReviewInfo>>();
         result.setData(judgeService.getReviewByJudgeId(param));
@@ -184,6 +190,81 @@ public class judgeController {
         result.setSuccess(true);
         return result;
     }
-
+    @ResponseBody
+    @RequestMapping(value = "/openReview",method = RequestMethod.POST)
+    /**
+     * @description  评委打开一条需要评论或者修改记录
+     * @method  openReview
+     * @param param
+     * @return com.rev.revuser.result.Result<java.util.List<com.rev.judgement.Req.ReqWorkAndReview>>
+     * @date: 2018/7/19 14:46
+     * @author:DKC
+     **/
+    public Result<ReqWorkAndReview> openReview(HttpServletResponse response, HttpServletRequest request,@RequestBody JudgeParam param)
+    {
+        Result<ReqWorkAndReview> result=new Result<ReqWorkAndReview>();
+        ReqWorkAndReview reqWorkAndReview=new ReqWorkAndReview();
+        if(judgeService.isReviewed(param)) {
+            reqWorkAndReview.setAttendorid(param.getAttendorId());
+            reqWorkAndReview.setAdvice(judgeService.getReview(param).get(0).getAdvice());
+            reqWorkAndReview.setResult(judgeService.getReview(param).get(0).getResult());
+            reqWorkAndReview.setReviewid(judgeService.getReview(param).get(0).getReviewid());
+            reqWorkAndReview.setWorkname(judgeService.getWorksDetail(param.getAttendorId()).get(0).getWorkname());
+            reqWorkAndReview.setDescription(judgeService.getWorksDetail(param.getAttendorId()).get(0).getDescription());
+            reqWorkAndReview.setFilepath(judgeService.getWorksDetail(param.getAttendorId()).get(0).getFilepath());
+        }
+        else //先创建Review记录
+        {
+            judgeService.addReview(param.getAttendorId(),param.getJudgeId());
+            reqWorkAndReview.setAttendorid(param.getAttendorId());
+            reqWorkAndReview.setAdvice(judgeService.getReview(param).get(0).getAdvice());
+            reqWorkAndReview.setResult(judgeService.getReview(param).get(0).getResult());
+            reqWorkAndReview.setReviewid(judgeService.getReview(param).get(0).getReviewid());
+            reqWorkAndReview.setWorkname(judgeService.getWorksDetail(param.getAttendorId()).get(0).getWorkname());
+            reqWorkAndReview.setDescription(judgeService.getWorksDetail(param.getAttendorId()).get(0).getDescription());
+            reqWorkAndReview.setFilepath(judgeService.getWorksDetail(param.getAttendorId()).get(0).getFilepath());
+        }
+        result.setData(reqWorkAndReview);
+        result.setSuccess(true);
+        return result;
+    }
+    @ResponseBody
+    @RequestMapping(value = "getAddress",method = RequestMethod.POST)
+    /**
+     * @description   参赛者获取推荐链接
+     * @method  openReview
+     * @param response
+     * @param request
+     * @param param
+     * @return com.rev.revuser.result.Result<java.lang.String>
+     * @date: 2018/7/20 10:55
+     * @author:DKC
+     **/
+    public  Result<String> getAddress(HttpServletResponse response, HttpServletRequest request,@RequestBody AttendorParam param)
+    {
+        Result<String> result=new Result<String>();
+        result.setSuccess(true);
+        result.setData(judgeService.getAddress(param));
+        return result;
+    }
+     @ResponseBody
+    @RequestMapping(value = "addVote",method = RequestMethod.POST)
+    /**
+     * @description 游客给参赛者投一票
+     * @method  addVote
+     * @param response
+     * @param request
+     * @param param
+     * @return com.rev.revuser.result.Result
+     * @date: 2018/7/20 10:56
+     * @author:DKC
+     **/
+    public Result addVote(HttpServletResponse response, HttpServletRequest request,@RequestBody AttendorParam param)
+    {
+        Result result=new Result();
+        result.setSuccess(true);
+        result.setData(judgeService.addVote(param));
+        return result;
+    }
 
 }

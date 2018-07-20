@@ -25,4 +25,9 @@
         set endResult = #{endResult}
         where attendorId = #{attendorId}
     </update>
+    <update id="addVote">
+        update attendor
+        set voteNum +1
+        where attendorId = #{attendorId} AND activityId=#{activityId}
+    </update>
 </mapper>

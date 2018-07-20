@@ -4,6 +4,7 @@ import com.rev.application.controllerApplication;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Req.ReqAttendorList;
+import com.rev.judgement.Req.ReqWorkAndReview;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.dao.AttendorInfoMapper;
@@ -39,7 +40,23 @@ public class judgeTest {
     @Test
     public void getWorksDetail()
     {
-        System.out.print("*********************"+ JSONArray.toJSONString(judgeService.getWorksDetail(20)));
+        System.out.print("*********************"+ JSONArray.toJSONString(judgeService.getWorksDetail(22)));
+        System.out.println(judgeService.getWorksDetail(1).get(0).getWorkname());
+        for (AttendorInfo attendorInfo:judgeService.getAttendorList(1,1))
+        {
+            ReqAttendorList reqAttendorList=new ReqAttendorList();
+            reqAttendorList.setAttendorid(attendorInfo.getAttendorid());
+
+            String workname=null;
+            workname=judgeService.getWorksDetail(attendorInfo.getAttendorid()).get(0).getWorkname();
+            reqAttendorList.setWorkname(workname);
+            JudgeParam param1=new JudgeParam();
+            param1.setAttendorId(attendorInfo.getAttendorid());
+            param1.setJudgeId(1);
+            reqAttendorList.setIfjudged(judgeService.isReviewed(param1));
+            System.out.println(reqAttendorList.getAttendorid()+reqAttendorList.getWorkname());
+            System.out.println(reqAttendorList.getIfjudged());
+        }
     }
     @Test
     public void addReview()
@@ -102,9 +119,40 @@ public class judgeTest {
     @Test
     public void reviewmap()
     {
-
-       System.out.println(reviewInfoMapper.isReviewed(1,2).isEmpty());
-
+       System.out.println(reviewInfoMapper.isReviewed(1,1).isEmpty());
+        ReqWorkAndReview reqWorkAndReview=new ReqWorkAndReview();
+        JudgeParam param=new JudgeParam();
+        param.setJudgeId(1);
+        param.setAttendorId(1);
+        param.setActivityId(1);
+        System.out.println(judgeService.isReviewed(param));
+        if(judgeService.isReviewed(param)){
+            reqWorkAndReview.setAttendorid(param.getAttendorId());
+            reqWorkAndReview.setAdvice(judgeService.getReviewByAttendorId(param).get(0).getAdvice());
+            reqWorkAndReview.setResult(judgeService.getReviewByAttendorId(param).get(0).getResult());
+            reqWorkAndReview.setReviewid(judgeService.getReviewByAttendorId(param).get(0).getReviewid());
+            reqWorkAndReview.setWorkname(judgeService.getWorksDetail(param.getAttendorId()).get(0).getWorkname());
+            reqWorkAndReview.setDescription(judgeService.getWorksDetail(param.getAttendorId()).get(0).getDescription());
+            reqWorkAndReview.setFilepath(judgeService.getWorksDetail(param.getAttendorId()).get(0).getFilepath());
+        }
+//        else //先创建Review记录
+//        {
+//            judgeService.addReview(param.getAttendorId(),param.getJudgeId());
+//            reqWorkAndReview.setAttendorid(param.getAttendorId());
+//            reqWorkAndReview.setAdvice(judgeService.getReviewByAttendorId(param).get(0).getAdvice());
+//            reqWorkAndReview.setResult(judgeService.getReviewByAttendorId(param).get(0).getResult());
+//            reqWorkAndReview.setReviewid(judgeService.getReviewByAttendorId(param).get(0).getReviewid());
+//            reqWorkAndReview.setWorkname(judgeService.getWorksDetail(param.getAttendorId()).get(0).getWorkname());
+//            reqWorkAndReview.setDescription(judgeService.getWorksDetail(param.getAttendorId()).get(0).getDescription());
+//            reqWorkAndReview.setFilepath(judgeService.getWorksDetail(param.getAttendorId()).get(0).getFilepath());
+//        }
+        System.out.println(reqWorkAndReview.getWorkname());
+        System.out.println(reqWorkAndReview.getAdvice());
+        System.out.println(reqWorkAndReview.getAttendorid());
+        System.out.println(reqWorkAndReview.getFilepath());
+        System.out.println(reqWorkAndReview.getDescription());
+        System.out.println(reqWorkAndReview.getResult());
+        System.out.println(reqWorkAndReview.getReviewid());
     }
 
 }

@@ -15,7 +15,15 @@ public class SponsorBean implements Serializable ,Cloneable{
 
     private Integer hostid; //主键
 
-    private Integer uerid;
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    private Integer userid;
 
     private Integer companyid;
 
@@ -43,13 +51,7 @@ public class SponsorBean implements Serializable ,Cloneable{
         this.hostid = hostid;
     }
 
-    public Integer getUerid() {
-        return uerid;
-    }
 
-    public void setUerid(Integer uerid) {
-        this.uerid = uerid;
-    }
 
     public Integer getCompanyid() {
         return companyid;
