@@ -18,7 +18,14 @@
     <select id="selectall" resultType="com.rev.revuser.bean.ActivityBean">
         select * from activity
     </select>
-
+    <select id="selectCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*) from activity
+        <trim prefix="where">
+            <if test="hostId!=0">
+                hostId = #{hostId,jdbcType=INTEGER}
+            </if>
+        </trim>
+    </select>
     <select id="selectByid" parameterType="java.lang.Integer" resultType="com.rev.revuser.bean.ActivityBean">
         select * from activity
         where activityId = #{activityId,jdbcType=INTEGER}

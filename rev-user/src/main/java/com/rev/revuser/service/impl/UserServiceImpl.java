@@ -34,6 +34,8 @@ public class UserServiceImpl implements UserService {
     CompanyUserBeanMapper CompanyUserBeanMapper;
     @Resource
     SponsorBeanMapper sponsorBeanMapper;
+    @Resource
+    ActivityNodeBeanMapper activityNodeBeanMapper;
 //　　todo 事务事务 何苦事物
     @Override
     public Result login(LoginParam loginParam) {
@@ -69,14 +71,14 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public Result toHoldActivity(HoldActivityParam holdActivityParam) {
+    public ActivityBean toHoldActivity(HoldActivityParam holdActivityParam) {
         SponsorBean sponsorBean=new SponsorBean();
         CompanyUserBean selectOption=new CompanyUserBean();
         selectOption.setUserId(holdActivityParam.getUserId());
         CompanyUserBean companyUserBean=CompanyUserBeanMapper.selectByOption(selectOption);
         if(companyUserBean==null){
-            CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.SEARCH_NULL);
-            return  Result.newFailureResult(commonBizException);
+//            CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.SEARCH_NULL);
+            return  null;
         }
         sponsorBean.setCompanyid(companyUserBean.getCompanyId());
         sponsorBean.setUerid(companyUserBean.getUserId());
@@ -90,10 +92,17 @@ public class UserServiceImpl implements UserService {
         activityBean.setStartTime(holdActivityParam.getStartTime());
         activityBean.setEndTime(holdActivityParam.getEndTime());
         activityBean.setHostId(sponsorBean.getHostid());
+        activityBean.setActivityName(holdActivityParam.getActivityName());
         ActivityBeanMapper.insertActivity(activityBean);
         sponsorBean.setActivityId(activityBean.getActivityId());
         sponsorBeanMapper.updateByPrimaryKey(sponsorBean);
-        return Result.newSuccessResult();
+        return activityBean;
+    }
+
+    @Override
+    public Result addActivityNode(ActivityNodeBean activityNodeBean) {
+        activityNodeBeanMapper.insertActivityNode(activityNodeBean);
+        return null;
     }
 
     @Override
@@ -142,6 +151,24 @@ public class UserServiceImpl implements UserService {
     public List<UserView> getAllUser() {
         List<UserView> ttt= UserBeanMapper.getAllUser();
         return ttt;
+    }
+
+    @Override
+    public AttendorBean getAttendorById(Integer attendorId) {
+        return  AttendorBeanMapper.selectByPrimaryKey(attendorId);
+
+    }
+
+    @Override
+    public List<JudgeView> getJudgeById(Integer judgeId) {
+        return JudgeBeanMapper.selectByPrimaryKey(judgeId);
+
+    }
+
+    @Override
+    public SponsorBean getSponsorById(Integer sponsorId) {
+        return sponsorBeanMapper.selectByPrimaryKey(sponsorId);
+
     }
 
     @Override
@@ -203,6 +230,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserView getUserById(int userid) {
         return null;
+    }
+
+    @Override
+    public List<ActivityNodeBean> getActivityNode(Integer activityId) {
+        return activityNodeBeanMapper.selectActivityNode(activityId);
+    }
+
+    @Override
+    public int getActivityCount(Integer hostId) {
+        return ActivityBeanMapper.selectCount(hostId);
+
+    }
+
+    @Override
+    public ActivityBean getActivityId(int activityId) {
+        return ActivityBeanMapper.selectByid(activityId);
+
     }
 /*
 

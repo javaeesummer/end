@@ -4,15 +4,19 @@ package com.rev.revcontroller.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSONObject;
 import com.rev.revuser.bean.ActivityBean;
+import com.rev.revuser.bean.ActivityNodeBean;
 import com.rev.revuser.bean.GroupBean;
+import com.rev.revuser.bean.JudgeBean;
 import com.rev.revuser.dao.ActivityBeanMapper;
 import com.rev.revuser.dao.UserBeanMapper;
 import com.rev.revuser.exception.CommonBizException;
 import com.rev.revuser.exception.ExpCodeEnum;
 import com.rev.revuser.param.*;
+import com.rev.revuser.result.JudgeView;
 import com.rev.revuser.result.Result;
 import com.rev.revuser.service.UserService;
 
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @CrossOrigin
@@ -71,6 +76,19 @@ public class userController {
     public Result registerAttendor(HttpServletRequest httpServletRequest,RegisterAttendorParam registerAttendorParam){
         return userService.registerAttendor(registerAttendorParam);
     }
+    /**
+
+     *@描述 按照分页请求活动信息
+
+     *@参数  可以根据主办方请求
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
     @ResponseBody
     @RequestMapping(value ="/getActivity",method = RequestMethod.POST)
     public Result getOnePageActivity(HttpServletRequest httpServletRequest,ActivityPaginationParam activityPaginationParam){
@@ -80,11 +98,22 @@ public class userController {
         }
         activityPaginationParam.setLimit1((activityPaginationParam.getPagenum()-1)*activityPaginationParam.getPagesize());
         activityPaginationParam.setLimit2(activityPaginationParam.getLimit1()+activityPaginationParam.getPagesize());
-//        if(activityPaginationParam.getHostId()==0){
-            return Result.newSuccessResult(userService.getOnePageActivity(activityPaginationParam));
-//        }else{
-//            return Result.newSuccessResult(userService.getOnePageActivityByHostId(activityPaginationParam));
-//        }
+        return Result.newSuccessResult(userService.getOnePageActivity(activityPaginationParam));
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getActivityNode",method = RequestMethod.POST)
+    public Result getActivityNode(HttpServletRequest httpServletRequest,Integer activityId){
+        return Result.newSuccessResult(userService.getActivityNode(activityId));
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getActivityById",method = RequestMethod.POST)
+    public Result getActivityById(HttpServletRequest httpServletRequest,int activityId){
+        return  Result.newSuccessResult(userService.getActivityId(activityId));
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getActivityCount",method = RequestMethod.POST)
+    public Result getActivityCount(HttpServletRequest httpServletRequest,@Param(value="hostId")Integer hostId){
+        return  Result.newSuccessResult(userService.getActivityCount(hostId));
     }
     /**
 
@@ -100,10 +129,34 @@ public class userController {
 
      */
     @ResponseBody
-    @RequestMapping(value ="/holdAcitivity",method = RequestMethod.POST)
-    public Result holdActivity(HttpServletRequest httpServletRequest,HoldActivityParam holdActivityParam){
-        return userService.toHoldActivity(holdActivityParam);
+    @RequestMapping(value ="/holdActivity",method = RequestMethod.POST)
+    public Result holdActivity(HttpServletRequest httpServletRequest,HoldActivityParam param){
+        ActivityBean activityBean=userService.toHoldActivity(param);
+        if(activityBean==null){
+            CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.SEARCH_NULL);
+            return Result.newFailureResult(commonBizException);
+        }
+        if(param.getUpload().equals("是")){
+            ActivityNodeBean activityNodeBean=new ActivityNodeBean();
+            activityNodeBean.setActivityId(activityBean.getActivityId());
+            activityNodeBean.setPriority(3);
+            userService.addActivityNode(activityNodeBean);
+        }
+        if(param.getVote().equals("是")){
+            ActivityNodeBean activityNodeBean=new ActivityNodeBean();
+            activityNodeBean.setActivityId(activityBean.getActivityId());
+            activityNodeBean.setPriority(4);
+            userService.addActivityNode(activityNodeBean);
+        }
+        if(param.getJudge().equals("是")){
+            ActivityNodeBean activityNodeBean=new ActivityNodeBean();
+            activityNodeBean.setActivityId(activityBean.getActivityId());
+            activityNodeBean.setPriority(5);
+            userService.addActivityNode(activityNodeBean);
+        }
+        return Result.newSuccessResult();
     }
+
     /**
 
      *@描述 初始化，批量创建组，组名默认是1，2，3，4．．．
@@ -131,5 +184,22 @@ public class userController {
     public Result NextNode(HttpServletRequest httpServletRequest){
 
         return null;
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getAttendor",method = RequestMethod.POST)
+    public Result getAttendor(HttpServletRequest httpServletRequest,Integer attendorId){
+        return Result.newSuccessResult(userService.getAttendorById(attendorId));
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getJudge",method = RequestMethod.POST)
+    public Result getJudge(HttpServletRequest httpServletRequest,Integer judgeId){
+        List<JudgeView> judgeViewList=userService.getJudgeById(judgeId);
+        return Result.newSuccessResult(judgeViewList);
+    }
+    @ResponseBody
+    @RequestMapping(value ="/getHost",method = RequestMethod.POST)
+    public Result getHost(HttpServletRequest httpServletRequest,Integer hostId){
+
+        return Result.newSuccessResult(userService.getSponsorById(hostId));
     }
 }

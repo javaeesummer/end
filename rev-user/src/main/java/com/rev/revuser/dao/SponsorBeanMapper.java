@@ -2,6 +2,7 @@ package com.rev.revuser.dao;
 
 import com.rev.revuser.bean.AttendorBean;
 import com.rev.revuser.bean.SponsorBean;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface SponsorBeanMapper {
 
     int insertSelective(SponsorBean record);
 
-    SponsorBean selectByPrimaryKey(Integer hostid);
+    SponsorBean selectByPrimaryKey(@Param("hostid") Integer hostid);
 
     int updateByPrimaryKeySelective(SponsorBean record);
 

@@ -2,6 +2,8 @@ package com.rev.revuser.dao;
 
 import com.rev.revuser.bean.AttendorBean;
 import com.rev.revuser.bean.JudgeBean;
+import com.rev.revuser.result.JudgeView;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ public interface JudgeBeanMapper {
 
     JudgeBean selectJudgeByUserId(int userid);
 
-    JudgeBean selectByPrimaryKey(Integer judgeid);
+    List<JudgeView> selectByPrimaryKey(@Param("judgeid") Integer judgeid);
 
     int updateByPrimaryKeySelective(JudgeBean record);
 
