@@ -96,53 +96,77 @@ public class FileController {
         }
         return result;
     }
-    //修改作品信息
+    //修改作品信息无新文件
     @ResponseBody
-    @RequestMapping(value = "/moddifyFile",method = RequestMethod.POST)
-    public Result<FileResult> moddifyFile(HttpServletResponse response, HttpServletRequest request,UploadFileParam param){
+    @RequestMapping(value = "/moddifyNoFile",method = RequestMethod.POST)
+    public Result<FileResult> moddifyNoFile(HttpServletResponse response, HttpServletRequest request,UploadFileParam param){
         Result result=new Result();
-        if(param.getWorkname()==null){
-            result.setMessage("作品名为空");
-            return  result;
-        }
-        if(param.getFile()!=null){
-            //file upload
-            System.out.println("ppppp"+param.getAttendorid());
-            System.out.println("ppppp"+param.getWorkname());
-            param.setSubmittime(new Date());
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-            File f = new File("/file/"+ fmt.format(new Date()),param.getFile().getOriginalFilename());
-            if(!f.getParentFile().exists()){
-                f.getParentFile().mkdirs();
-            }
-            try {
-                param.getFile().transferTo(f);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (IllegalStateException e) {
-//            return result.newFailureResult(new CommonBizException(ExpCodeEnum.FILE_UPLOAD_FIED));
-            }
-            FileParam fileParam=new FileParam();
-            BeanUtils.copyProperties(param,fileParam);
-            fileParam.setFileSize(String.valueOf(param.getFile().getSize()));
-            fileParam.setFilepath(f.getAbsolutePath());
-            System.out.println(f.getAbsolutePath());
-            System.out.println("aaa"+fileParam.getAttendorid());
-            result.setMessage("修改成功");
-            fileService.moddifyFile(fileParam);
-            return result;
-        }
-        //database update
         FileParam fileParam=new FileParam();
         fileParam.setAttendorid(param.getAttendorid());
-        fileParam.setSubmittime(new Date());
         fileParam.setWorkname(param.getWorkname());
+        fileParam.setSubmittime(new Date());
         fileParam.setDescription(param.getDescription());
         System.out.println("+++"+fileParam.getAttendorid());
         System.out.println("+++"+fileParam.getWorkname());
         System.out.println("+++"+fileParam.getDescription());
         fileService.moddifyNoFile(fileParam);
+        result.setMessage("修改成功");
+        result.setSuccess(true);
         return result;
+    }
+    //修改作品信息上传新文件
+    @ResponseBody
+    @RequestMapping(value = "/moddifyFile",method = RequestMethod.POST)
+    public Result<FileResult> moddifyFile(HttpServletResponse response, HttpServletRequest request,UploadFileParam param){
+        Result result=new Result();
+//        if(param.getWorkname()==null){
+//            result.setMessage("作品名为空");
+//            return  result;
+//        }
+//        if(param.getFile()!=null)
+            //file upload
+//            System.out.println("ppppp"+param.getAttendorid());
+//            System.out.println("ppppp"+param.getWorkname());
+//            param.setSubmittime(new Date());
+//            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+//            File f = new File("/file/"+ fmt.format(new Date()),param.getFile().getOriginalFilename());
+//            if(!f.getParentFile().exists()){
+//                f.getParentFile().mkdirs();
+//            }
+//            try {
+//                param.getFile().transferTo(f);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (IllegalStateException e) {
+//            return result.newFailureResult(new CommonBizException(ExpCodeEnum.FILE_UPLOAD_FIED));
+//            }
+            FileParam fileParam=new FileParam();
+//            BeanUtils.copyProperties(param,fileParam);
+//            fileParam.setFileSize(String.valueOf(param.getFile().getSize()));
+//            fileParam.setFilepath(f.getAbsolutePath());
+            fileParam.setWorkname(param.getWorkname());
+            fileParam.setSubmittime(new Date());
+            fileParam.setDescription(param.getDescription());
+            fileParam.setFileSize(param.getFileSize());
+            fileParam.setFilepath(param.getFilepath());
+//            System.out.println(f.getAbsolutePath());
+//            System.out.println("aaa"+fileParam.getAttendorid());
+            result.setMessage("修改成功");
+            fileService.moddifyFile(fileParam);
+            result.setSuccess(true);
+            return result;
+
+        //database update
+//        FileParam fileParam=new FileParam();
+//        fileParam.setAttendorid(param.getAttendorid());
+//        fileParam.setSubmittime(new Date());
+//        fileParam.setWorkname(param.getWorkname());
+//        fileParam.setDescription(param.getDescription());
+//        System.out.println("+++"+fileParam.getAttendorid());
+//        System.out.println("+++"+fileParam.getWorkname());
+//        System.out.println("+++"+fileParam.getDescription());
+//        fileService.moddifyNoFile(fileParam);
+//        return result;
     }
     //显示某个参赛者作品
     @ResponseBody
@@ -164,6 +188,7 @@ public class FileController {
         Result result=new Result();
         result.setMessage("查询成功");
         result.setData(fileService.getAllFile(activityParam));
+        result.setSuccess(true);
         return result;
     }
     //上传参赛者作品
@@ -226,6 +251,7 @@ public class FileController {
         fileService.uploadFile(fileParam);
         result.setData("插入成功");
        // result.newSuccessResult();
+        result.setSuccess(true);
         return result;
     }
 
