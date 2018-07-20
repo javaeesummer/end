@@ -53,6 +53,9 @@
       <if test="userpwd != null" >
         userpwd,
       </if>
+      <if test="userType != null" >
+        userType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -63,6 +66,9 @@
       </if>
       <if test="userpwd != null" >
         #{userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

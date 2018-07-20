@@ -115,6 +115,7 @@ public class UserServiceImpl implements UserService {
             UserBean userBean1=new UserBean();
             userBean1.setUsername(registerParam.getUsername());
             userBean1.setUserpwd(registerParam.getPassword());
+            userBean1.setUserType(registerParam.getUsertype());
             UserBeanMapper.insertSelective(userBean1);
             return Result.newSuccessResult();
         }

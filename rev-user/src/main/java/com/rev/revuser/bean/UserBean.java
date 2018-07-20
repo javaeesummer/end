@@ -9,6 +9,16 @@ public class UserBean implements Serializable,Cloneable {
 
     private String userpwd;
 
+    private String userType;
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getUserid() {
