@@ -27,7 +27,7 @@ public class ReqAttendorList implements Serializable {
         this.attendorid = attendorid;
     }
 
-    public boolean isIfjudged() {
+    public boolean getIfjudged() {
         return ifjudged;
     }
 

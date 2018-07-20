@@ -3,8 +3,17 @@ package com.rev.judgement.Param;
 import java.io.Serializable;
 
 public class AttendorParam implements Serializable {
+    int activityId;
     int attendorId;
     String endResult;
+
+    public int getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(int activityId) {
+        this.activityId = activityId;
+    }
 
     public int getAttendorId() {
         return attendorId;
