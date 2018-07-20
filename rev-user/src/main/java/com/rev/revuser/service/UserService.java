@@ -205,5 +205,4 @@ public interface UserService {
 
      */
     void toNextStep(ActivityBean activityBean);
-    Result getUser(GetUserInfoParam param);
 }

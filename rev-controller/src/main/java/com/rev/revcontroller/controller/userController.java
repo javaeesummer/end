@@ -62,13 +62,7 @@ public class userController {
     @ResponseBody
     @RequestMapping(value ="/register")
     public Result register(HttpServletRequest httpServletRequest,RegisterParam registerParam){
-        Result result=new Result();
-        if(registerParam.getUsername()==null || registerParam.getPassword()==null || registerParam.getUsertype()==null){
-            result.setSuccess(false);
-            result.setErrorCode(ExpCodeEnum.SOMETHING_NULL.getCode());
-            result.setMessage(ExpCodeEnum.SOMETHING_NULL.getMessage());
-            return result;
-        }
+
         return userService.register(registerParam);
     }
     @ResponseBody
@@ -185,6 +179,19 @@ public class userController {
 
         return null;
     }
+    /**
+
+     *@描述 现在要改造成可以根据activityid和attendorid查询
+
+     *@参数
+
+     *@返回值
+
+     *@创建人  hxs
+
+     *@修改人和其它信息
+
+     */
     @ResponseBody
     @RequestMapping(value ="/getAttendor",method = RequestMethod.POST)
     public Result getAttendor(HttpServletRequest httpServletRequest,Integer attendorId){
@@ -202,11 +209,4 @@ public class userController {
 
         return Result.newSuccessResult(userService.getSponsorById(hostId));
     }
-    @ResponseBody
-    @RequestMapping(value ="/getUserInfo",method = RequestMethod.POST)
-    public Result getUserInfo(HttpServletRequest httpServletRequest,GetUserInfoParam param){
-
-        return userService.getUser(param);
-    }
-
 }

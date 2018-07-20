@@ -1,8 +1,6 @@
 package com.rev.revuser.dao;
 
 import com.rev.revuser.bean.AttendorBean;
-import com.rev.revuser.bean.JudgeBean;
-import com.rev.revuser.bean.SponsorBean;
 import com.rev.revuser.bean.UserBean;
 import com.rev.revuser.result.UserView;
 
@@ -35,10 +33,4 @@ public interface UserBeanMapper {
     int updateByPrimaryKeySelective(UserBean record);
 
     int updateByPrimaryKey(UserBean record);
-
-    JudgeBean getJudgeInfo(int userId);
-
-    SponsorBean getSponsorInfo(int userId);
-
-    AttendorBean getAttendorInfo(int userId);
 }
