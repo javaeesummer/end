@@ -30,7 +30,10 @@
         </trim>
 
     </select>
-
+    <select id="getGroupName" resultType="java.lang.String">
+        select groupName from groups
+        where activityId = #{activityId,jdbcType=INTEGER}
+    </select>
     <!--<insert id="insertActivityGroup">-->
         <!--insert into group-->
         <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->

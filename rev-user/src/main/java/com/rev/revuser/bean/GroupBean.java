@@ -1,6 +1,7 @@
 package com.rev.revuser.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author hxs

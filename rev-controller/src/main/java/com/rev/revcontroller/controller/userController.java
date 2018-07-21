@@ -236,6 +236,13 @@ public class userController {
         return Result.newSuccessResult();
     }
     @ResponseBody
+    @RequestMapping(value ="/getActivityGroupName",method = RequestMethod.POST)
+    public Result getActivityGroupName(Integer activityId){
+
+        return Result.newSuccessResult(
+                userService.getGroupName(activityId));
+    }
+    @ResponseBody
     @RequestMapping(value ="/groupAttendor",method = RequestMethod.POST)
     public Result MakeActivityGroup(Integer activityId){
         return userService.groupAttendor(activityId);

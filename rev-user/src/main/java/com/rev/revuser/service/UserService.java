@@ -189,6 +189,7 @@ public interface UserService {
     OnePageActivityView getOnePageActivity(ActivityPaginationParam activityPaginationParam);
     List<ActivityBean> getOnePageActivityByHostId(ActivityPaginationParam activityPaginationParam);
 
+    List<String> getGroupName(Integer activityId);
 
     /**
 
