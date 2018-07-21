@@ -180,8 +180,18 @@ public class FileController {
         //fileService.getFileByAttendorId(fileParam);
         System.out.println("+++"+fileParam.getAttendorid());
         Result result=new Result();
-        result.setMessage("查询成功");
-        result.setData(fileService.getFileByAttendorId(fileParam));
+//        result.setMessage("查询成功");
+        FileResult fileResult=new FileResult();
+        fileResult=fileService.getFileByAttendorId(fileParam);
+        if(fileResult==null){
+            result.setMessage("您还没有上传过作品，请先上传作品");
+            result.setSuccess(false);
+        }
+        else {
+            result.setData(fileResult);
+            result.setMessage("查询成功");
+            result.setSuccess(true);
+        }
         return  result;
     }
     //显示当前活动所有的参赛者作品
@@ -240,6 +250,7 @@ public class FileController {
         System.out.println(f.getAbsolutePath());
        // fileService.uploadFile(fileParam);
         result.setData(fileParam);
+        result.setSuccess(true);
        // return result.newSuccessResult();
         return result;
     }
@@ -251,7 +262,7 @@ public class FileController {
         FileParam fileParam1=new FileParam();
         fileParam1.setAttendorid(param.getAttendorid());
         FileResult fileResult=fileService.getFileByAttendorId(fileParam1);
-        if(fileResult.getFilepath()!=null){
+        if(fileResult!=null){
             result.setMessage("您已经上传过作品，请勿多次提交");
             result.setSuccess(false);
             return result;

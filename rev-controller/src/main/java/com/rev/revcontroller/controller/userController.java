@@ -16,9 +16,6 @@ import com.rev.revuser.result.JudgeView;
 import com.rev.revuser.result.Result;
 import com.rev.revuser.service.UserService;
 
-import org.apache.catalina.User;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;

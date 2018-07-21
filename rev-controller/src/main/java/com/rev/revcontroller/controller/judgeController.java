@@ -80,7 +80,7 @@ public class judgeController {
      * @date: 2018/7/17 10:04
      * @author:DKC
      **/
-    public Result<List<ReqAttendorInfo>> showAllAttendor(HttpServletResponse response, HttpServletRequest request, @RequestBody AttendorParam param)
+    public Result<List<ReqAttendorInfo>> showAllAttendor(HttpServletResponse response, HttpServletRequest request, AttendorParam param)
     {
         Result<List<ReqAttendorInfo>> result=new Result<List<ReqAttendorInfo>>();
         result.setData(judgeService.showAllAttendor(param.getActivityId()));
@@ -99,7 +99,7 @@ public class judgeController {
      * @date: 2018/7/17 10:14
      * @author:DKC
      **/
-    public Result<List<WorksInfo>> getWorksDetail(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
+    public Result<List<WorksInfo>> getWorksDetail(HttpServletResponse response, HttpServletRequest request,  JudgeParam param)
     {
         Result<List<WorksInfo>> result=new Result<List<WorksInfo>>();
         result.setData(judgeService.getWorksDetail(param.getAttendorId()));
@@ -137,7 +137,7 @@ public class judgeController {
      * @date: 2018/7/17 11:09
      * @author:DKC
      **/
-    public Result modifyReview(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
+    public Result modifyReview(HttpServletResponse response, HttpServletRequest request,  JudgeParam param)
     {
         Result result=new Result();
         judgeService.modifyReview(param.getReviewInfo());
@@ -166,7 +166,7 @@ public class judgeController {
      * @date: 2018/7/17 23:20
      * @author:DKC
      **/
-    public Result<List<ReviewInfo>> getReviewByJudgeId(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
+    public Result<List<ReviewInfo>> getReviewByJudgeId(HttpServletResponse response, HttpServletRequest request,  JudgeParam param)
     {
         Result<List<ReviewInfo>> result=new Result<List<ReviewInfo>>();
         result.setData(judgeService.getReviewByJudgeId(param));
@@ -185,7 +185,7 @@ public class judgeController {
      * @date: 2018/7/17 23:22
      * @author:DKC
      **/
-    public  Result<List<ReviewInfo>> getReviewByAttendorId (HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
+    public  Result<List<ReviewInfo>> getReviewByAttendorId (HttpServletResponse response, HttpServletRequest request,  JudgeParam param)
     {
         Result<List<ReviewInfo>> result=new Result<List<ReviewInfo>>();
         result.setData(judgeService.getReviewByAttendorId(param));
@@ -202,7 +202,7 @@ public class judgeController {
      * @date: 2018/7/19 14:46
      * @author:DKC
      **/
-    public Result<ReqWorkAndReview> openReview(HttpServletResponse response, HttpServletRequest request,@RequestBody JudgeParam param)
+    public Result<ReqWorkAndReview> openReview(HttpServletResponse response, HttpServletRequest request,JudgeParam param)
     {
         Result<ReqWorkAndReview> result=new Result<ReqWorkAndReview>();
         ReqWorkAndReview reqWorkAndReview=new ReqWorkAndReview();
@@ -242,7 +242,7 @@ public class judgeController {
      * @date: 2018/7/20 10:55
      * @author:DKC
      **/
-    public  Result<String> getAddress(HttpServletResponse response, HttpServletRequest request,@RequestBody AttendorParam param)
+    public  Result<String> getAddress(HttpServletResponse response, HttpServletRequest request, AttendorParam param)
     {
         Result<String> result=new Result<String>();
         result.setSuccess(true);
@@ -261,7 +261,7 @@ public class judgeController {
      * @date: 2018/7/20 10:56
      * @author:DKC
      **/
-    public Result addVote(HttpServletResponse response, HttpServletRequest request,@RequestBody AttendorParam param)
+    public Result addVote(HttpServletResponse response, HttpServletRequest request, AttendorParam param)
     {
         Result result=new Result();
         result.setData(judgeService.addVote(param));
@@ -280,7 +280,7 @@ public class judgeController {
      * @date: 2018/7/21 8:46
      * @author:DKC
      **/
-    public Result<List<ReqUserInfo>> getUserInfo(HttpServletResponse response, HttpServletRequest request, @RequestBody UserParam param)
+    public Result<List<ReqUserInfo>> getUserInfo(HttpServletResponse response, HttpServletRequest request, UserParam param)
     {
         Result<List<ReqUserInfo>> result=new Result<List<ReqUserInfo>>();
         result.setSuccess(true);
@@ -299,7 +299,7 @@ public class judgeController {
      * @date: 2018/7/21 13:28
      * @author:DKC
      **/
-    public Result<List<ReqJudgeInfo>> getJudgeListByActivityId(HttpServletResponse response, HttpServletRequest request, @RequestBody UserParam param)
+    public Result<List<ReqJudgeInfo>> getJudgeListByActivityId(HttpServletResponse response, HttpServletRequest request,  UserParam param)
     {
         Result<List<ReqJudgeInfo>> result=new Result<List<ReqJudgeInfo>>();
         result.setData(judgeService.getJudgeByActivityId(param));
