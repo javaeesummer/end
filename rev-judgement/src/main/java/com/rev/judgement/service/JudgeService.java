@@ -4,6 +4,7 @@ import com.rev.judgement.Param.AddJudgeParam;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Param.UserParam;
+import com.rev.judgement.Req.ReqAttendorEnd;
 import com.rev.judgement.Req.ReqAttendorInfo;
 import com.rev.judgement.Req.ReqJudgeInfo;
 import com.rev.judgement.Req.ReqUserInfo;
@@ -171,6 +172,14 @@ public interface JudgeService{
      * @author:DKC
      **/
     Boolean addJudge(AddJudgeParam param);
-
+    /**
+     * @description 根据activityId显示最终按照得分排序的结果
+     * @method
+     * @param
+     * @return
+     * @date: 2018/7/21 22:31
+     * @author:DKC
+     **/
+    List<ReqAttendorEnd> showAttendorEndResult(AttendorParam param);
    // List<ReqAttendorList> getReqAttendorList(int activityId,int groupId);
 }

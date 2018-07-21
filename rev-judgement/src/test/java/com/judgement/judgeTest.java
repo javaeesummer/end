@@ -5,6 +5,7 @@ import com.rev.judgement.Param.AddJudgeParam;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Param.UserParam;
+import com.rev.judgement.Req.ReqAttendorEnd;
 import com.rev.judgement.Req.ReqAttendorList;
 import com.rev.judgement.Req.ReqUserInfo;
 import com.rev.judgement.Req.ReqWorkAndReview;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -44,6 +46,8 @@ public class judgeTest {
     UserInfoMapper userInfoMapper;
     @Resource
     GroupInfoMapper groupInfoMapper;
+    @Resource
+    WorksInfoMapper worksInfoMapper;
     @Test
     public void getAttendorList(){
         System.out.print("*********************"+ JSONArray.toJSONString(judgeService.getAttendorList(1,1)));
@@ -249,6 +253,43 @@ public class judgeTest {
        UserParam param =new UserParam();
        param.setActivityId(1);
         System.out.println(JSONArray.toJSONString(judgeService.getJudgeByActivityId(param)));
+    }
+    @Test
+    public void showAttendorEndResult()
+    {
+        AttendorParam param=new AttendorParam();
+        param.setActivityId(1);
+        List<ReqAttendorEnd> list=new ArrayList<ReqAttendorEnd>();
+        for (AttendorInfo attendorInfo:attendorInfoMapper.getAttendorByActivityId(param.getActivityId()))
+        {
+            ReqAttendorEnd reqAttendorEnd=new ReqAttendorEnd();
+            reqAttendorEnd.setUserid(attendorInfo.getUserid());
+            reqAttendorEnd.setStatus(attendorInfo.getStatus());
+            reqAttendorEnd.setEndResult(attendorInfo.getEndresult());
+            reqAttendorEnd.setAttendorId(attendorInfo.getAttendorid());
+            reqAttendorEnd.setVotenum(attendorInfo.getVotenum());
+            if (worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).isEmpty()) {
+                reqAttendorEnd.setWorkname(null);
+                reqAttendorEnd.setFilepath(null);
+                reqAttendorEnd.setDescription(null);
+            }
+            else
+            {
+                reqAttendorEnd.setWorkname(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getWorkname());
+                reqAttendorEnd.setDescription(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getDescription());
+                reqAttendorEnd.setFilepath(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getFilepath());
+            }
+            if (userInfoMapper.getUserByUserId(attendorInfo.getUserid())==null)
+            {reqAttendorEnd.setUsername(null);}
+            else{
+            reqAttendorEnd.setUsername(userInfoMapper.getUserByUserId(attendorInfo.getUserid()).getUsername());}
+            list.add(reqAttendorEnd);
+        }
+        Collections.sort(list);
+        for (ReqAttendorEnd reqAttendorEnd:list)
+        {
+            System.out.println(reqAttendorEnd.getUsername()+reqAttendorEnd.getEndResult()+"\n");
+        }
     }
 
 

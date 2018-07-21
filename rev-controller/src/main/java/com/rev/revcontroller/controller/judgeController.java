@@ -2,6 +2,7 @@ package com.rev.revcontroller.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 
+import com.rev.judgement.Param.AddJudgeParam;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Param.UserParam;
@@ -314,7 +315,42 @@ public class judgeController {
         result.setSuccess(true);
         return result;
     }
-
-
-
+    @ResponseBody
+    @RequestMapping(value = "/showAttendorEndResult",method = RequestMethod.POST)
+    /**
+     * @description 显示最终结果，按endResult降序排列
+     * @method  showAttendorEndResult
+     * @param response
+     * @param request
+     * @param param
+     * @return com.rev.revuser.result.Result<java.util.List<com.rev.judgement.Req.ReqAttendorEnd>>
+     * @date: 2018/7/21 23:45
+     * @author:DKC
+     **/
+    public Result<List<ReqAttendorEnd>> showAttendorEndResult(HttpServletResponse response, HttpServletRequest request,AttendorParam param)
+    {
+        Result<List<ReqAttendorEnd>> result=new Result<List<ReqAttendorEnd>>();
+        result.setData(judgeService.showAttendorEndResult(param));
+        result.setSuccess(true);
+        return result;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/addJudge",method = RequestMethod.POST)
+    /**
+     * @description 添加评委
+     * @method  addJudge
+     * @param response
+     * @param request
+     * @param param
+     * @return com.rev.revuser.result.Result
+     * @date: 2018/7/21 23:54
+     * @author:DKC
+     **/
+    public Result addJudge(HttpServletResponse response, HttpServletRequest request,AddJudgeParam param)
+    {
+        Result result=new Result();
+        result.setData(judgeService.addJudge(param));
+        result.setSuccess(true);
+        return result;
+    }
 }

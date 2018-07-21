@@ -6,10 +6,7 @@ import com.rev.judgement.Param.AddJudgeParam;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Param.UserParam;
-import com.rev.judgement.Req.ReqAttendorInfo;
-import com.rev.judgement.Req.ReqAttendorList;
-import com.rev.judgement.Req.ReqJudgeInfo;
-import com.rev.judgement.Req.ReqUserInfo;
+import com.rev.judgement.Req.*;
 import com.rev.judgement.bean.*;
 import com.rev.judgement.dao.*;
 import com.rev.judgement.service.JudgeService;
@@ -18,6 +15,8 @@ import com.rev.judgement.service.JudgeService;
 import javax.annotation.Resource;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 @Service
 public class JudgeServiceImp implements JudgeService{
@@ -79,7 +78,10 @@ public class JudgeServiceImp implements JudgeService{
             {reqAttendorInfo.setWorkname(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getWorkname());
             reqAttendorInfo.setDescription(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getDescription());
             reqAttendorInfo.setFilepath(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getFilepath());}
-            reqAttendorInfo.setUsername(userInfoMapper.getUserByUserId(attendorInfo.getUserid()).getUsername());
+            if (userInfoMapper.getUserByUserId(attendorInfo.getUserid())==null)
+            {reqAttendorInfo.setUsername(null);}
+            else{
+                reqAttendorInfo.setUsername(userInfoMapper.getUserByUserId(attendorInfo.getUserid()).getUsername());}
             list.add(reqAttendorInfo);
         }
         return list;
@@ -208,8 +210,36 @@ public class JudgeServiceImp implements JudgeService{
         judgeInfo.setGroupid(groupInfoMapper.getGroupInfoByGroupName(param.getActivityId(),param.getGroupName()).get(0).getGroupid());
         judgeInfo.setActivityid(param.getActivityId());
         judgeInfo.setUserid(userInfoMapper.getUserByUserName(param.getUserName()).get(0).getUserid());
-
         judgeInfoMapper.addJudge(judgeInfo);
         return true;
     }
+     public List<ReqAttendorEnd> showAttendorEndResult(AttendorParam param)
+     {
+         List<ReqAttendorEnd> list=new ArrayList<ReqAttendorEnd>();
+         for (AttendorInfo attendorInfo:attendorInfoMapper.getAttendorByActivityId(param.getActivityId()))
+         {
+             ReqAttendorEnd reqAttendorEnd=new ReqAttendorEnd();
+             reqAttendorEnd.setUserid(attendorInfo.getUserid());
+             reqAttendorEnd.setStatus(attendorInfo.getStatus());
+             reqAttendorEnd.setEndResult(attendorInfo.getEndresult());
+             reqAttendorEnd.setAttendorId(attendorInfo.getAttendorid());
+             reqAttendorEnd.setVotenum(attendorInfo.getVotenum());
+             if (worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).isEmpty()) {
+                 reqAttendorEnd.setWorkname(null);
+                 reqAttendorEnd.setFilepath(null);
+                 reqAttendorEnd.setDescription(null);
+             }
+             else
+             {reqAttendorEnd.setWorkname(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getWorkname());
+                 reqAttendorEnd.setDescription(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getDescription());
+                 reqAttendorEnd.setFilepath(worksInfoMapper.getWorksDetail(attendorInfo.getAttendorid()).get(0).getFilepath());}
+             if (userInfoMapper.getUserByUserId(attendorInfo.getUserid())==null)
+             {reqAttendorEnd.setUsername(null);}
+             else{
+                 reqAttendorEnd.setUsername(userInfoMapper.getUserByUserId(attendorInfo.getUserid()).getUsername());}
+             list.add(reqAttendorEnd);
+         }
+         Collections.sort(list);
+         return list;
+     }
 }
