@@ -30,6 +30,16 @@
         select * from activity
         where activityId = #{activityId,jdbcType=INTEGER}
     </select>
+    <select id="getActivityListCount"   resultType="java.lang.Integer">
+        select
+        count(*)
+        from activity
+        <if test="activityPaginationParam.hostId != 0">
+            where
+            hostId = #{activityPaginationParam.hostId,jdbcType=INTEGER}
+        </if>
+    </select>
+
     <select id="getActivityList"   resultType="com.rev.revuser.bean.ActivityBean">
         select
         *

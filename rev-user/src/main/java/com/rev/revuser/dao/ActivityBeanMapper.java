@@ -20,4 +20,5 @@ public interface ActivityBeanMapper {
     ActivityBean selectByid(int activityId);
     int selectCount(@Param("hostId") Integer hostId);
     void updateActivity(@Param("activityBean") ActivityBean activityBean);
+    int getActivityListCount(@Param("activityPaginationParam") ActivityPaginationParam activityPaginationParam);
 }

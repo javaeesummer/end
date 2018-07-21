@@ -29,6 +29,11 @@
   <sql id="Base_Column_List" >
     attendorId, activityId, phoneNum, voteNum, endResult, status, groupId, userId
   </sql>
+  <select id="getCountOfAttendor" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*)
+    from attendor
+    where activityId = #{activityId, jdbcType=INTEGER}
+  </select>
   <select id="selectUserByActivityId" parameterType="java.lang.Integer" resultMap="UserBeanMap">
     select
     userId

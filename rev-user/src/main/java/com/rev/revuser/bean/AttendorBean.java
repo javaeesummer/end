@@ -18,7 +18,6 @@ public class AttendorBean extends UserBean{
 
     private Integer attendorgroupid;//默认为０
 
-//    private Integer userid;//必须
 
 
     /**
