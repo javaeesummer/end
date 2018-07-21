@@ -34,6 +34,12 @@
     from attendor
     where activityId = #{activityId, jdbcType=INTEGER}
   </select>
+  <select id="selectAttendorByActivityId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from attendor
+    where activityId = #{activityId,jdbcType=INTEGER}
+  </select>
   <select id="selectUserByActivityId" parameterType="java.lang.Integer" resultMap="UserBeanMap">
     select
     userId
@@ -90,6 +96,10 @@
       </if>
     </trim>
   </select>
+  <!--<update id="updateGroupId">-->
+    <!--update attendor-->
+    <!--set groupId = #{}-->
+  <!--</update>-->
   <insert id="insertSelective" parameterType="com.rev.revuser.bean.AttendorBean" >
     insert into attendor
     <trim prefix="(" suffix=")" suffixOverrides="," >

@@ -120,6 +120,7 @@ public interface UserService {
      *@修改人和其它信息
 
      */
+    Result groupAttendor(Integer activityId);
     AttendorBean getAttendorById(Integer attendorId);
     List<AttendorView> getAttendorView(GetAttendorViewParam param);
     List<JudgeView> getJudgeById(Integer judgeId);
@@ -203,4 +204,8 @@ public interface UserService {
 
      */
     void toNextStep(ActivityBean activityBean);
+
+//    Result delAttendor(Integer);
+//    Result delSponsor(Integer judgeId);
+//    Result delJudge(Integer judgeId);
 }

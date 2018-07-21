@@ -22,5 +22,7 @@ public interface ActivityBeanMapper {
     int selectCount(@Param("hostId") Integer hostId);
     void updateActivity(@Param("activityBean") ActivityBean activityBean);
     ActivityBean getCurrentEndTime(GetCurrentEndTimeParam param);
+    int getActivityListCount(@Param("activityPaginationParam")ActivityPaginationParam param);
     void updateCountStatus(@Param("conutStatus")int conutStatus,@Param("activityId")int activityId);
+    Integer getActivityListCount(@Param("activityPaginationParam") ActivityPaginationParam activityPaginationParam);
 }

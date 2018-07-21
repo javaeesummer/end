@@ -17,7 +17,6 @@ public interface JudgeBeanMapper {
     JudgeBean selectJudgeByUserId(int userid);
 
     List<JudgeView> selectByPrimaryKey(@Param("judgeid") Integer judgeid);
-
     int updateByPrimaryKeySelective(JudgeBean record);
 
     int updateByPrimaryKey(JudgeBean record);
