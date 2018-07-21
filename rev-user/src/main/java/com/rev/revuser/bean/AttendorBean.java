@@ -2,16 +2,7 @@ package com.rev.revuser.bean;
 
 import java.io.Serializable;
 
-public class AttendorBean implements Serializable,Cloneable {
-    public UserBean getUserBean() {
-        return userBean;
-    }
-
-    public void setUserBean(UserBean userBean) {
-        this.userBean = userBean;
-    }
-
-    private UserBean userBean;//不在此表中，仅为方法用
+public class AttendorBean extends UserBean{
 
     private Integer attendorid;  //必须,但是是逐渐，自增
 
@@ -27,7 +18,7 @@ public class AttendorBean implements Serializable,Cloneable {
 
     private Integer attendorgroupid;//默认为０
 
-    private Integer userid;//必须
+//    private Integer userid;//必须
 
 
     /**
@@ -48,11 +39,7 @@ public class AttendorBean implements Serializable,Cloneable {
     @Override
     public Object clone() {
         AttendorBean attendorBean = null;
-        try{
-            attendorBean = (AttendorBean)super.clone();
-        }catch(CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+        attendorBean = (AttendorBean)super.clone();
         return attendorBean;
 //        return null;
     }
@@ -115,13 +102,7 @@ public class AttendorBean implements Serializable,Cloneable {
         this.attendorgroupid = attendorgroupid;
     }
 
-    public Integer getUserid() {
-        return userid;
-    }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
 
     public static void main(String args[]) {
         AttendorBean stu1 = new AttendorBean();
