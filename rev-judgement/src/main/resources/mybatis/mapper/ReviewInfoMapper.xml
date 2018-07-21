@@ -21,11 +21,10 @@
   </insert>
 
   <update id="modifyReview" parameterType="com.rev.judgement.bean.ReviewInfo">
- update review
-    set attendorId = #{attendorid,jdbcType=INTEGER},
-      result = #{result,jdbcType=VARCHAR},
-      advice = #{advice,jdbcType=VARCHAR},
-      judgeId = #{judgeid,jdbcType=INTEGER}
-    where reviewId = #{reviewid,jdbcType=INTEGER}
+    update review
+      set
+      result = #{result},
+      advice = #{advice}
+    where reviewId = #{reviewid}
      </update>
 </mapper>

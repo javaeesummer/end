@@ -25,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,13 +77,17 @@ public class judgeTest {
     @Test
     public void modifyReview()
     {
+        JudgeParam param=new JudgeParam();
+        param.setReviewId(67);
+        param.setAdvice("123");
+
         ReviewInfo reviewInfo=new ReviewInfo();
-        reviewInfo.setJudgeid(1);
-        reviewInfo.setAttendorid(1);
-        reviewInfo.setAdvice("dkc");
-        reviewInfo.setResult("211");
-        reviewInfo.setReviewid(1);
-        judgeService.modifyReview(reviewInfo);
+        reviewInfo.setReviewid(param.getReviewId());
+//        reviewInfo.setJudgeid(param.getJudgeId());
+        reviewInfo.setResult(param.getResult());
+        reviewInfo.setAdvice(param.getAdvice());
+//        reviewInfo.setAttendorid(param.getAttendorId());
+        reviewInfoMapper.modifyReview(reviewInfo);
     }
     @Test
     public void  showAllAttendor()
@@ -106,9 +111,29 @@ public class judgeTest {
     @Test
     public void calculateResult()
     {
-        JudgeParam param=new JudgeParam();
-        param.setAttendorId(1);
-        System.out.print("*********************"+ judgeService.calculateResult(param));
+        int i=0;
+        int result=0;
+        for (ReviewInfo reviewInfo:reviewInfoMapper.getReviewByAttendorId(50))
+        {
+            System.out.println("*****"+reviewInfo.getResult());
+            if(reviewInfo.getResult()==null)
+            {
+                result=result+0;
+                i--;
+            }
+            else
+            {
+                result=result+Integer.parseInt(reviewInfo.getResult());
+            }
+            i++;
+        }
+        if(i==0)
+        {
+            return ;
+        }
+        DecimalFormat df = new DecimalFormat("00.00");//格式化小数
+        String num = df.format((float)result/i);//返回的是String类型
+        System.out.print("*********************"+num);
     }
     @Test
     public void modifyEndResult()
@@ -220,8 +245,9 @@ public class judgeTest {
     @Test
     public void getJudgeByActivityId()
     {
-        UserParam param =new UserParam();
-        param.setActivityId(1);
+ //       System.out.println(JSONArray.toJSONString(judgeInfoMapper.getJudgeByActivityId(1)));
+       UserParam param =new UserParam();
+       param.setActivityId(1);
         System.out.println(JSONArray.toJSONString(judgeService.getJudgeByActivityId(param)));
     }
 

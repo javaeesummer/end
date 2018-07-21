@@ -53,7 +53,7 @@ public interface JudgeService{
      * @date: 2018/7/14 12:44
      * @author:DKC
      **/
-    int modifyReview(ReviewInfo reviewInfo);
+    int modifyReview(JudgeParam param);
     /**
      * @description 看到的参赛者的列表，包括票数
      * @method  showAllAttendor
@@ -111,7 +111,7 @@ public interface JudgeService{
     /**
      * @description 裁判去查其中一条评论记录
      * @method
-     * @param null
+     * @param
      * @return
      * @date: 2018/7/20 9:29
      * @author:DKC
@@ -120,7 +120,7 @@ public interface JudgeService{
     /**
      * @description 判断该裁判是否给该参赛者打过分数
      * @method
-     * @param null
+     * @param
      * @return
      * @date: 2018/7/20 10:22
      * @author:DKC
@@ -129,7 +129,7 @@ public interface JudgeService{
     /**
      * @description 参赛者获取推荐链接
      * @method
-     * @param null
+     * @param
      * @return
      * @date: 2018/7/20 10:57
      * @author:DKC
@@ -138,7 +138,7 @@ public interface JudgeService{
     /**
      * @description 给参赛者投上一票
      * @method
-     * @param null
+     * @param
      * @return
      * @date: 2018/7/20 10:58
      * @author:DKC

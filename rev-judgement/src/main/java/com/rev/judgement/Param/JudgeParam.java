@@ -9,7 +9,33 @@ public class JudgeParam implements Serializable {
     int activityId;
     int attendorId;
     int groupId;
-    ReviewInfo reviewInfo;
+    String result;
+    String advice;
+    int reviewId;
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getAdvice() {
+        return advice;
+    }
+
+    public void setAdvice(String advice) {
+        this.advice = advice;
+    }
+
+    public int getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
+    }
 
     public int getGroupId() {
         return groupId;
@@ -43,11 +69,4 @@ public class JudgeParam implements Serializable {
         this.attendorId = attendorId;
     }
 
-    public ReviewInfo getReviewInfo() {
-        return reviewInfo;
-    }
-
-    public void setReviewInfo(ReviewInfo reviewInfo) {
-        this.reviewInfo = reviewInfo;
-    }
 }

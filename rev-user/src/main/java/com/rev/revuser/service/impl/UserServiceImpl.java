@@ -287,8 +287,8 @@ public class UserServiceImpl implements UserService {
             int count=getCountofAttendor(onePageActivityView.getActivityBeanViewList().get(i).getActivityId());
             onePageActivityView.getActivityBeanViewList().get(i).setCount(count);
         }
-        int count=ActivityBeanMapper.getActivityListCount(activityPaginationParam);
-        onePageActivityView.setCount(count);
+   //     int count=ActivityBeanMapper.getActivityListCount(activityPaginationParam);
+     //   onePageActivityView.setCount(count);
         return  onePageActivityView;
     }
 

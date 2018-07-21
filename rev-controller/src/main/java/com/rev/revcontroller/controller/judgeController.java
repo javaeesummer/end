@@ -140,7 +140,13 @@ public class judgeController {
     public Result modifyReview(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
     {
         Result result=new Result();
-        judgeService.modifyReview(param.getReviewInfo());
+        //修改之前先判断review记录有没有，没有则添加一条review记录
+        if (judgeService.isReviewed(param)==false)
+        {
+            judgeService.addReview(param.getAttendorId(),param.getJudgeId());
+        }
+        judgeService.modifyReview(param);
+
         String endResult=judgeService.calculateResult(param);
         if(endResult==null)
         {
@@ -150,8 +156,10 @@ public class judgeController {
         }
         AttendorParam param2=new AttendorParam();
         param2.setEndResult(endResult);
+        param2.setAttendorId(param.getAttendorId());
         judgeService.modifyEndResult(param2);
         result.setSuccess(true);
+
         return result;
     }
     @ResponseBody

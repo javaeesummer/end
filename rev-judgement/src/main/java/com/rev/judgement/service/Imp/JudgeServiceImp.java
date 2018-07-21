@@ -51,8 +51,14 @@ public class JudgeServiceImp implements JudgeService{
         reviewInfoMapper.addReview(reviewInfo);
         return "ok";
     }
-    public int modifyReview(ReviewInfo reviewInfo)
+    public int modifyReview(JudgeParam param)
     {
+        ReviewInfo reviewInfo=new ReviewInfo();
+        reviewInfo.setReviewid(param.getReviewId());
+//      reviewInfo.setJudgeid(param.getJudgeId());
+        reviewInfo.setResult(param.getResult());
+        reviewInfo.setAdvice(param.getAdvice());
+//        reviewInfo.setAttendorid(param.getAttendorId());
         return reviewInfoMapper.modifyReview(reviewInfo);
     }
     public List<ReqAttendorInfo> showAllAttendor(int activityId) {
@@ -90,7 +96,7 @@ public class JudgeServiceImp implements JudgeService{
      //   List<ReviewInfo> list=new ArrayList<ReviewInfo>();
         int i=0;
         int result=0;
-        for (ReviewInfo reviewInfo:reviewInfoMapper.getReviewByJudgeId(param.getAttendorId()))
+        for (ReviewInfo reviewInfo:reviewInfoMapper.getReviewByAttendorId(param.getAttendorId()))
         {
             if(reviewInfo.getResult()==null)
             { result=result+0;i--;}
@@ -145,36 +151,36 @@ public class JudgeServiceImp implements JudgeService{
     }
     public List<ReqUserInfo> getUserInfoByUserId1(UserParam param)
     {
-        UserParam param1=new UserParam();
-        param1.setActivityId(123);
-        param1.setUserId(1);
         List<ReqUserInfo> list=new ArrayList<ReqUserInfo>();
         ReqUserInfo reqUserInfo=new ReqUserInfo();
         reqUserInfo.setActivityId(param.getActivityId());
-        if(judgeInfoMapper.getJudgeByUserId(param1.getActivityId(),param1.getUserId()).isEmpty())
+        if(judgeInfoMapper.getJudgeByUserId(param.getActivityId(),param.getUserId())==null||judgeInfoMapper.getJudgeByUserId(param.getActivityId(),param.getUserId()).size()==0)
         {
-            if(attendorInfoMapper.getAttendorByUserId(param.getActivityId(),param.getUserId()).isEmpty())
+            if(attendorInfoMapper.getAttendorByUserId(param.getActivityId(),param.getUserId())==null||attendorInfoMapper.getAttendorByUserId(param.getActivityId(),param.getUserId()).size()==0)
             {
                 return list;
             }
             else
             {
                 reqUserInfo.setAttendorId(attendorInfoMapper.getAttendorByUserId(param.getActivityId(),param.getUserId()).get(0).getAttendorid());
+                list.add(reqUserInfo);
+                return list;
             }
         }
         else
         {
             reqUserInfo.setJudgeId(judgeInfoMapper.getJudgeByUserId(param.getActivityId(),param.getUserId()).get(0).getJudgeid());
+            list.add(reqUserInfo);
+            return list;
         }
-        list.add(reqUserInfo);
-        return list;
+
     }
     public List<ReqJudgeInfo> getJudgeByActivityId(UserParam param)
     {
         List<ReqJudgeInfo> list=new ArrayList<ReqJudgeInfo>();
-        ReqJudgeInfo reqJudgeInfo=new ReqJudgeInfo();
         for (JudgeInfo judgeInfo:judgeInfoMapper.getJudgeByActivityId(param.getActivityId()))
         {
+            ReqJudgeInfo reqJudgeInfo=new ReqJudgeInfo();
             reqJudgeInfo.setJudgeid(judgeInfo.getJudgeid());
             reqJudgeInfo.setGroupid(judgeInfo.getGroupid());
             reqJudgeInfo.setGroupname(groupInfoMapper.getGroupInfoByGroupId(judgeInfo.getGroupid()).get(0).getGroupname());
