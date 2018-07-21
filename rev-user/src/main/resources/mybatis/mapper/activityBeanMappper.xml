@@ -41,6 +41,33 @@
         limit #{activityPaginationParam.limit1,jdbcType=INTEGER},#{activityPaginationParam.limit2,jdbcType=INTEGER}
 
     </select>
+    <update id="updateActivity" >
+        update activity
+        <set >
+            <if test="activityBean.hostId != null" >
+                hostId = #{activityBean.hostId,jdbcType=INTEGER},
+            </if>
+            <if test="activityBean.activityName != null" >
+                activityName = #{activityBean.activityName,jdbcType=VARCHAR},
+            </if>
+            <if test="activityBean.description != null" >
+                description = #{activityBean.description,jdbcType=VARCHAR},
+            </if>
+            <if test="activityBean.startTime != null" >
+                startTime = #{activityBean.startTime,jdbcType=DATE},
+            </if>
+            <if test="activityBean.endTime != null" >
+                endTime = #{activityBean.endTime,jdbcType=DATE},
+            </if>
+            <if test="activityBean.conutStatus!= null" >
+                conutStatus = #{activityBean.conutStatus,jdbcType=INTEGER},
+            </if>
+            <if test="activityBean.totalCount != null" >
+                totalCount = #{activityBean.totalCount,jdbcType=INTEGER}
+            </if>
+        </set>
+        where activityId = #{activityBean.activityId, jdbcType=INTEGER}
+    </update>
     <insert id="insertActivity" useGeneratedKeys="true" keyProperty="activityId" parameterType="com.rev.revuser.bean.ActivityBean">
         insert into activity
         <trim prefix="(" suffix=")" suffixOverrides="," >

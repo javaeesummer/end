@@ -99,7 +99,8 @@ public class userController {
         if(bindingResult.hasErrors()) {
             return Result.newFailureResult(bindingResult.getFieldError().getDefaultMessage());
         }
-        return  Result.newSuccessResult(userService.getActivityId(param.getActivityId()));
+        ActivityBean activityBean=userService.getActivityId(param.getActivityId());
+        return  Result.newSuccessResult(activityBean);
     }
     /**
 
@@ -225,7 +226,7 @@ public class userController {
      */
     @ResponseBody
     @RequestMapping(value ="/MakeActivityGroup",method = RequestMethod.POST)
-    public Result MakeActivityGroup(HttpServletRequest httpServletRequest, MakeGroupParam param){
+    public Result MakeActivityGroup(MakeGroupParam param){
         //因为分组表里没有每组多少人这个字段....
         for(int i=0;i<param.getGroupnum();i++){
             GroupBean groupBean=new GroupBean();
@@ -238,22 +239,31 @@ public class userController {
 
     @ResponseBody
     @RequestMapping(value ="/nextNode",method = RequestMethod.POST)
-    public Result NextNode(HttpServletRequest httpServletRequest){
-
-        return null;
+    public Result NextNode(@Valid ActivityIdParam param,BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return Result.newFailureResult(bindingResult.getFieldError().getDefaultMessage());
+        }
+        ActivityBean  activityBean=userService.getActivityId(param.getActivityId());
+        List<ActivityNodeBean> activityNodeBeanList=userService.getActivityNode(param.getActivityId());
+        int flag=1;
+        for(int i=0;i<activityNodeBeanList.size();i++){
+            flag=1;
+            if(activityNodeBeanList.get(i).getPriority()>activityBean.getConutStatus()){
+                activityBean.setConutStatus(activityNodeBeanList.get(i).getPriority());
+                flag=0;
+                break;
+            }
+        }
+        if(flag==1){
+            return Result.newFailureResult("已经到了最后一个阶段！");
+        }
+        userService.toNextStep(activityBean);
+        return Result.newSuccessResult("进入下一阶段成功");
     }
     /**
-
      *@描述 现在要改造成可以根据activityid和attendorid查询
-
      *@参数
-
      *@返回值
-
-     *@创建人  hxs
-
-     *@修改人和其它信息
-
      */
     @ResponseBody
     @RequestMapping(value ="/getAttendor",method = RequestMethod.POST)
