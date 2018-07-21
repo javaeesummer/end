@@ -26,7 +26,6 @@ public class TaskServiceImpl implements TaskService {
             GetCurrentEndTimeParam param=new GetCurrentEndTimeParam();
             param.setActivityId(a.getActivityId());
             param.setPriority(a.getConutStatus());
-
             ActivityBean activityBean=activityBeanMapper.getCurrentEndTime(param);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String dateString = formatter.format(activityBean.getEndTime());
