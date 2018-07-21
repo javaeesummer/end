@@ -55,11 +55,8 @@ public class userController {
         return result;
     }
     /**
-
      *@描述 注册帐号（基本帐号）
-
      *@参数  用户名　密码
-
      字段：username ,password,usertype
      *url /register
      */
@@ -68,6 +65,11 @@ public class userController {
     public Result register(HttpServletRequest httpServletRequest,RegisterParam registerParam){
 
         return userService.register(registerParam);
+    }
+    @ResponseBody
+    @RequestMapping(value ="/registerJudge")
+    public Result registerJudge(RegisterJudgeParam param){
+        return userService.registerJudge(param);
     }
     @ResponseBody
     @RequestMapping(value ="/registerAttendor")
@@ -91,7 +93,6 @@ public class userController {
         return Result.newSuccessResult(userService.getOnePageActivity(activityPaginationParam));
     }
     /**
-
      *@描述 具体得请求一条Activity的数据
      */
     @ResponseBody
@@ -237,7 +238,11 @@ public class userController {
         }
         return Result.newSuccessResult();
     }
-
+    @ResponseBody
+    @RequestMapping(value ="/groupAttendor",method = RequestMethod.POST)
+    public Result MakeActivityGroup(Integer activityId){
+        return userService.groupAttendor(activityId);
+    }
     @ResponseBody
     @RequestMapping(value ="/nextNode",method = RequestMethod.POST)
     public Result NextNode(@Valid ActivityIdParam param,BindingResult bindingResult){
@@ -287,6 +292,12 @@ public class userController {
     public Result getJudge(HttpServletRequest httpServletRequest,Integer judgeId){
         List<JudgeView> judgeViewList=userService.getJudgeById(judgeId);
         return Result.newSuccessResult(judgeViewList);
+    }
+    @ResponseBody
+    @RequestMapping(value ="/deleteJudge",method = RequestMethod.POST)
+    public Result deleteJudge(HttpServletRequest httpServletRequest,Integer judgeId){
+
+        return null;
     }
     /**
      *@描述 应该不用别的吧

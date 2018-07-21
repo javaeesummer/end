@@ -130,18 +130,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result registerJudge(RegisterJudgeParam registerJudgeParam) {
-        UserBean userBean=UserBeanMapper.selectByUsername(registerJudgeParam.getRegisterParam().getUsername());
-        if(null!=userBean){
+        UserBean userBean=UserBeanMapper.selectByUsername(registerJudgeParam.getUsername());
+        if(null==userBean){
             CommonBizException commonBizException=new CommonBizException(ExpCodeEnum.USEREXIST);
             return Result.newFailureResult(commonBizException);
         }else{
             //todo 引入事务 zuilezuilezuile
-            String username=registerJudgeParam.getRegisterParam().getUsername();
-            this.register(registerJudgeParam.getRegisterParam());
+            String username=registerJudgeParam.getUsername();
+            RegisterParam registerParam=new RegisterParam();
+            BeanUtils.copyProperties(registerJudgeParam,registerParam);
+            this.register(registerParam);
             UserBean userBean2=UserBeanMapper.selectByUsername(username);
             JudgeBean judgeBean=new JudgeBean();
             judgeBean.setActivityid(registerJudgeParam.getActivityid());
-            judgeBean.setJugegroupid(0);
+//            GroupBeanMapper.selectByActivityId(registerJudgeParam.getActivityid());
+            GroupBean groupBean=new GroupBean();
+            groupBean.setGroupName(registerJudgeParam.getGroupName());
+            groupBean.setActivityId(registerJudgeParam.getActivityid());
+            List<GroupBean> groupBeanList = GroupBeanMapper.selectByOption(groupBean);
+            if(groupBeanList==null){
+                return Result.newFailureResult("没有关联的组");
+            }
+            judgeBean.setJugegroupid(groupBeanList.get(0).getGroupId());
             judgeBean.setUserid(userBean2.getUserid());
             JudgeBeanMapper.insertSelective(judgeBean);
             return Result.newSuccessResult();
@@ -153,6 +163,26 @@ public class UserServiceImpl implements UserService {
     public List<UserView> getAllUser() {
         List<UserView> ttt= UserBeanMapper.getAllUser();
         return ttt;
+    }
+
+    @Override
+    public Result groupAttendor(Integer activityId) {
+        int count=GroupBeanMapper.selectByActivityId(activityId);
+        if(count==0){
+            return  Result.newFailureResult("count=0");
+        }
+        List<AttendorBean> attendorBeanList=AttendorBeanMapper.selectAttendorByActivityId(activityId);
+        int block=attendorBeanList.size()/count;
+        block=block+1;
+        for(int i=0;i<count;i++){
+            for(int j=i*block;j<block*(i+1) && j<attendorBeanList.size();j++){
+                attendorBeanList.get(j).setAttendorgroupid(i);
+            }
+        }
+        for(int i=0;i<attendorBeanList.size();i++){
+            AttendorBeanMapper.updateByPrimaryKeySelective(attendorBeanList.get(i));
+        }
+        return Result.newSuccessResult();
     }
 
     @Override

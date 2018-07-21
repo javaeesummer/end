@@ -14,6 +14,22 @@
         (activityId,groupName)
         values(#{activityId,jdbcType=INTEGER},#{groupName,jdbcType=VARCHAR})
     </insert>
+    <select id="selectByActivityId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select count(*) FROM groups where
+        activityId = #{activityId, jdbcType=INTEGER}
+    </select>
+    <select id="selectByOption" resultMap="BaseResultMap">
+        select * FROM groups
+        <trim prefix="where" suffixOverrides="and">
+            <if test="groupBean.activityId != 0">
+                activityId=#{groupBean.activityId,jdbcType=INTEGER} and
+            </if>
+            <if test="groupBean.groupName !=null">
+                groupName =#{groupBean.groupName,jdbcType=VARCHAR}
+            </if>
+        </trim>
+
+    </select>
 
     <!--<insert id="insertActivityGroup">-->
         <!--insert into group-->

@@ -22,6 +22,6 @@ public interface AttendorBeanMapper {
     int updateByPrimaryKeySelective(AttendorBean record);
 
     int updateByPrimaryKey(AttendorBean record);
-
+    List<AttendorBean> selectAttendorByActivityId(@Param("activityId") Integer activityId);
     AttendorBean selectByOption(@Param("attendorBean") AttendorBean attendorBean);
 }

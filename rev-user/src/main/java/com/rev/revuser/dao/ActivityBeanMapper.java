@@ -23,4 +23,5 @@ public interface ActivityBeanMapper {
     void updateActivity(@Param("activityBean") ActivityBean activityBean);
     ActivityBean getCurrentEndTime(GetCurrentEndTimeParam param);
     void updateCountStatus(@Param("conutStatus")int conutStatus,@Param("activityId")int activityId);
+    Integer getActivityListCount(@Param("activityPaginationParam") ActivityPaginationParam activityPaginationParam);
 }
