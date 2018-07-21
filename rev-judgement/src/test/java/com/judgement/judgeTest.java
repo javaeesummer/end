@@ -5,10 +5,12 @@ import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Param.UserParam;
 import com.rev.judgement.Req.ReqAttendorList;
+import com.rev.judgement.Req.ReqUserInfo;
 import com.rev.judgement.Req.ReqWorkAndReview;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.ReviewInfo;
 import com.rev.judgement.dao.AttendorInfoMapper;
+import com.rev.judgement.dao.JudgeInfoMapper;
 import com.rev.judgement.dao.ReviewInfoMapper;
 import com.rev.judgement.dao.UserInfoMapper;
 import com.rev.judgement.service.Imp.JudgeServiceImp;
@@ -34,6 +36,10 @@ public class judgeTest {
     JudgeService judgeService;
     @Resource
     ReviewInfoMapper reviewInfoMapper;
+    @Resource
+    JudgeInfoMapper judgeInfoMapper;
+    @Resource
+    AttendorInfoMapper attendorInfoMapper;
     @Test
     public void getAttendorList(){
         System.out.print("*********************"+ JSONArray.toJSONString(judgeService.getAttendorList(1,1)));
@@ -162,6 +168,33 @@ public class judgeTest {
         param.setActivityId(1);
         param.setAttendorId(1);
         judgeService.addVote(param);
+    }
+    @Test
+    public void getUserInfo()
+    {
+        UserParam param=new UserParam();
+    //    param.setActivityId(123);
+        param.setUserId(1);
+        List<ReqUserInfo> list=new ArrayList<ReqUserInfo>();
+        ReqUserInfo reqUserInfo=new ReqUserInfo();
+        reqUserInfo.setActivityId(param.getActivityId());
+        if(judgeInfoMapper.getJudgeByUserId(param.getActivityId(),param.getUserId()).isEmpty())
+        {
+            if(attendorInfoMapper.getAttendorByUserId(param.getActivityId(),param.getUserId()).isEmpty())
+            {
+                ;
+            }
+            else
+            {
+                reqUserInfo.setAttendorId(attendorInfoMapper.getAttendorByUserId(param.getActivityId(),param.getUserId()).get(0).getAttendorid());
+            }
+        }
+        else
+        {
+            reqUserInfo.setJudgeId(judgeInfoMapper.getJudgeByUserId(param.getActivityId(),param.getUserId()).get(0).getJudgeid());
+        }
+        list.add(reqUserInfo);
+        System.out.println(JSONArray.toJSONString(list));
     }
 
 

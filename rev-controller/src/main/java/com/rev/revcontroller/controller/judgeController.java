@@ -100,7 +100,7 @@ public class judgeController {
      * @date: 2018/7/17 10:14
      * @author:DKC
      **/
-    public Result<List<WorksInfo>> getWorksDetail(HttpServletResponse response, HttpServletRequest request, JudgeParam param)
+    public Result<List<WorksInfo>> getWorksDetail(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
     {
         Result<List<WorksInfo>> result=new Result<List<WorksInfo>>();
         result.setData(judgeService.getWorksDetail(param.getAttendorId()));
@@ -271,14 +271,22 @@ public class judgeController {
     }
     @ResponseBody
     @RequestMapping(value = "/getUserInfo",method = RequestMethod.POST)
+    /**
+     * @description  用userId判断是参赛者还是评审
+     * @method  getUserInfo
+     * @param response
+     * @param request
+     * @param param
+     * @return com.rev.revuser.result.Result<java.util.List<com.rev.judgement.Req.ReqUserInfo>>
+     * @date: 2018/7/21 8:46
+     * @author:DKC
+     **/
     public Result<List<ReqUserInfo>> getUserInfo(HttpServletResponse response, HttpServletRequest request, @RequestBody UserParam param)
     {
         Result<List<ReqUserInfo>> result=new Result<List<ReqUserInfo>>();
         result.setSuccess(true);
-        result.setData(judgeService.getUserInfoByUserId(param));
+        result.setData(judgeService.getUserInfoByUserId1(param));
         return result;
     }
-
-
 
 }

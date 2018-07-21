@@ -15,7 +15,7 @@
     attendorId, activityId, phoneNum, voteNum, endResult, status, groupId, userId
   </sql>
  <select id="getAttendorByGroupId" resultType="com.rev.judgement.bean.AttendorInfo">
-   SELECT * from attendor WHERE activityId=#{activityId} AND groupId =#{groupId}
+   SELECT * from attendor WHERE activityId=#{activityId} AND groupId =#{groupId} AND status="1"
  </select>
   <select id="getAttendorByActivityId" resultType="com.rev.judgement.bean.AttendorInfo">
     SELECT * from attendor WHERE activityId=#{activityId}

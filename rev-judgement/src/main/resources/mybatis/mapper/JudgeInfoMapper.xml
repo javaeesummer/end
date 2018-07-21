@@ -3,9 +3,7 @@
 <mapper namespace="com.rev.judgement.dao.JudgeInfoMapper" >
 
   <select id="getJudgeByUserId" resultType="com.rev.judgement.bean.JudgeInfo" >
-    select *
-    from judge
-    where userId = #{userId} AND activityId=#{actvityId}
+    select * from judge where activityId=#{activityId} AND userId=#{userId}
   </select>
 
 </mapper>

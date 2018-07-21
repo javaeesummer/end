@@ -150,7 +150,7 @@ public interface JudgeService{
      * @date: 2018/7/20 14:20
      * @author:DKC
      **/
-    List<ReqUserInfo> getUserInfoByUserId(UserParam param);
+    List<ReqUserInfo> getUserInfoByUserId1(UserParam param);
 
    // List<ReqAttendorList> getReqAttendorList(int activityId,int groupId);
 }

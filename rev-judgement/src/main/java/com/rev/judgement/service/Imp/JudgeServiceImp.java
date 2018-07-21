@@ -142,12 +142,15 @@ public class JudgeServiceImp implements JudgeService{
         attendorInfoMapper.addVote(param.getActivityId(),param.getAttendorId());
         return true;
     }
-    public List<ReqUserInfo> getUserInfoByUserId(UserParam param)
+    public List<ReqUserInfo> getUserInfoByUserId1(UserParam param)
     {
+        UserParam param1=new UserParam();
+        param1.setActivityId(123);
+        param1.setUserId(1);
         List<ReqUserInfo> list=new ArrayList<ReqUserInfo>();
         ReqUserInfo reqUserInfo=new ReqUserInfo();
         reqUserInfo.setActivityId(param.getActivityId());
-        if(judgeInfoMapper.getJudgeByUserId(param.getActivityId(),param.getUserId()).isEmpty())
+        if(judgeInfoMapper.getJudgeByUserId(param1.getActivityId(),param1.getUserId()).isEmpty())
         {
             if(attendorInfoMapper.getAttendorByUserId(param.getActivityId(),param.getUserId()).isEmpty())
             {
@@ -162,7 +165,7 @@ public class JudgeServiceImp implements JudgeService{
         {
             reqUserInfo.setJudgeId(judgeInfoMapper.getJudgeByUserId(param.getActivityId(),param.getUserId()).get(0).getJudgeid());
         }
-
+        list.add(reqUserInfo);
         return list;
     }
 }
