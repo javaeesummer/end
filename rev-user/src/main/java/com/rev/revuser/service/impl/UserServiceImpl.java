@@ -329,6 +329,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<String> getGroupName(Integer activityId) {
+        return GroupBeanMapper.getGroupName(activityId);
+    }
+
+    @Override
     public void toNextStep(ActivityBean activityBean) {
             ActivityBeanMapper.updateActivity(activityBean);
     }

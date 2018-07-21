@@ -11,6 +11,8 @@ import java.util.List;
  **/
 
 public interface GroupBeanMapper {
+
+    List<String> getGroupName(Integer activityId);
     void insertActivityGroup(GroupBean groupBean);
 //    GroupBean selectByOption(GroupBean grouBean);
     Integer selectByActivityId(@Param("activityId") Integer activityId);
