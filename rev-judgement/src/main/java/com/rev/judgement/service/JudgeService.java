@@ -1,9 +1,11 @@
 package com.rev.judgement.service;
 
+import com.rev.judgement.Param.AddJudgeParam;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Param.UserParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
+import com.rev.judgement.Req.ReqJudgeInfo;
 import com.rev.judgement.Req.ReqUserInfo;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.JudgeInfo;
@@ -151,6 +153,24 @@ public interface JudgeService{
      * @author:DKC
      **/
     List<ReqUserInfo> getUserInfoByUserId1(UserParam param);
+    /**
+     * @description 后台显示所有评委的列表
+     * @method
+     * @param
+     * @return
+     * @date: 2018/7/21 11:36
+     * @author:DKC
+     **/
+    List<ReqJudgeInfo> getJudgeByActivityId(UserParam param);
+    /**
+     * @description 后台直接添加评委
+     * @method
+     * @param
+     * @return
+     * @date: 2018/7/21 10:00
+     * @author:DKC
+     **/
+    Boolean addJudge(AddJudgeParam param);
 
    // List<ReqAttendorList> getReqAttendorList(int activityId,int groupId);
 }

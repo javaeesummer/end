@@ -5,5 +5,11 @@
   <select id="getJudgeByUserId" resultType="com.rev.judgement.bean.JudgeInfo" >
     select * from judge where activityId=#{activityId} AND userId=#{userId}
   </select>
-
+  <insert id="addJudge" parameterType="com.rev.judgement.bean.JudgeInfo">
+    insert into judge (activityId,groupId,userId)
+    values (#{activityid,jdbcType=INTEGER},#{groupid,jdbcType=INTEGER},#{userid,jdbcType=INTEGER})
+  </insert>
+  <select id="getJudgeByActivityId" resultType="com.rev.judgement.bean.JudgeInfo" >
+    select * from judge where activityId=#{activityId}
+  </select>
 </mapper>

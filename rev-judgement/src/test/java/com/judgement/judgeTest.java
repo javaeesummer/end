@@ -1,6 +1,7 @@
 package com.judgement;
 
 import com.rev.application.controllerApplication;
+import com.rev.judgement.Param.AddJudgeParam;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Param.UserParam;
@@ -9,10 +10,8 @@ import com.rev.judgement.Req.ReqUserInfo;
 import com.rev.judgement.Req.ReqWorkAndReview;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.ReviewInfo;
-import com.rev.judgement.dao.AttendorInfoMapper;
-import com.rev.judgement.dao.JudgeInfoMapper;
-import com.rev.judgement.dao.ReviewInfoMapper;
-import com.rev.judgement.dao.UserInfoMapper;
+import com.rev.judgement.bean.UserInfo;
+import com.rev.judgement.dao.*;
 import com.rev.judgement.service.Imp.JudgeServiceImp;
 import com.rev.judgement.service.JudgeService;
 import net.minidev.json.JSONArray;
@@ -40,6 +39,10 @@ public class judgeTest {
     JudgeInfoMapper judgeInfoMapper;
     @Resource
     AttendorInfoMapper attendorInfoMapper;
+    @Resource
+    UserInfoMapper userInfoMapper;
+    @Resource
+    GroupInfoMapper groupInfoMapper;
     @Test
     public void getAttendorList(){
         System.out.print("*********************"+ JSONArray.toJSONString(judgeService.getAttendorList(1,1)));
@@ -173,8 +176,8 @@ public class judgeTest {
     public void getUserInfo()
     {
         UserParam param=new UserParam();
-    //    param.setActivityId(123);
-        param.setUserId(1);
+        param.setActivityId(1);
+        param.setUserId(182);
         List<ReqUserInfo> list=new ArrayList<ReqUserInfo>();
         ReqUserInfo reqUserInfo=new ReqUserInfo();
         reqUserInfo.setActivityId(param.getActivityId());
@@ -195,6 +198,31 @@ public class judgeTest {
         }
         list.add(reqUserInfo);
         System.out.println(JSONArray.toJSONString(list));
+    }
+    @Test
+    public void addJudge()
+    {
+        AddJudgeParam param=new AddJudgeParam();
+//        UserInfo userInfo=new UserInfo();
+//        userInfo.setUsername("3345");
+//        userInfo.setUserpwd("345");
+//        userInfoMapper.addUser(userInfo);
+        System.out.println("\n");
+    //    System.out.println(JSONArray.toJSONString(userInfoMapper.getUserByUserName("234")));
+        param.setUserName("112134335");
+       param.setUserPwd("1234");
+
+        param.setGroupName("1");
+        param.setActivityId(1247);
+  //      System.out.println(JSONArray.toJSONString(groupInfoMapper.getGroupInfoByGroupName(param.getActivityId(),param.getGroupName())));
+        System.out.println(judgeService.addJudge(param));
+    }
+    @Test
+    public void getJudgeByActivityId()
+    {
+        UserParam param =new UserParam();
+        param.setActivityId(1);
+        System.out.println(JSONArray.toJSONString(judgeService.getJudgeByActivityId(param)));
     }
 
 

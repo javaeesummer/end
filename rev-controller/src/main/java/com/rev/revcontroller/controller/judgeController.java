@@ -5,10 +5,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Param.UserParam;
-import com.rev.judgement.Req.ReqAttendorInfo;
-import com.rev.judgement.Req.ReqAttendorList;
-import com.rev.judgement.Req.ReqUserInfo;
-import com.rev.judgement.Req.ReqWorkAndReview;
+import com.rev.judgement.Req.*;
 import com.rev.judgement.bean.AttendorInfo;
 import com.rev.judgement.bean.JudgeInfo;
 import com.rev.judgement.bean.ReviewInfo;
@@ -16,6 +13,8 @@ import com.rev.judgement.bean.WorksInfo;
 import com.rev.judgement.service.JudgeService;
 
 import com.rev.revuser.result.Result;
+import org.apache.ibatis.annotations.ResultMap;
+import org.junit.Test;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +43,7 @@ public class judgeController {
      * @date: 2018/7/17 9:53
      * @author:DKC
      **/
-    public Result<List<ReqAttendorList>> getAttendorList(HttpServletResponse response, HttpServletRequest request, @RequestBody JudgeParam param)
+    public Result<List<ReqAttendorList>> getAttendorList(HttpServletResponse response, HttpServletRequest request, JudgeParam param)
     {
         Result<List<ReqAttendorList>> result=new Result<List<ReqAttendorList>>();
         List<ReqAttendorList> list=new ArrayList<ReqAttendorList>();
@@ -251,7 +250,7 @@ public class judgeController {
         return result;
     }
      @ResponseBody
-    @RequestMapping(value = "/ddVote",method = RequestMethod.POST)
+    @RequestMapping(value = "/addVote",method = RequestMethod.POST)
     /**
      * @description 游客给参赛者投一票
      * @method  addVote
@@ -265,8 +264,8 @@ public class judgeController {
     public Result addVote(HttpServletResponse response, HttpServletRequest request,@RequestBody AttendorParam param)
     {
         Result result=new Result();
-        result.setSuccess(true);
         result.setData(judgeService.addVote(param));
+        result.setSuccess(true);
         return result;
     }
     @ResponseBody
@@ -288,5 +287,26 @@ public class judgeController {
         result.setData(judgeService.getUserInfoByUserId1(param));
         return result;
     }
+    @ResponseBody
+    @RequestMapping(value = "/getJudgeListByActivityId",method = RequestMethod.POST)
+    /**
+     * @description 后台根据activityId查询judge列表
+     * @method  getJudgeListByActivityId
+     * @param response
+     * @param request
+     * @param param
+     * @return com.rev.revuser.result.Result<java.util.List<com.rev.judgement.Req.ReqJudgeInfo>>
+     * @date: 2018/7/21 13:28
+     * @author:DKC
+     **/
+    public Result<List<ReqJudgeInfo>> getJudgeListByActivityId(HttpServletResponse response, HttpServletRequest request, @RequestBody UserParam param)
+    {
+        Result<List<ReqJudgeInfo>> result=new Result<List<ReqJudgeInfo>>();
+        result.setData(judgeService.getJudgeByActivityId(param));
+        result.setSuccess(true);
+        return result;
+    }
+
+
 
 }

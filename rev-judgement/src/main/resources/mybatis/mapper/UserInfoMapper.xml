@@ -8,5 +8,12 @@
     from user
     where userId = #{userId,jdbcType=INTEGER}
   </select>
-
+  <select id="getUserByUserName" resultType="com.rev.judgement.bean.UserInfo" >
+    select * from user
+    where userName = #{userName,jdbcType=INTEGER}
+  </select>
+  <insert id="addUser" parameterType="com.rev.judgement.bean.UserInfo">
+    insert into user (userName, userPwd)
+    values (#{username,jdbcType=INTEGER},#{userpwd,jdbcType=INTEGER})
+  </insert>
 </mapper>

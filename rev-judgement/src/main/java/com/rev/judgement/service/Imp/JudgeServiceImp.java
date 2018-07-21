@@ -2,17 +2,16 @@ package com.rev.judgement.service.Imp;
 
 import com.alibaba.dubbo.common.threadpool.support.limited.LimitedThreadPool;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.rev.judgement.Param.AddJudgeParam;
 import com.rev.judgement.Param.AttendorParam;
 import com.rev.judgement.Param.JudgeParam;
 import com.rev.judgement.Param.UserParam;
 import com.rev.judgement.Req.ReqAttendorInfo;
 import com.rev.judgement.Req.ReqAttendorList;
+import com.rev.judgement.Req.ReqJudgeInfo;
 import com.rev.judgement.Req.ReqUserInfo;
-import com.rev.judgement.bean.JudgeInfo;
-import com.rev.judgement.bean.ReviewInfo;
+import com.rev.judgement.bean.*;
 import com.rev.judgement.dao.*;
-import com.rev.judgement.bean.AttendorInfo;
-import com.rev.judgement.bean.WorksInfo;
 import com.rev.judgement.service.JudgeService;
 
 
@@ -33,6 +32,8 @@ public class JudgeServiceImp implements JudgeService{
     UserInfoMapper userInfoMapper;
     @Resource
     JudgeInfoMapper judgeInfoMapper;
+    @Resource
+    GroupInfoMapper groupInfoMapper;
     @Override
     public  List<AttendorInfo> getAttendorList(int activityId, int groupId)
     {
@@ -167,5 +168,42 @@ public class JudgeServiceImp implements JudgeService{
         }
         list.add(reqUserInfo);
         return list;
+    }
+    public List<ReqJudgeInfo> getJudgeByActivityId(UserParam param)
+    {
+        List<ReqJudgeInfo> list=new ArrayList<ReqJudgeInfo>();
+        ReqJudgeInfo reqJudgeInfo=new ReqJudgeInfo();
+        for (JudgeInfo judgeInfo:judgeInfoMapper.getJudgeByActivityId(param.getActivityId()))
+        {
+            reqJudgeInfo.setJudgeid(judgeInfo.getJudgeid());
+            reqJudgeInfo.setGroupid(judgeInfo.getGroupid());
+            reqJudgeInfo.setGroupname(groupInfoMapper.getGroupInfoByGroupId(judgeInfo.getGroupid()).get(0).getGroupname());
+            reqJudgeInfo.setUsername(userInfoMapper.getUserByUserId(judgeInfo.getUserid()).getUsername());
+            reqJudgeInfo.setUserpwd(userInfoMapper.getUserByUserId(judgeInfo.getUserid()).getUserpwd());
+            list.add(reqJudgeInfo);
+        }
+        return list;
+    }
+    public Boolean addJudge(AddJudgeParam param)
+    {
+        JudgeInfo judgeInfo=new JudgeInfo();
+        //添加user
+        if (userInfoMapper.getUserByUserName(param.getUserName()).isEmpty())
+        {
+        UserInfo userInfo=new UserInfo();
+        userInfo.setUsername(param.getUserName());
+        userInfo.setUserpwd(param.getUserPwd());
+        userInfoMapper.addUser(userInfo);
+        }
+        else
+        {
+            return false;
+        }
+        judgeInfo.setGroupid(groupInfoMapper.getGroupInfoByGroupName(param.getActivityId(),param.getGroupName()).get(0).getGroupid());
+        judgeInfo.setActivityid(param.getActivityId());
+        judgeInfo.setUserid(userInfoMapper.getUserByUserName(param.getUserName()).get(0).getUserid());
+
+        judgeInfoMapper.addJudge(judgeInfo);
+        return true;
     }
 }

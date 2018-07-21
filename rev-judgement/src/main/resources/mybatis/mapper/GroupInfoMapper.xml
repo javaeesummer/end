@@ -1,71 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rev.judgement.dao.GroupInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.rev.judgement.bean.GroupInfo" >
-    <id column="groupId" property="groupid" jdbcType="INTEGER" />
-    <result column="activityId" property="activityid" jdbcType="INTEGER" />
-    <result column="groupName" property="groupname" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    groupId, activityId, groupName
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from group
-    where groupId = #{groupid,jdbcType=INTEGER}
+  <select id="getGroupInfoByGroupName" resultType="com.rev.judgement.bean.GroupInfo">
+    SELECT * FROM groups WHERE activityId=#{activityId} AND groupName=#{groupName}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from group
-    where groupId = #{groupid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.rev.judgement.bean.GroupInfo" >
-    insert into group (groupId, activityId, groupName
-      )
-    values (#{groupid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, #{groupname,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.rev.judgement.bean.GroupInfo" >
-    insert into group
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="groupid != null" >
-        groupId,
-      </if>
-      <if test="activityid != null" >
-        activityId,
-      </if>
-      <if test="groupname != null" >
-        groupName,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="groupid != null" >
-        #{groupid,jdbcType=INTEGER},
-      </if>
-      <if test="activityid != null" >
-        #{activityid,jdbcType=INTEGER},
-      </if>
-      <if test="groupname != null" >
-        #{groupname,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rev.judgement.bean.GroupInfo" >
-    update group
-    <set >
-      <if test="activityid != null" >
-        activityId = #{activityid,jdbcType=INTEGER},
-      </if>
-      <if test="groupname != null" >
-        groupName = #{groupname,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where groupId = #{groupid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.rev.judgement.bean.GroupInfo" >
-    update group
-    set activityId = #{activityid,jdbcType=INTEGER},
-      groupName = #{groupname,jdbcType=VARCHAR}
-    where groupId = #{groupid,jdbcType=INTEGER}
-  </update>
+  <select id="getGroupInfoByGroupId" resultType="com.rev.judgement.bean.GroupInfo">
+    SELECT * FROM groups WHERE groupId=#{groupId}
+  </select>
+
 </mapper>

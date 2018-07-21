@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface JudgeInfoMapper {
     List<JudgeInfo> getJudgeByUserId(@Param("activityId")int activityId,@Param("userId") int userId);
+    int addJudge(JudgeInfo judgeInfo);
+    List<JudgeInfo> getJudgeByActivityId(@Param("activityId")int activityId);
 }

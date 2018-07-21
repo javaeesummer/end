@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class ReqAttendorInfo implements Serializable {
     private String username;
-
     private Integer userid;
+
     private Integer attendorId;
     private Integer votenum;
     private String status;
