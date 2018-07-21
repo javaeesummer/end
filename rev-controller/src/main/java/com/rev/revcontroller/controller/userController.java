@@ -77,6 +77,7 @@ public class userController {
     /**
      *@描述 按照分页请求活动信息
      *@参数  可以根据主办方/或全部得请求
+     *@返回  一个list,list另外包含了一个字段是活动得数量,List里面有一个count是参加活动得人数
      */
     @ResponseBody
     @RequestMapping(value ="/getActivity",method = RequestMethod.POST)
@@ -271,6 +272,11 @@ public class userController {
     public Result getAttendor(HttpServletRequest httpServletRequest,Integer attendorId){
         return Result.newSuccessResult(userService.getAttendorById(attendorId));
     }
+    /**
+     *@描述 可以根据activityId或attendorId取得attendorView
+     *@参数
+     *@返回值
+     */
     @ResponseBody
     @RequestMapping(value ="/getAttendorView",method = RequestMethod.POST)
     public Result getAttendor(GetAttendorViewParam param){
@@ -282,6 +288,11 @@ public class userController {
         List<JudgeView> judgeViewList=userService.getJudgeById(judgeId);
         return Result.newSuccessResult(judgeViewList);
     }
+    /**
+     *@描述 应该不用别的吧
+     *@参数
+     *@返回值
+     */
     @ResponseBody
     @RequestMapping(value ="/getHost",method = RequestMethod.POST)
     public Result getHost(HttpServletRequest httpServletRequest,Integer hostId){

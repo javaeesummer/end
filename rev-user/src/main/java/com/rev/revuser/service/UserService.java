@@ -2,10 +2,7 @@ package com.rev.revuser.service;
 
 import com.rev.revuser.bean.*;
 import com.rev.revuser.param.*;
-import com.rev.revuser.result.AttendorView;
-import com.rev.revuser.result.JudgeView;
-import com.rev.revuser.result.Result;
-import com.rev.revuser.result.UserView;
+import com.rev.revuser.result.*;
 
 import java.util.List;
 
@@ -132,7 +129,7 @@ public interface UserService {
     List<AttendorView> getGroupAttendorById(GroupParam groupParam);
     List<AttendorView> getGroupAttendorByName(GroupParam groupParam);
 
-
+    Integer getCountofAttendor(Integer activityId);
     /**
 
      *@描述 得到一个活动（一个组）（id或组，名）得所有裁判
@@ -188,7 +185,7 @@ public interface UserService {
     List<ActivityNodeBean> getActivityNode(Integer activityId);
     int getActivityCount(Integer hostId);
     ActivityBean getActivityId(int activityId);
-    List<ActivityBean> getOnePageActivity(ActivityPaginationParam activityPaginationParam);
+    OnePageActivityView getOnePageActivity(ActivityPaginationParam activityPaginationParam);
     List<ActivityBean> getOnePageActivityByHostId(ActivityPaginationParam activityPaginationParam);
 
 

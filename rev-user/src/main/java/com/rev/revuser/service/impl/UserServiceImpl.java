@@ -6,11 +6,9 @@ import com.rev.revuser.dao.*;
 import com.rev.revuser.exception.CommonBizException;
 import com.rev.revuser.exception.ExpCodeEnum;
 import com.rev.revuser.param.*;
-import com.rev.revuser.result.AttendorView;
-import com.rev.revuser.result.JudgeView;
-import com.rev.revuser.result.Result;
-import com.rev.revuser.result.UserView;
+import com.rev.revuser.result.*;
 import com.rev.revuser.service.UserService;
+import org.springframework.beans.BeanUtils;
 
 import javax.annotation.RegEx;
 import javax.annotation.Resource;
@@ -205,6 +203,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Integer getCountofAttendor(Integer activityId) {
+        return AttendorBeanMapper.getCountOfAttendor(activityId);
+    }
+
+    @Override
     public List<JudgeView> getAllJudge(GroupParam grouParam) {
         return null;
     }
@@ -266,8 +269,27 @@ public class UserServiceImpl implements UserService {
 */
 
     @Override
-    public List<ActivityBean> getOnePageActivity(ActivityPaginationParam activityPaginationParam) {
-        return ActivityBeanMapper.getActivityList(activityPaginationParam);
+    public OnePageActivityView getOnePageActivity(ActivityPaginationParam activityPaginationParam) {
+        List<ActivityBean> activityBeanList= ActivityBeanMapper.getActivityList(activityPaginationParam);
+        OnePageActivityView onePageActivityView=new OnePageActivityView();
+        List<ActivityBeanView> activityBeanViewList=new ArrayList<>();
+//        BeanUtils.copyProperties();
+        for(int i=0;i<activityBeanList.size();i++){
+
+            ActivityBeanView activityBeanView=new ActivityBeanView();
+//            BeanUtils.copyProperties(0);
+            BeanUtils.copyProperties(activityBeanList.get(i),activityBeanView);
+//            activityBeanView=(ActivityBeanView)activityBeanList.get(i);
+            activityBeanViewList.add(activityBeanView);
+        }
+        onePageActivityView.setActivityBeanViewList(activityBeanViewList);
+        for(int i=0;i<onePageActivityView.getActivityBeanViewList().size();i++){
+            int count=getCountofAttendor(onePageActivityView.getActivityBeanViewList().get(i).getActivityId());
+            onePageActivityView.getActivityBeanViewList().get(i).setCount(count);
+        }
+        int count=ActivityBeanMapper.getActivityListCount(activityPaginationParam);
+        onePageActivityView.setCount(count);
+        return  onePageActivityView;
     }
 
     @Override
