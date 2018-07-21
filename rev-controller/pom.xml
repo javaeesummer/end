@@ -39,10 +39,6 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframwork.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
 		<!-- guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
