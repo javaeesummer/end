@@ -2,6 +2,7 @@ package com.rev.revuser.dao;
 
 import com.rev.revuser.bean.ActivityBean;
 import com.rev.revuser.param.ActivityPaginationParam;
+import com.rev.revuser.param.GetCurrentEndTimeParam;
 import com.rev.revuser.param.PaginationParam;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,6 @@ public interface ActivityBeanMapper {
     ActivityBean selectByid(int activityId);
     int selectCount(@Param("hostId") Integer hostId);
     void updateActivity(@Param("activityBean") ActivityBean activityBean);
+    ActivityBean getCurrentEndTime(GetCurrentEndTimeParam param);
+    void updateCountStatus(@Param("conutStatus")int conutStatus,@Param("activityId")int activityId);
 }

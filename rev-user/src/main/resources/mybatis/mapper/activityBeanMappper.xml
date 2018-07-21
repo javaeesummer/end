@@ -123,4 +123,11 @@
             </if>
         </trim>
     </insert>
+    <select id="getCurrentEndTime" parameterType="com.rev.revuser.param.GetCurrentEndTimeParam" resultType="com.rev.revuser.bean.ActivityBean">
+        select endtTime where activityId=#{activityId} and priority=#{priority}
+    </select>
+    <update id="updateCountStatus" parameterType="java.lang.Integer">
+        update activity set conutStatus=#{conutStatus} where activityId=#{activityId}
+    </update>
+
 </mapper>
