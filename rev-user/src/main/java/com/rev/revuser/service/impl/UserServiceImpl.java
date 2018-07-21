@@ -164,6 +164,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<AttendorView> getAttendorView(GetAttendorViewParam param) {
+        return AttendorBeanMapper.selectAttendorView(param);
+    }
+
+    @Override
     public List<JudgeView> getJudgeById(Integer judgeId) {
         return JudgeBeanMapper.selectByPrimaryKey(judgeId);
 
@@ -181,9 +186,9 @@ public class UserServiceImpl implements UserService {
         List<AttendorView>  attendorViewList=new ArrayList<>();
         for(int i=0;i<userBeanList.size();i++){
             AttendorBean attendorBean=AttendorBeanMapper.selectAttendorByUserId(userBeanList.get(i).getUserid());
-            attendorBean.setUserBean(userBeanList.get(i));
+            attendorBean.setUsername(userBeanList.get(i).getUsername());
+            attendorBean.setUserpwd(userBeanList.get(i).getUserpwd());
             AttendorView attendorView=new AttendorView();
-            attendorView.setAttendorBean(attendorBean);
             attendorViewList.add(attendorView);
         }
         return attendorViewList;

@@ -14,6 +14,18 @@
     <result column="attendorGroupId" property="attendorgroupid" jdbcType="INTEGER" />
     <result column="userId" property="userid" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="BaseResultMap2" type="com.rev.revuser.result.AttendorView" >
+    <id column="attendorId" property="attendorid" jdbcType="INTEGER" />
+    <result column="activityId" property="activityid" jdbcType="INTEGER" />
+    <result column="phoneNum" property="phonenum" jdbcType="VARCHAR" />
+    <result column="voteNum" property="votenum" jdbcType="INTEGER" />
+    <result column="endResult" property="endresult" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="attendorGroupId" property="attendorgroupid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR"/>
+    <result column="userpwd" property="userpwd" jdbcType="VARCHAR"/>
+  </resultMap>
   <sql id="Base_Column_List" >
     attendorId, activityId, phoneNum, voteNum, endResult, status, groupId, userId
   </sql>
@@ -22,6 +34,20 @@
     userId
     from attendor
     where activityId = #{activityId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAttendorView" resultMap="BaseResultMap2">
+    select
+    attendorId, activityId, phoneNum, voteNum, endResult, status, groupId, user.userId,userName,userpwd
+    from attendor,user
+    <trim prefix="where" suffixOverrides="and">
+        attendor.userId = user.userId AND
+      <if test="attendorViewParam.attendorId != 0">
+        attendor.attendorId = #{attendorViewParam.attendorId,jdbcType=INTEGER} AND
+      </if>
+      <if test="attendorViewParam.activityId != 0">
+        attendor.activityId = #{attendorViewParam.activityId,jdbcType=INTEGER} AND
+      </if>
+    </trim>
   </select>
   <select id="selectAttendorByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT

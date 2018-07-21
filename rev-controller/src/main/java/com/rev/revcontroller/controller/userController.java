@@ -122,7 +122,7 @@ public class userController {
 
      *@描述 获取活动的数量（所有或按照hostId）
 
-     *@参数 todo　待测
+     *@参数
      */
     @ResponseBody
     @RequestMapping(value ="/getActivityCount",method = RequestMethod.POST)
@@ -260,6 +260,7 @@ public class userController {
         userService.toNextStep(activityBean);
         return Result.newSuccessResult("进入下一阶段成功");
     }
+
     /**
      *@描述 现在要改造成可以根据activityid和attendorid查询
      *@参数
@@ -271,6 +272,11 @@ public class userController {
         return Result.newSuccessResult(userService.getAttendorById(attendorId));
     }
     @ResponseBody
+    @RequestMapping(value ="/getAttendorView",method = RequestMethod.POST)
+    public Result getAttendor(GetAttendorViewParam param){
+        return Result.newSuccessResult(userService.getAttendorView(param));
+    }
+    @ResponseBody
     @RequestMapping(value ="/getJudge",method = RequestMethod.POST)
     public Result getJudge(HttpServletRequest httpServletRequest,Integer judgeId){
         List<JudgeView> judgeViewList=userService.getJudgeById(judgeId);
@@ -279,7 +285,6 @@ public class userController {
     @ResponseBody
     @RequestMapping(value ="/getHost",method = RequestMethod.POST)
     public Result getHost(HttpServletRequest httpServletRequest,Integer hostId){
-
         return Result.newSuccessResult(userService.getSponsorById(hostId));
     }
 }

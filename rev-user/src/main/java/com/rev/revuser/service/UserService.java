@@ -124,6 +124,7 @@ public interface UserService {
 
      */
     AttendorBean getAttendorById(Integer attendorId);
+    List<AttendorView> getAttendorView(GetAttendorViewParam param);
     List<JudgeView> getJudgeById(Integer judgeId);
     SponsorBean getSponsorById(Integer sponsorId);
 
