@@ -273,7 +273,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void toNextStep(ActivityBean activityBean) {
-        ActivityBeanMapper.updateActivity(activityBean);
+            ActivityBeanMapper.updateActivity(activityBean);
     }
 
 
