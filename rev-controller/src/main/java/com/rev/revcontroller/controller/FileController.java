@@ -40,14 +40,15 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @Component("fileService")
+@RequestMapping("/file")
 public class FileController {
     @Reference
     FileService fileService;
     //下载作品
     @ResponseBody
-    @RequestMapping(value = "/downloadFile",method = RequestMethod.POST)
-    public Result< ResponseEntity<byte[]>> downloadFile(HttpServletResponse response, HttpServletRequest request,FileParam fileParam) {
-        Result result = new Result();
+    @RequestMapping(value = "/downloadFile",method = RequestMethod.GET)
+    public  ResponseEntity<byte[]> downloadFile(HttpServletResponse response, HttpServletRequest request,FileParam fileParam) {
+       // Result result = new Result();
         System.out.println("############"+fileParam.getAttendorid());
         FileResult fileResult = fileService.getFileByAttendorId(fileParam);//从数据库中取出作品表的信息
         String filePath = fileResult.getFilepath();
@@ -57,7 +58,7 @@ public class FileController {
         if (filePath == null || filePath == "") {
 //            CommonBizException commonBizException = new CommonBizException(ExpCodeEnum.FILE_NO_NULL);
 //            return Result.newFailureResult(commonBizException);
-            result.setMessage("文件路径不存在");
+            //result.setMessage("文件路径不存在");
 
         }
         File file = new File(filePath);
@@ -73,12 +74,12 @@ public class FileController {
         ResponseEntity<byte[]> responseEntity=null;
         try {
              responseEntity= new ResponseEntity< byte[]>(FileUtils.readFileToByteArray(file),headers,HttpStatus.CREATED);
-            result.setData(responseEntity);
-            result.setSuccess(true);
+           // result.setData(responseEntity);
+            //result.setSuccess(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
-          return  result;
+          return  responseEntity;
 
     }
     //删除作品

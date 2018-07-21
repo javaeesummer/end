@@ -19,4 +19,5 @@ public interface ActivityBeanMapper {
     void insertActivity(ActivityBean activityBean);
     ActivityBean selectByid(int activityId);
     int selectCount(@Param("hostId") Integer hostId);
+    void updateActivity(@Param("activityBean") ActivityBean activityBean);
 }

@@ -39,15 +39,15 @@ public class UserServiceImpl implements UserService {
 //　　todo 事务事务 何苦事物
     @Override
     public Result login(LoginParam loginParam) {
-        UserBean UserBean = UserBeanMapper.selectByUsername(loginParam.getUsername());
+        UserBean userBean = UserBeanMapper.selectByUsername(loginParam.getUsername());
         Result result=new Result();
-        if(null== UserBean){
+        if(null== userBean){
             result.setSuccess(false);
             result.setErrorCode(ExpCodeEnum.USERNAME_NULL.getCode());
             result.setMessage(ExpCodeEnum.USERNAME_NULL.getMessage());
             return result;
         }else{
-            if(!UserBean.getUserpwd().equals(loginParam.getPassword())){
+            if(!userBean.getUserpwd().equals(loginParam.getPassword())){
                 result.setSuccess(false);
                 result.setErrorCode(ExpCodeEnum.PASSWORD_WRONG.getCode());
                 result.setMessage(ExpCodeEnum.PASSWORD_WRONG.getMessage());
@@ -56,6 +56,12 @@ public class UserServiceImpl implements UserService {
             else{
                 result.setSuccess(true);
                 result.setMessage("登录成功");
+                SponsorBean sponsorBean=sponsorBeanMapper.selectSponsorByUserId(userBean.getUserid());
+                if(sponsorBean!=null) {
+                    result.setData(sponsorBean);
+                }else {
+                    result.setData(userBean);
+                }
                 return result;
             }
         }
@@ -66,6 +72,7 @@ public class UserServiceImpl implements UserService {
     public ActivityBean toHoldActivity(HoldActivityParam holdActivityParam) {
         SponsorBean sponsorBean=new SponsorBean();
         CompanyUserBean selectOption=new CompanyUserBean();
+        //验证哟用户是否是企业用户
         selectOption.setUserId(holdActivityParam.getUserId());
         CompanyUserBean companyUserBean=CompanyUserBeanMapper.selectByOption(selectOption);
         if(companyUserBean==null){
@@ -74,7 +81,9 @@ public class UserServiceImpl implements UserService {
         }
         sponsorBean.setCompanyid(companyUserBean.getCompanyId());
         sponsorBean.setUserid(companyUserBean.getUserId());
-        sponsorBean.setActivityId(1);
+        //这里还在创建　所以没有activityid　但是由于mapper中写死了插入的数据，
+        //所以这里要写一个没用的数据　要是有时间再回来该吧（虽然打概率是不会回来了　，　再会，代码君！:)
+        sponsorBean.setActivityId(0);
         sponsorBeanMapper.insert(sponsorBean);
         ActivityBean activityBean=new ActivityBean();
         activityBean.setActivityName(holdActivityParam.getActivityName());
@@ -264,7 +273,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void toNextStep(ActivityBean activityBean) {
-
+        ActivityBeanMapper.updateActivity(activityBean);
     }
 
 

@@ -16,14 +16,18 @@
     from sponsor
     where hostId = #{hostid,jdbcType=INTEGER}
   </select>
+  <select id="selectSponsorByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from sponsor
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sponsor
     where hostId = #{hostid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.rev.revuser.bean.SponsorBean" useGeneratedKeys="true" keyProperty="hostid">
-    insert into sponsor (hostId, uerId, companyId, activityId
+    insert into sponsor (hostId, userId, companyId, activityId
       )
-    values (#{hostid,jdbcType=INTEGER}, #{uerid,jdbcType=INTEGER}, #{companyid,jdbcType=INTEGER},#{activityId,jdbcType=INTEGER}
+    values (#{hostid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{companyid,jdbcType=INTEGER},#{activityId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.rev.revuser.bean.SponsorBean" >
@@ -65,7 +69,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rev.revuser.bean.SponsorBean" >
     update sponsor
-    set uerId = #{uerid,jdbcType=INTEGER},
+    set userId = #{userid,jdbcType=INTEGER},
       companyId = #{companyid,jdbcType=INTEGER},
       activityId = #{activityId,jdbcType=INTEGER}
     where hostId = #{hostid,jdbcType=INTEGER}
