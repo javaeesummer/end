@@ -376,6 +376,7 @@ public class UserServiceImpl implements UserService {
         attendorBean.setUserid(registerAttendorParam.getUserId());
         attendorBean.setActivityid(registerAttendorParam.getActivityId());
         attendorBean.setPhonenum(registerAttendorParam.getPhoneNum());
+        attendorBean.setStatus("1");
 //        attendorBean.setAttendorgroupid(0);　似乎为null更为合适
         AttendorBeanMapper.insertSelective(attendorBean);
         return Result.newSuccessResult();
