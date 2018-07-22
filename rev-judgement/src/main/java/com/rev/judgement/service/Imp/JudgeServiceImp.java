@@ -100,7 +100,7 @@ public class JudgeServiceImp implements JudgeService{
         int result=0;
         for (ReviewInfo reviewInfo:reviewInfoMapper.getReviewByAttendorId(param.getAttendorId()))
         {
-            if(reviewInfo.getResult()==null)
+            if(reviewInfo.getResult()==null||reviewInfo.getResult().equals(""))
             { result=result+0;i--;}
             else
             {result=result+Integer.parseInt(reviewInfo.getResult());}

@@ -19,10 +19,8 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -117,10 +115,10 @@ public class judgeTest {
     {
         int i=0;
         int result=0;
-        for (ReviewInfo reviewInfo:reviewInfoMapper.getReviewByAttendorId(50))
+        for (ReviewInfo reviewInfo:reviewInfoMapper.getReviewByAttendorId(16))
         {
             System.out.println("*****"+reviewInfo.getResult());
-            if(reviewInfo.getResult()==null)
+            if(reviewInfo.getResult()==null||reviewInfo.getResult().equals(""))
             {
                 result=result+0;
                 i--;
@@ -128,6 +126,7 @@ public class judgeTest {
             else
             {
                 result=result+Integer.parseInt(reviewInfo.getResult());
+                System.out.println("result="+result);
             }
             i++;
         }
