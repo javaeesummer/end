@@ -156,6 +156,7 @@ public class userController {
         ActivityNodeBean activityNodeBean1=new ActivityNodeBean();
         activityNodeBean1.setActivityId(activityBean.getActivityId());
         activityNodeBean1.setPriority(1);
+        activityNodeBean1.setDescription("活动开始");
         activityNodeBean1.setStartTime(date1);
         activityNodeBean1.setEndTime(date2);
         userService.addActivityNode(activityNodeBean1);
@@ -164,6 +165,7 @@ public class userController {
             activityNodeBean.setActivityId(activityBean.getActivityId());
             activityNodeBean.setPriority(2);
             activityNodeBean.setStartTime(date2);
+            activityNodeBean.setDescription("提交作品");
             try{
                 date2= sdf.parse(param.getUploadT1());
             }catch(Exception e){
@@ -177,6 +179,7 @@ public class userController {
             activityNodeBean.setActivityId(activityBean.getActivityId());
             activityNodeBean.setPriority(3);
             activityNodeBean.setStartTime(date2);
+            activityNodeBean.setDescription("作品投票");
             try{
                 date2= sdf.parse(param.getVoteT1());
             }catch(Exception e){
@@ -189,8 +192,8 @@ public class userController {
             ActivityNodeBean activityNodeBean=new ActivityNodeBean();
             activityNodeBean.setActivityId(activityBean.getActivityId());
             activityNodeBean.setPriority(4);
-
             activityNodeBean.setStartTime(date2);
+            activityNodeBean.setDescription("评委打分");
             try{
                 date2= sdf.parse(param.getJudgeT1());
             }catch(Exception e){
@@ -202,7 +205,7 @@ public class userController {
         ActivityNodeBean activityNodeBean2=new ActivityNodeBean();
         activityNodeBean2.setActivityId(activityBean.getActivityId());
         activityNodeBean2.setPriority(5);
-
+        activityNodeBean2.setDescription("活动结束");
         activityNodeBean2.setStartTime(date2);
         try{
             date2= sdf.parse(param.getEndTime());
