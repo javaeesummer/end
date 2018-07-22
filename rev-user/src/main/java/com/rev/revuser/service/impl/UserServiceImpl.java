@@ -12,7 +12,9 @@ import org.springframework.beans.BeanUtils;
 
 import javax.annotation.RegEx;
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -86,11 +88,20 @@ public class UserServiceImpl implements UserService {
         ActivityBean activityBean=new ActivityBean();
         activityBean.setActivityName(holdActivityParam.getActivityName());
         activityBean.setDescription(holdActivityParam.getDescription());
-        activityBean.setConutStatus(0);
+//        activityNodeBeanMapper.selectActivityNode(ac)
+        Date d=new Date();//获取时间
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//转换格式
+        String today=sdf.format(d);
+        if(today.equals(holdActivityParam.getStartTime())){
+            activityBean.setConutStatus(1);
+        }
+        else{
+            activityBean.setConutStatus(0);
+        }
         activityBean.setTotalCount(holdActivityParam.getTotalCount());
         activityBean.setStartTime(holdActivityParam.getStartTime());
         activityBean.setEndTime(holdActivityParam.getEndTime());
-        activityBean.setHostId(sponsorBean.getHostid());
+        activityBean.setHostId(sponsorBean.getUserid());
         activityBean.setActivityName(holdActivityParam.getActivityName());
         ActivityBeanMapper.insertActivity(activityBean);
         sponsorBean.setActivityId(activityBean.getActivityId());
