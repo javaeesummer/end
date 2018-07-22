@@ -81,7 +81,7 @@ public class judgeController {
      * @date: 2018/7/17 10:04
      * @author:DKC
      **/
-    public Result<List<ReqAttendorInfo>> showAllAttendor(HttpServletResponse response, HttpServletRequest request, AttendorParam param)
+    public Result<List<ReqAttendorInfo>> showAllAttendor(HttpServletResponse response, HttpServletRequest request,AttendorParam param)
     {
         Result<List<ReqAttendorInfo>> result=new Result<List<ReqAttendorInfo>>();
         result.setData(judgeService.showAllAttendor(param.getActivityId()));
@@ -146,6 +146,8 @@ public class judgeController {
         {
             judgeService.addReview(param.getAttendorId(),param.getJudgeId());
         }
+        int reviewId=judgeService.getReview(param).get(0).getReviewid();
+        param.setReviewId(reviewId);
         judgeService.modifyReview(param);
 
         String endResult=judgeService.calculateResult(param);
@@ -329,6 +331,7 @@ public class judgeController {
      **/
     public Result<List<ReqAttendorEnd>> showAttendorEndResult(HttpServletResponse response, HttpServletRequest request,AttendorParam param)
     {
+
         Result<List<ReqAttendorEnd>> result=new Result<List<ReqAttendorEnd>>();
         result.setData(judgeService.showAttendorEndResult(param));
         result.setSuccess(true);
