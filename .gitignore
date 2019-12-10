@@ -23,4 +23,3 @@ dist/
 nbdist/
 .nb-gradle/
 /rev-file/
-!/rev-file/rev-file.iml
