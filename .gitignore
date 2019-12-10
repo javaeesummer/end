@@ -22,6 +22,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
-
 /rev-file/
