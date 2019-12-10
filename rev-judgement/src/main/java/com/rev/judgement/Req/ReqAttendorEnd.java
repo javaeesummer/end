@@ -1,6 +1,7 @@
 package com.rev.judgement.Req;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 public class ReqAttendorEnd implements Serializable,Comparable<ReqAttendorEnd>{
     private String username;
@@ -89,6 +90,18 @@ public class ReqAttendorEnd implements Serializable,Comparable<ReqAttendorEnd>{
 
     @Override
     public int compareTo(ReqAttendorEnd o) {
-        return Integer.parseInt(o.endResult)-Integer.parseInt(this.endResult);
-    }
+        double a=Double.parseDouble(o.endResult)-Double.parseDouble(this.endResult);
+        if(a>0)
+        {
+            return 1;
+        }
+        else if (a==0)
+        {
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+        }
 }
